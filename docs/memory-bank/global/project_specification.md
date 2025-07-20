@@ -24,5 +24,5 @@ The system is designed with a modular architecture to ensure scalability and mai
 - **Backend:** The core logic is managed by Roo, an AI agent with access to a filesystem and a suite of specialized modes.
 - **AI Modes:** 8 specialized AI modes (`.roomodes`) are responsible for content creation, an educational framework, and more.
 - **Rule System:** A hierarchical rule system (`.roo/rules/`) governs the behavior of the AI, ensuring consistency and adherence to educational standards.
-- **Memory Bank:** A persistent storage system (`docs/memory-bank/`) that provides context to the AI about the project's state, specifications, and history.
+- **Memory Bank:** A persistent storage system (`docs/memory-bank/global/`) that provides context to the AI about the project's state, specifications, and history.
 - **Language:** TypeScript is the primary language for all code examples and test scripts.

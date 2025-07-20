@@ -6,13 +6,21 @@ The memory bank is a persistent storage system designed to provide continuity an
 
 ## 2. Core Components
 
-The memory bank consists of five core files located in `docs/memory-bank/`:
+The memory bank is organized into a hierarchical structure within the `docs/memory-bank/` directory, separating global project data from module-specific information.
 
+For a detailed explanation of the structure, see the [Memory Bank Structure Documentation](../../docs/memory-bank/memory_bank_structure.md).
+
+### Global Components (`docs/memory-bank/global/`)
 - **`project_specification.md`**: Stores the project's technical specifications, requirements, and design decisions.
 - **`project_state.md`**: Tracks the current state of the project, including created content, completed tasks, and overall progress.
-- **`session_context.md`**: Holds ephemeral information relevant to the current development session, such as recent changes or areas of focus.
 - **`changelog.md`**: A log of significant changes made to the project specifications or state.
-- **`global_rules.md`**: Defines the overarching rules for memory bank interaction (this file).
+- **`global_rules.md`**: Defines the overarching rules for memory bank interaction.
+
+### Session Context
+- **`docs/memory-bank/session_context.md`**: Holds ephemeral information relevant to the current development session, such as recent changes or areas of focus.
+
+### Modular Components (`docs/memory-bank/modules/`)
+This directory contains subdirectories for each learning module, following the `MOD-XX_Name` format. Each module has its own set of memory files, such as `learning_objectives.md`, `module_spec.md`, and `module_state.md`.
 
 ## 3. General Interaction Rules
 

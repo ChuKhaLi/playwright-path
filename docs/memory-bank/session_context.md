@@ -21,7 +21,7 @@ A log of the tools used in the current session.
 - `update_todo_list`
 - `del docs\memory-bank\learner_profile.md`
 - `update_todo_list`
-- `write_to_file docs/memory-bank/project_specification.md`
+- `write_to_file docs/memory-bank/global/project_specification.md`
 - `update_todo_list`
-- `write_to_file docs/memory-bank/project_state.md`
+- `write_to_file docs/memory-bank/global/project_state.md`
 - `update_todo_list`

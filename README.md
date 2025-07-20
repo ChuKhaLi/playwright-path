@@ -105,6 +105,15 @@ Think of Roo as your on-demand expert, available 24/7 to support your learning j
 
 ---
 
+## 🏛️ Project Internals & For Contributors
+
+This project uses a unique AI-powered development process. The internal structure, including a "memory bank" for the AI, is documented to help contributors understand how the course content is generated and managed.
+
+-   **Memory Bank**: Our AI uses a structured memory system to track progress, specifications, and learning objectives. To understand how it works, please see the [Memory Bank Structure Documentation](docs/memory-bank/memory_bank_structure.md).
+-   **AI Modes**: The AI operates in different modes (e.g., `Course Content Creator`, `Exercise Builder`). The rules governing these modes are defined in the `.roo/` directory.
+
+---
+
 ## 🙌 Contributing to the Platform
 
 This is a community-driven learning platform. If you have ideas for new lessons, find a great resource, or want to fix a typo, your contributions are welcome!
