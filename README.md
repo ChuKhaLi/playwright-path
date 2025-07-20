@@ -25,26 +25,33 @@ By the end of this course, you will have gained the practical skills and confide
 
 ## Course Structure: A Clear Path to Success
 
-Our curriculum is organized into a progressive learning path, ensuring you build a strong foundation before moving on to more complex topics. Each module is a self-contained unit with clear lessons, hands-on exercises, and assessments to check your understanding.
+Our curriculum is organized into a progressive 7-module learning path, ensuring you build a strong foundation before moving on to more complex topics. Each module is a self-contained unit with clear lessons, hands-on exercises, and assessments to check your understanding.
 
 ```
 /
-├── 00-Fundamentals/         // Lay the groundwork: TypeScript & Web Tech
-├── 01-Getting-Started/      // Set up your environment and write your first test
-├── 02-API-Testing/          // A dedicated path for API automation mastery
-├── 03-E2E-Testing/          // A dedicated path for UI automation mastery
-├── 04-Advanced-Topics/      // POM, CI/CD, and other professional techniques
-└── README.md                // Your course dashboard!
+├── MOD-01: Foundations of Web Technologies    // HTML, CSS, HTTP fundamentals
+├── MOD-02: TypeScript for Automation         // TypeScript from basics to advanced
+├── MOD-03: Playwright Fundamentals           // Core concepts, first tests, locators
+├── MOD-04: Advanced Playwright Techniques    // Auth, network, file I/O, API testing
+├── MOD-05: Test Design and Architecture      // POM, data management, best practices
+├── MOD-06: CI/CD and DevOps Integration      // GitHub Actions, Docker, pipelines
+├── MOD-07: Advanced Topics and Specialization // Visual, performance, accessibility
+├── docs/                                     // Comprehensive documentation system
+│   ├── learning-roadmap.md                  // Master learning roadmap
+│   └── resources/                           // 25+ curated free resources
+└── README.md                                // Your course dashboard!
 ```
 
 ---
 
 ## How This Course Works: Your Learning Experience
 
--   **Curated Free Resources**: We've done the hard work for you, curating the best **100% free** online resources, including official documentation, expert articles, and video tutorials.
+-   **Curated Free Resources**: We've done the hard work for you, curating **25+ high-quality, 100% free** online resources, including official documentation, expert articles, and video tutorials. See our [Resource Documentation](docs/resources/README.md) for the complete catalog.
+-   **Multiple Learning Paths**: Choose from 4 different learning paths based on your experience level - from complete beginner to advanced practitioner. Check out our [Learning Paths Guide](docs/resources/learning-paths.md).
 -   **Hands-On is Everything**: You learn by doing. Each concept is paired with practical exercises and real-world scenarios to solidify your knowledge.
 -   **Beginner-First Approach**: We start from the very beginning, assuming no prior coding experience. Every concept is explained in simple, easy-to-understand terms.
 -   **Milestone-Based Progression**: The course is designed to give you a sense of accomplishment as you move from one module to the next, culminating in a final "graduation."
+-   **Comprehensive Roadmap**: Follow our detailed [Learning Roadmap](docs/learning-roadmap.md) that guides you through the entire journey from foundations to specialization.
 
 ---
 
@@ -70,11 +77,28 @@ Ready to begin your automation journey?
 
 1.  **Clone this Repository**:
     ```bash
-    git clone https://github.com/your-username/qa-to-automation-playwright.git
-    cd qa-to-automation-playwright
+    git clone https://github.com/your-username/learning-playwright.git
+    cd learning-playwright
     ```
 2.  **Install the Tools**: Ensure you have [Node.js](https://nodejs.org/), [VS Code](https://code.visualstudio.com/), and [Git](https://git-scm.com/) installed.
-3.  **Begin with Module 00**: Open the `00-Fundamentals` directory and start with the first `README.md` file.
+3.  **Choose Your Learning Path**: Review the [Learning Paths Guide](docs/resources/learning-paths.md) to select the path that matches your experience level.
+4.  **Begin with MOD-01**: Start with the Foundations of Web Technologies module and follow the [Learning Roadmap](docs/learning-roadmap.md).
+
+## 📚 Navigation Guide
+
+### For Learners
+- **[📚 Documentation Hub](docs/README.md)** - Complete navigation to all project documentation
+- **[Learning Roadmap](docs/learning-roadmap.md)** - Your complete guide from beginner to expert
+- **[Resource Documentation](docs/resources/README.md)** - 25+ curated free resources
+- **[Learning Paths](docs/resources/learning-paths.md)** - Choose your personalized learning journey
+- **[Module Mapping](docs/resources/module-mapping.md)** - See which resources support each module
+
+### For Instructors & Content Creators
+- **[Project Overview](docs/project-overview.md)** - Comprehensive project summary and research findings
+- **[Implementation Guide](docs/implementation-guide.md)** - Complete guide for content creation and instruction
+- **[Memory Bank Structure](docs/memory-bank/memory_bank_structure.md)** - Understanding the project architecture
+- **[Project Specification](docs/memory-bank/global/project_specification.md)** - Technical requirements and vision
+- **[Project State](docs/memory-bank/global/project_state.md)** - Current development status
 
 ---
 
@@ -85,11 +109,22 @@ This `README.md` is your course dashboard. Fork this repository and check off mo
 Upon completion of all modules, you will have earned a "Certificate of Completion" by mastering the skills outlined in this course—a milestone you can proudly add to your professional achievements.
 
 ### Your Progress
--   [ ] **Module 00: Fundamentals**
--   [ ] **Module 01: Getting Started with Playwright**
--   [ ] **Module 02: API Testing Path**
--   [ ] **Module 03: E2E Testing Path**
--   [ ] **Module 04: Advanced Topics**
+-   [ ] **MOD-01: Foundations of Web Technologies**
+-   [ ] **MOD-02: TypeScript for Automation**
+-   [ ] **MOD-03: Playwright Fundamentals**
+-   [ ] **MOD-04: Advanced Playwright Techniques**
+-   [ ] **MOD-05: Test Design and Architecture**
+-   [ ] **MOD-06: CI/CD and DevOps Integration**
+-   [ ] **MOD-07: Advanced Topics and Specialization**
+
+### 🎓 Learning Paths
+Choose your path based on your experience level:
+-   [ ] **Path A: Complete Beginner** (16-20 weeks, 10-15 hours/week)
+-   [ ] **Path B: Programming Background** (10-12 weeks, 8-12 hours/week)
+-   [ ] **Path C: Testing Experience** (6-8 weeks, 6-10 hours/week)
+-   [ ] **Path D: Advanced Practitioner** (4-6 weeks, 5-8 hours/week)
+
+📖 **[View Detailed Learning Paths](docs/resources/learning-paths.md)**
 
 ---
 

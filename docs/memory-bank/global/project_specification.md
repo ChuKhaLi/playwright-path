@@ -10,11 +10,13 @@ The platform is built around a series of interconnected educational modules that
 
 | Module ID | Module Name | Description |
 |---|---|---|
-| MOD-01 | Foundations of Web Automation | Introduces core concepts of web automation, HTML, and CSS selectors. |
-| MOD-02 | Introduction to Playwright | Covers setting up Playwright, basic commands, and the concept of locators. |
-| MOD-03 | Advanced Playwright Techniques | Dives into advanced topics like handling authentication, file uploads, and network interception. |
-| MOD-04 | Test Design and architecture | Teaches best practices for structuring a test suite, including Page Object Model (POM). |
-| MOD-05 | CI/CD Integration | Explains how to integrate automated tests into a CI/CD pipeline. |
+| MOD-01 | Foundations of Web Technologies | Introduces core concepts of web technologies, including HTML, CSS, and HTTP. |
+| MOD-02 | TypeScript for Automation | A deep dive into TypeScript for writing robust and maintainable test code. |
+| MOD-03 | Playwright Fundamentals | Covers setting up Playwright, basic commands, and core concepts. |
+| MOD-04 | Advanced Playwright Techniques | Dives into advanced topics like authentication, network interception, and file handling. |
+| MOD-05 | Test Design and Architecture | Teaches best practices for structuring a test suite, including the Page Object Model (POM). |
+| MOD-06 | CI/CD and DevOps Integration | Explains how to integrate automated tests into a CI/CD pipeline with GitHub Actions and Docker. |
+| MOD-07 | Advanced Topics and Specialization | Explores specialized areas like visual, performance, and accessibility testing. |
 
 ## 3. Technical Architecture
 
