@@ -6,17 +6,33 @@ To build a comprehensive, AI-driven educational platform for learning QA automat
 
 ## 2. Core Modules
 
-The platform is built around a series of interconnected educational modules that cover the full spectrum of QA automation.
+The platform is built around a series of interconnected educational modules that cover the full spectrum of QA automation, organized into three specialized learning paths.
 
+### Foundation Modules
 | Module ID | Module Name | Description |
 |---|---|---|
-| MOD-01 | Foundations of Web Technologies | Introduces core concepts of web technologies, including HTML, CSS, and HTTP. |
+| MOD-01 | Foundations of Web Technologies | Introduces core concepts of web technologies, including HTML, CSS, HTTP, and API fundamentals. |
 | MOD-02 | TypeScript for Automation | A deep dive into TypeScript for writing robust and maintainable test code. |
-| MOD-03 | Playwright Fundamentals | Covers setting up Playwright, basic commands, and core concepts. |
-| MOD-04 | Advanced Playwright Techniques | Dives into advanced topics like authentication, network interception, and file handling. |
-| MOD-05 | Test Design and Architecture | Teaches best practices for structuring a test suite, including the Page Object Model (POM). |
-| MOD-06 | CI/CD and DevOps Integration | Explains how to integrate automated tests into a CI/CD pipeline with GitHub Actions and Docker. |
-| MOD-07 | Advanced Topics and Specialization | Explores specialized areas like visual, performance, and accessibility testing. |
+
+### E2E Testing Path
+| Module ID | Module Name | Description |
+|---|---|---|
+| MOD-E2E-01 | Playwright E2E Fundamentals | Covers setting up Playwright, basic commands, and core E2E testing concepts. |
+| MOD-E2E-02 | Advanced E2E Testing Techniques | Dives into advanced E2E topics like authentication, network interception, and file handling. |
+| MOD-E2E-03 | E2E Test Architecture and Design | Teaches best practices for structuring E2E test suites, including the Page Object Model (POM). |
+
+### API Testing Path
+| Module ID | Module Name | Description |
+|---|---|---|
+| MOD-API-01 | API Testing Fundamentals with Playwright | Comprehensive introduction to API testing using Playwright's request fixture. |
+| MOD-API-02 | Advanced API Testing Strategies | Advanced API testing techniques including authentication, performance, and integration testing. |
+| MOD-API-03 | API Test Architecture and Contracts | API client architecture patterns, schema validation, and contract testing. |
+
+### Advanced Specialization Path
+| Module ID | Module Name | Description |
+|---|---|---|
+| MOD-ADV-01 | CI/CD and DevOps Integration | Explains how to integrate automated tests into CI/CD pipelines with GitHub Actions and Docker. |
+| MOD-ADV-02 | Specialized Testing Topics | Explores specialized areas like visual, performance, accessibility, and security testing. |
 
 ## 3. Technical Architecture
 

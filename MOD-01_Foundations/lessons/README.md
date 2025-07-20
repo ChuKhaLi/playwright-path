@@ -318,10 +318,15 @@ lesson-XX-lesson-name/
 - API patterns extend HTTP and JSON knowledge
 - Testing frameworks utilize selector strategies
 
-### **Connection to MOD-03**
-- Playwright setup uses HTML/CSS knowledge
+### **Connection to E2E Testing Path (MOD-E2E-01)**
+- Playwright E2E setup uses HTML/CSS knowledge
 - Element location strategies apply selector skills
+- DOM manipulation builds on HTML understanding
+
+### **Connection to API Testing Path (MOD-API-01)**
 - API testing builds on HTTP understanding
+- JSON data structures support API response handling
+- REST principles guide API test design
 
 ### **Real-World Application**
 - Web automation testing
