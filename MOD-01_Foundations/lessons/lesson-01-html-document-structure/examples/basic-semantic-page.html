@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Semantic HTML5 Page - Learning Example</title>
+    <meta name="description" content="A basic example demonstrating HTML5 semantic elements for automation testing">
+    <style>
+        /* Basic styling for visual clarity */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        
+        header, nav, main, section, article, aside, footer {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        nav {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        main {
+            background-color: #ecf0f1;
+        }
+        
+        section {
+            background-color: #e8f5e8;
+        }
+        
+        article {
+            background-color: #fff3cd;
+            margin: 10px 0;
+        }
+        
+        aside {
+            background-color: #d1ecf1;
+        }
+        
+        footer {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .highlight {
+            background-color: yellow;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+        
+        .data-testid-indicator {
+            font-size: 0.8em;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Header with Site Branding and Navigation -->
+    <header data-testid="page-header">
+        <h1>Learning HTML5 Semantic Elements</h1>
+        <p>A comprehensive example for automation testing</p>
+        <span class="data-testid-indicator">[data-testid="page-header"]</span>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav data-testid="main-navigation" aria-label="Main site navigation">
+        <ul>
+            <li><a href="#home" data-testid="nav-home">Home</a></li>
+            <li><a href="#about" data-testid="nav-about">About</a></li>
+            <li><a href="#services" data-testid="nav-services">Services</a></li>
+            <li><a href="#contact" data-testid="nav-contact">Contact</a></li>
+        </ul>
+        <span class="data-testid-indicator">[data-testid="main-navigation"]</span>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main data-testid="main-content">
+        <h1>Main Content Area</h1>
+        <p>This is the primary content section of the page. It contains the main information that users are looking for.</p>
+        <span class="data-testid-indicator">[data-testid="main-content"]</span>
+
+        <!-- Hero Section -->
+        <section data-testid="hero-section">
+            <h2>Welcome to Our Website</h2>
+            <p>This hero section introduces visitors to our site and provides key information about what we offer.</p>
+            <button type="button" data-testid="cta-button" class="highlight">Get Started</button>
+            <span class="data-testid-indicator">[data-testid="hero-section"]</span>
+        </section>
+
+        <!-- Features Section with Multiple Articles -->
+        <section data-testid="features-section">
+            <h2>Our Features</h2>
+            <p>Here are the key features that make our service special:</p>
+            <span class="data-testid-indicator">[data-testid="features-section"]</span>
+
+            <article data-testid="feature-reliability">
+                <header>
+                    <h3>Reliability</h3>
+                    <time datetime="2024-01-15" data-testid="feature-date">Updated: January 15, 2024</time>
+                </header>
+                <p>Our service provides 99.9% uptime with robust infrastructure and monitoring.</p>
+                <footer>
+                    <p><em>Trusted by over 10,000 customers worldwide</em></p>
+                </footer>
+                <span class="data-testid-indicator">[data-testid="feature-reliability"]</span>
+            </article>
+
+            <article data-testid="feature-security">
+                <header>
+                    <h3>Security</h3>
+                    <time datetime="2024-01-10" data-testid="security-update-date">Updated: January 10, 2024</time>
+                </header>
+                <p>Enterprise-grade security with end-to-end encryption and regular security audits.</p>
+                <ul>
+                    <li>256-bit SSL encryption</li>
+                    <li>Regular security audits</li>
+                    <li>GDPR compliant</li>
+                </ul>
+                <span class="data-testid-indicator">[data-testid="feature-security"]</span>
+            </article>
+
+            <article data-testid="feature-support">
+                <header>
+                    <h3>24/7 Support</h3>
+                </header>
+                <p>Our dedicated support team is available around the clock to help you succeed.</p>
+                <p>Contact methods:</p>
+                <ul>
+                    <li>Live chat support</li>
+                    <li>Email support</li>
+                    <li>Phone support</li>
+                    <li>Community forums</li>
+                </ul>
+                <span class="data-testid-indicator">[data-testid="feature-support"]</span>
+            </article>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section data-testid="testimonials-section">
+            <h2>What Our Customers Say</h2>
+            <span class="data-testid-indicator">[data-testid="testimonials-section"]</span>
+
+            <article data-testid="testimonial-1">
+                <blockquote>
+                    <p>"This service has transformed how we handle our business operations. Highly recommended!"</p>
+                </blockquote>
+                <footer>
+                    <cite>— Sarah Johnson, CEO of TechCorp</cite>
+                </footer>
+                <span class="data-testid-indicator">[data-testid="testimonial-1"]</span>
+            </article>
+
+            <article data-testid="testimonial-2">
+                <blockquote>
+                    <p>"The reliability and support are outstanding. We've never experienced any downtime."</p>
+                </blockquote>
+                <footer>
+                    <cite>— Michael Chen, CTO of StartupXYZ</cite>
+                </footer>
+                <span class="data-testid-indicator">[data-testid="testimonial-2"]</span>
+            </article>
+        </section>
+    </main>
+
+    <!-- Sidebar with Related Content -->
+    <aside data-testid="sidebar">
+        <h2>Related Resources</h2>
+        <p>Additional information and helpful links:</p>
+        <span class="data-testid-indicator">[data-testid="sidebar"]</span>
+
+        <section data-testid="quick-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="/documentation" data-testid="link-docs">Documentation</a></li>
+                <li><a href="/tutorials" data-testid="link-tutorials">Tutorials</a></li>
+                <li><a href="/api-reference" data-testid="link-api">API Reference</a></li>
+                <li><a href="/community" data-testid="link-community">Community</a></li>
+            </ul>
+            <span class="data-testid-indicator">[data-testid="quick-links"]</span>
+        </section>
+
+        <section data-testid="recent-updates">
+            <h3>Recent Updates</h3>
+            <ul>
+                <li>
+                    <time datetime="2024-01-20">Jan 20</time> - 
+                    <a href="/update-1" data-testid="update-link-1">New API endpoints released</a>
+                </li>
+                <li>
+                    <time datetime="2024-01-18">Jan 18</time> - 
+                    <a href="/update-2" data-testid="update-link-2">Security enhancement update</a>
+                </li>
+                <li>
+                    <time datetime="2024-01-15">Jan 15</time> - 
+                    <a href="/update-3" data-testid="update-link-3">Performance improvements</a>
+                </li>
+            </ul>
+            <span class="data-testid-indicator">[data-testid="recent-updates"]</span>
+        </section>
+    </aside>
+
+    <!-- Page Footer -->
+    <footer data-testid="page-footer">
+        <section data-testid="footer-content">
+            <h2>Company Information</h2>
+            <span class="data-testid-indicator">[data-testid="footer-content"]</span>
+
+            <!-- Footer Navigation -->
+            <nav data-testid="footer-navigation" aria-label="Footer navigation">
+                <h3>Site Links</h3>
+                <ul>
+                    <li><a href="/about" data-testid="footer-about">About Us</a></li>
+                    <li><a href="/careers" data-testid="footer-careers">Careers</a></li>
+                    <li><a href="/press" data-testid="footer-press">Press</a></li>
+                    <li><a href="/blog" data-testid="footer-blog">Blog</a></li>
+                </ul>
+                <span class="data-testid-indicator">[data-testid="footer-navigation"]</span>
+            </nav>
+
+            <!-- Legal Links -->
+            <nav data-testid="legal-navigation" aria-label="Legal information">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="/privacy" data-testid="privacy-link">Privacy Policy</a></li>
+                    <li><a href="/terms" data-testid="terms-link">Terms of Service</a></li>
+                    <li><a href="/cookies" data-testid="cookies-link">Cookie Policy</a></li>
+                    <li><a href="/accessibility" data-testid="accessibility-link">Accessibility</a></li>
+                </ul>
+                <span class="data-testid-indicator">[data-testid="legal-navigation"]</span>
+            </nav>
+
+            <!-- Contact Information -->
+            <address data-testid="contact-info">
+                <h3>Contact Us</h3>
+                <p>
+                    <strong>Email:</strong> 
+                    <a href="mailto:info@example.com" data-testid="contact-email">info@example.com</a>
+                </p>
+                <p>
+                    <strong>Phone:</strong> 
+                    <a href="tel:+1-555-123-4567" data-testid="contact-phone">+1 (555) 123-4567</a>
+                </p>
+                <p>
+                    <strong>Address:</strong><br>
+                    123 Business Street<br>
+                    Suite 100<br>
+                    Business City, BC 12345<br>
+                    United States
+                </p>
+                <span class="data-testid-indicator">[data-testid="contact-info"]</span>
+            </address>
+
+            <!-- Copyright Information -->
+            <section data-testid="copyright">
+                <p>&copy; 2024 Example Company. All rights reserved.</p>
+                <p>
+                    <small>
+                        This is a demonstration page for learning HTML5 semantic elements 
+                        and automation testing techniques.
+                    </small>
+                </p>
+                <span class="data-testid-indicator">[data-testid="copyright"]</span>
+            </section>
+        </section>
+    </footer>
+
+    <!-- Hidden content for testing purposes -->
+    <div style="display: none;" data-testid="hidden-test-data">
+        <p>This content is hidden but can be accessed by automation tests</p>
+        <span data-testid="test-value">12345</span>
+        <span data-testid="test-status">active</span>
+    </div>
+
+    <script>
+        // Simple JavaScript for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded successfully');
+            
+            // Add click handler to CTA button
+            const ctaButton = document.querySelector('[data-testid="cta-button"]');
+            if (ctaButton) {
+                ctaButton.addEventListener('click', function() {
+                    alert('CTA button clicked! This would typically navigate to a signup page.');
+                });
+            }
+            
+            // Add hover effects to navigation links
+            const navLinks = document.querySelectorAll('[data-testid^="nav-"]');
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    console.log('Hovered over:', this.textContent);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
