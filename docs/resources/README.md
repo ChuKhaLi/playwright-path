@@ -9,12 +9,13 @@ This directory contains curated free online resources to support the learning-pl
 
 ## 📁 Directory Structure
 
-- [`master-resource-index.md`](./master-resource-index.md) - Complete catalog of all resources organized by category
-- [`learning-paths.md`](./learning-paths.md) - Recommended learning sequences for different learner types
-- [`module-mapping.md`](./module-mapping.md) - Resources mapped to specific project modules (MOD-01 through MOD-05)
-- [`access-guide.md`](./access-guide.md) - Access requirements, formats, and time commitments
-- [`integration-recommendations.md`](./integration-recommendations.md) - How to integrate resources into learning modules
-- [`categories/`](./categories/) - Detailed resource lists organized by category
+- [`navigation.md`](./navigation.md) - **Start here!** A comprehensive guide to the resource structure.
+- [`master-resource-index.md`](./master-resource-index.md) - Complete catalog of all evaluated resources.
+- [`guides/`](./guides/) - Comprehensive guides on learning paths, resource integration, and module mapping.
+- [`quick-reference/`](./quick-reference/) - Cheat sheets and summaries for quick access.
+- [`templates/`](./templates/) - Reusable templates for evaluating resources and creating learning paths.
+- [`categories/`](./categories/) - Detailed information about each resource category.
+- [`specifications/`](./specifications/) - Individual specification files for every resource.
 
 ## 🎯 Resource Categories
 

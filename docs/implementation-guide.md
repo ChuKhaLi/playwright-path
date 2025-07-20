@@ -222,6 +222,27 @@ async function loginUser(page: Page, credentials: LoginCredentials): Promise<voi
 - **Post-Learning**: Additional depth and practice
 - **Assessment**: Resource-based evaluation questions
 
+## Leveraging the Resource Library
+
+The comprehensive resource library is a key asset for content creation. Understanding its structure is essential for effective integration.
+
+- #### Using Resource Specifications
+  - Each resource has a dedicated [specification file](./resources/specifications/README.md) detailing its strengths, weaknesses, and ideal use case.
+  - **Action**: Before integrating a resource, review its specification to ensure it aligns with your learning objectives.
+
+- #### Leveraging Category Files
+  - Resources are grouped into seven main [categories](./resources/categories/README.md).
+  - **Action**: Use the category files to find alternative or supplementary resources for a specific topic.
+
+- #### Utilizing Templates
+  - The [templates](./resources/templates/) folder contains a [Resource Evaluation Template](./resources/templates/resource-evaluation-template.md) and a [Learning Path Template](./resources/templates/learning-path-template.md).
+  - **Action**: Use the evaluation template when proposing new resources. Use the learning path template to design custom learning journeys.
+
+- #### Best Practices for Integration
+  - **Primary vs. Supplementary**: Clearly distinguish between core resources and optional materials.
+  - **Context is Key**: Always explain *why* a particular resource is being recommended.
+  - **Link Directly**: Whenever possible, link to the most specific and relevant page within a resource.
+
 ## Resource Integration Best Practices
 
 ### Pedagogical Strategies

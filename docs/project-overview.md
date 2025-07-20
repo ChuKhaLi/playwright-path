@@ -33,6 +33,18 @@ Our comprehensive research identified and evaluated 25+ high-quality, free onlin
 - **Community Resources**: Awesome Playwright, GitHub repositories, Stack Overflow
 - **Practice Platforms**: 75+ demo sites for hands-on practice
 
+## Comprehensive Resource Curation
+
+A cornerstone of this project is the comprehensive research and organization of free online learning materials. This effort ensures that learners have access to the best, most current, and most effective resources available.
+
+### Research and Organization
+- **Total Resources Analyzed**: Over 24 high-quality resources were systematically evaluated.
+- **Detailed Specifications**: Each resource has its own detailed [specification file](./resources/specifications/README.md), outlining its quality, target audience, and integration potential.
+- **Logical Categorization**: Resources are organized into 7 distinct [categories](./resources/categories/README.md) to facilitate discovery and curriculum planning.
+- **Centralized Index**: All resources are cataloged in the [Master Resource Index](./resources/master-resource-index.md) for easy navigation.
+
+The result is a highly structured, curated, and comprehensive resource library that forms the foundation of our learning modules. For a summary of our findings, see the [Resource Integration Summary](./resources/INTEGRATION_SUMMARY.md).
+
 ### Learning Path Development
 Based on research findings, we developed 4 distinct learning paths:
 

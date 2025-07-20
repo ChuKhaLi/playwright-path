@@ -2,9 +2,16 @@
 
 A comprehensive catalog of all curated free online resources for learning Playwright QA automation, organized by category with quality ratings and target audience levels.
 
-## 1. Official Documentation and Guides ⭐⭐⭐⭐⭐
+This index provides detailed information for each resource. For a quick overview, see the [Resource Summary](./quick-reference/resource-summary.md) and [Cheat Sheet](./quick-reference/cheat-sheet.md).
 
-### Playwright Official Documentation
+For guided learning, refer to the following:
+- [Learning Paths](./guides/learning-paths.md)
+- [Module-Resource Mapping](./guides/module-mapping.md)
+- [Integration Recommendations](./guides/integration-recommendations.md)
+
+## 1. [Official Documentation and Guides](./categories/01-official-documentation.md) ⭐⭐⭐⭐⭐
+
+### [Playwright Official Documentation](./specifications/01-official-documentation/playwright-official-documentation.md)
 - **URL**: https://playwright.dev/
 - **Quality**: ⭐⭐⭐⭐⭐ Essential
 - **Audience**: Beginner to Advanced
@@ -14,7 +21,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05
 - **Description**: The definitive guide to Playwright, covering installation, API reference, best practices, and advanced features.
 
-### TypeScript Handbook
+### [TypeScript Handbook](./specifications/01-official-documentation/typescript-handbook.md)
 - **URL**: https://www.typescriptlang.org/docs/
 - **Quality**: ⭐⭐⭐⭐⭐ Essential
 - **Audience**: Beginner to Advanced
@@ -24,7 +31,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-01, MOD-02, MOD-03, MOD-04
 - **Description**: Official TypeScript documentation covering types, interfaces, generics, and advanced language features.
 
-### Microsoft Learn - Playwright
+### [Microsoft Learn - Playwright](./specifications/01-official-documentation/microsoft-learn-playwright.md)
 - **URL**: https://learn.microsoft.com/en-us/training/paths/playwright/
 - **Quality**: ⭐⭐⭐⭐⭐ Essential
 - **Audience**: Beginner to Intermediate
@@ -34,19 +41,29 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-02, MOD-03, MOD-04
 - **Description**: Structured learning path from Microsoft covering Playwright fundamentals and best practices.
 
-## 2. Educational Platforms and Free Courses ⭐⭐⭐⭐
+### [MDN Web Docs - HTML, CSS, HTTP](./specifications/01-official-documentation/mdn-web-docs.md)
+- **URL**: https://developer.mozilla.org/en-US/docs/Web
+- **Quality**: ⭐⭐⭐⭐⭐ Essential
+- **Audience**: Beginner to Advanced
+- **Currency**: 2024-2025
+- **Format**: Comprehensive documentation with interactive examples
+- **Time Commitment**: 15-25 hours for relevant sections
+- **Module Mapping**: MOD-01, MOD-02, MOD-03
+- **Description**: Essential web technology reference covering HTML, CSS, JavaScript, and HTTP fundamentals.
 
-### freeCodeCamp - JavaScript Testing
+## 2. [Educational Platforms and Free Courses](./categories/02-educational-platforms.md) ⭐⭐⭐⭐
+
+### [freeCodeCamp - JavaScript Testing](./specifications/02-educational-platforms/freecodecamp-javascript-testing.md)
 - **URL**: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Beginner to Intermediate
 - **Currency**: 2024
 - **Format**: Interactive coding challenges and projects
 - **Time Commitment**: 20-30 hours
-- **Module Mapping**: MOD-01, MOD-02
+- **Module Mapping**: MOD-01, MOD-02, MOD-03
 - **Description**: Comprehensive JavaScript foundation with testing concepts that support Playwright learning.
 
-### Coursera - Software Testing Courses (Audit Mode)
+### [Coursera - Software Testing Courses (Audit Mode)](./specifications/02-educational-platforms/coursera-software-testing.md)
 - **URL**: https://www.coursera.org/courses?query=software%20testing
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Beginner to Advanced
@@ -56,7 +73,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-01, MOD-04, MOD-05
 - **Description**: University-level courses on software testing principles and methodologies.
 
-### Class Central - Web Development Testing
+### [Class Central - Web Development Testing](./specifications/02-educational-platforms/class-central-web-development.md)
 - **URL**: https://www.classcentral.com/subject/web-development
 - **Quality**: ⭐⭐⭐ Good
 - **Audience**: Beginner to Intermediate
@@ -66,9 +83,29 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-01, MOD-02, MOD-03
 - **Description**: Aggregated free courses on web development and testing from various platforms.
 
-## 3. YouTube Channels and Video Resources ⭐⭐⭐⭐⭐
+### [The Odin Project - Web Development 101](./specifications/02-educational-platforms/the-odin-project.md)
+- **URL**: https://www.theodinproject.com/paths/foundations
+- **Quality**: ⭐⭐⭐⭐ Highly Recommended
+- **Audience**: Beginner to Intermediate
+- **Currency**: 2024-2025
+- **Format**: Project-based learning with curated resources
+- **Time Commitment**: 40-60 hours for foundations
+- **Module Mapping**: MOD-01, MOD-02
+- **Description**: Comprehensive, project-based web development curriculum with strong community support.
 
-### Official Playwright YouTube Channel
+### [ExecuteProgram - TypeScript Course](./specifications/02-educational-platforms/executeprogram-typescript.md)
+- **URL**: https://www.executeprogram.com/courses/typescript
+- **Quality**: ⭐⭐⭐⭐ Highly Recommended
+- **Audience**: Beginner to Intermediate
+- **Currency**: 2024-2025
+- **Format**: Spaced repetition learning with interactive exercises
+- **Time Commitment**: 15-20 hours
+- **Module Mapping**: MOD-02
+- **Description**: Systematic TypeScript learning using spaced repetition methodology for better retention.
+
+## 3. [YouTube Channels and Video Resources](./categories/03-video-resources.md) ⭐⭐⭐⭐⭐
+
+### [Official Playwright YouTube Channel](./specifications/03-video-resources/official-playwright-youtube.md)
 - **URL**: https://www.youtube.com/@Playwright
 - **Quality**: ⭐⭐⭐⭐⭐ Essential
 - **Audience**: Beginner to Advanced
@@ -78,7 +115,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05
 - **Description**: Official channel with latest features, best practices, and community presentations.
 
-### TypeScript Course - Programming with Mosh
+### [TypeScript Course - Programming with Mosh](./specifications/03-video-resources/typescript-course-mosh.md)
 - **URL**: https://www.youtube.com/watch?v=d56mG7DezGs
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Beginner to Intermediate
@@ -88,7 +125,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-01, MOD-02
 - **Description**: Complete TypeScript tutorial covering fundamentals to advanced concepts.
 
-### Playwright Tutorial Series - Automation Step by Step
+### [Playwright Tutorial Series - Automation Step by Step](./specifications/03-video-resources/playwright-tutorial-series.md)
 - **URL**: https://www.youtube.com/playlist?list=PLhW3qG5bs-L9LuOqHigGPqsYGmUqktTXz
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Beginner to Intermediate
@@ -98,9 +135,9 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-02, MOD-03, MOD-04
 - **Description**: Comprehensive Playwright tutorial series with practical examples.
 
-## 4. Community Resources and GitHub Repositories ⭐⭐⭐⭐
+## 4. [Community Resources and GitHub Repositories](./categories/04-community-resources.md) ⭐⭐⭐⭐
 
-### Awesome Playwright
+### [Awesome Playwright](./specifications/04-community-resources/awesome-playwright.md)
 - **URL**: https://github.com/mxschmitt/awesome-playwright
 - **Quality**: ⭐⭐⭐⭐⭐ Essential
 - **Audience**: Intermediate to Advanced
@@ -110,7 +147,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-03, MOD-04, MOD-05
 - **Description**: Community-curated collection of Playwright resources, plugins, and examples.
 
-### Playwright Demo Repository
+### [Playwright Demo Repository](./specifications/04-community-resources/playwright-demo-repository.md)
 - **URL**: https://github.com/microsoft/playwright
 - **Quality**: ⭐⭐⭐⭐⭐ Essential
 - **Audience**: Beginner to Advanced
@@ -120,7 +157,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05
 - **Description**: Official Playwright repository with examples, tests, and implementation details.
 
-### Stack Overflow - Playwright Tag
+### [Stack Overflow - Playwright Tag](./specifications/04-community-resources/stackoverflow-playwright-tag.md)
 - **URL**: https://stackoverflow.com/questions/tagged/playwright
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Intermediate to Advanced
@@ -130,7 +167,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05
 - **Description**: Community-driven problem-solving and best practices discussions.
 
-### Playwright Community Examples
+### [Playwright Community Examples](./specifications/04-community-resources/playwright-community-examples.md)
 - **URL**: https://github.com/topics/playwright-examples
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Intermediate to Advanced
@@ -140,9 +177,9 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-03, MOD-04, MOD-05
 - **Description**: Community-contributed examples and patterns for various Playwright use cases.
 
-## 5. Tools and Frameworks Integration ⭐⭐⭐⭐
+## 5. [Tools and Frameworks Integration](./categories/05-tools-integration.md) ⭐⭐⭐⭐
 
-### Jest Documentation
+### [Jest Documentation](./specifications/05-tools-integration/jest-documentation.md)
 - **URL**: https://jestjs.io/docs/getting-started
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Intermediate
@@ -152,7 +189,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-04, MOD-05
 - **Description**: Testing framework documentation for integration with Playwright.
 
-### GitHub Actions Documentation
+### [GitHub Actions Documentation](./specifications/05-tools-integration/github-actions-documentation.md)
 - **URL**: https://docs.github.com/en/actions
 - **Quality**: ⭐⭐⭐⭐⭐ Essential
 - **Audience**: Intermediate to Advanced
@@ -162,7 +199,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-05
 - **Description**: CI/CD platform documentation for automating Playwright tests.
 
-### Vitest Documentation
+### [Vitest Documentation](./specifications/05-tools-integration/vitest-documentation.md)
 - **URL**: https://vitest.dev/guide/
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Intermediate
@@ -172,9 +209,19 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-04, MOD-05
 - **Description**: Fast testing framework that works well with Playwright and TypeScript.
 
-## 6. Practice Resources and Demo Sites ⭐⭐⭐⭐⭐
+### [Docker Documentation](./specifications/05-tools-integration/docker-documentation.md)
+- **URL**: https://docs.docker.com/
+- **Quality**: ⭐⭐⭐⭐ Highly Recommended
+- **Audience**: Intermediate to Advanced
+- **Currency**: 2024-2025
+- **Format**: Comprehensive documentation and tutorials
+- **Time Commitment**: 8-12 hours for automation focus
+- **Module Mapping**: MOD-06
+- **Description**: Essential containerization platform for CI/CD integration and cross-platform test execution.
 
-### Expand Testing - Practice Sites
+## 6. [Practice Resources and Demo Sites](./categories/06-practice-resources.md) ⭐⭐⭐⭐⭐
+
+### [Expand Testing - Practice Sites](./specifications/06-practice-resources/expand-testing-practice-sites.md)
 - **URL**: https://practice.expandtesting.com/
 - **Quality**: ⭐⭐⭐⭐⭐ Essential
 - **Audience**: Beginner to Advanced
@@ -184,7 +231,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-02, MOD-03, MOD-04
 - **Description**: Dedicated practice sites designed for automation testing with various scenarios.
 
-### Try Playwright
+### [Try Playwright](./specifications/06-practice-resources/try-playwright.md)
 - **URL**: https://try.playwright.tech/
 - **Quality**: ⭐⭐⭐⭐⭐ Essential
 - **Audience**: Beginner to Intermediate
@@ -194,7 +241,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-02, MOD-03
 - **Description**: Official Playwright playground for testing code snippets without local setup.
 
-### 75+ Practice Sites Collection
+### [75+ Practice Sites Collection](./specifications/06-practice-resources/practice-sites-collection.md)
 - **URL**: https://github.com/Playwright-Community/practice-sites
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Beginner to Advanced
@@ -204,7 +251,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-02, MOD-03, MOD-04
 - **Description**: Community-curated collection of websites suitable for automation practice.
 
-### The Internet - Herokuapp
+### [The Internet - Herokuapp](./specifications/06-practice-resources/the-internet-herokuapp.md)
 - **URL**: https://the-internet.herokuapp.com/
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Beginner to Intermediate
@@ -214,9 +261,9 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-02, MOD-03
 - **Description**: Classic practice site with common web automation challenges.
 
-## 7. Best Practices and Advanced Resources ⭐⭐⭐⭐
+## 7. [Best Practices and Advanced Resources](./categories/07-best-practices.md) ⭐⭐⭐⭐
 
-### Playwright Best Practices Guide
+### [Playwright Best Practices Guide](./specifications/07-best-practices/playwright-best-practices-guide.md)
 - **URL**: https://playwright.dev/docs/best-practices
 - **Quality**: ⭐⭐⭐⭐⭐ Essential
 - **Audience**: Intermediate to Advanced
@@ -226,7 +273,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-04, MOD-05
 - **Description**: Official best practices for writing maintainable and reliable Playwright tests.
 
-### Test Automation Patterns
+### [Test Automation Patterns](./specifications/07-best-practices/test-automation-patterns.md)
 - **URL**: https://testautomationpatterns.org/
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Advanced
@@ -236,7 +283,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-04, MOD-05
 - **Description**: Design patterns and best practices for test automation architecture.
 
-### Community Best Practices Blog Posts
+### [Community Best Practices Blog Posts](./specifications/07-best-practices/community-best-practices-blog.md)
 - **URL**: https://dev.to/t/playwright
 - **Quality**: ⭐⭐⭐ Good
 - **Audience**: Intermediate to Advanced
@@ -246,7 +293,7 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-03, MOD-04, MOD-05
 - **Description**: Community-driven insights, tips, and advanced techniques.
 
-### Playwright Testing Library Integration
+### [Playwright Testing Library Integration](./specifications/07-best-practices/playwright-testing-library-integration.md)
 - **URL**: https://testing-library.com/docs/pptr-testing-library/intro/
 - **Quality**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Intermediate
@@ -256,12 +303,26 @@ A comprehensive catalog of all curated free online resources for learning Playwr
 - **Module Mapping**: MOD-04
 - **Description**: Integration guide for using Testing Library principles with Playwright.
 
-## Resource Summary
+### [Applitools/Percy - Visual Testing](./specifications/07-best-practices/applitools-percy-visual-testing.md)
+- **URL**: https://applitools.com/docs/ | https://docs.percy.io/
+- **Quality**: ⭐⭐⭐⭐ Highly Recommended
+- **Audience**: Intermediate to Advanced
+- **Currency**: 2024-2025
+- **Format**: SDK documentation and integration guides
+- **Time Commitment**: 6-8 hours
+- **Module Mapping**: MOD-07
+- **Description**: Professional visual testing platforms for cross-browser visual validation and regression testing.
 
-- **Total Resources**: 25+ curated resources
-- **Essential Resources (⭐⭐⭐⭐⭐)**: 8 resources
-- **Highly Recommended (⭐⭐⭐⭐)**: 12 resources
-- **Good Resources (⭐⭐⭐)**: 5+ resources
-- **Coverage**: All project modules (MOD-01 through MOD-05)
-- **Total Learning Time**: 100-200 hours for comprehensive mastery
-- **Most Current**: 80% of resources from 2024-2025
+### [Lighthouse/Axe - Performance & Accessibility](./specifications/07-best-practices/lighthouse-axe-accessibility-performance.md)
+- **URL**: https://developers.google.com/web/tools/lighthouse | https://www.deque.com/axe/
+- **Quality**: ⭐⭐⭐⭐ Highly Recommended
+- **Audience**: Intermediate to Advanced
+- **Currency**: 2024-2025
+- **Format**: Documentation and CLI tools
+- **Time Commitment**: 5-7 hours
+- **Module Mapping**: MOD-07
+- **Description**: Industry-standard tools for automated performance testing and accessibility compliance validation.
+
+## Resource Integration Summary
+
+See the [INTEGRATION_SUMMARY.md](./INTEGRATION_SUMMARY.md) for a detailed breakdown of the research findings, new structure benefits, and key integration points.

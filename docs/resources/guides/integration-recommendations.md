@@ -2,6 +2,8 @@
 
 This document provides detailed recommendations for integrating curated resources into the learning-playwright project modules, including pedagogical strategies, timing, and implementation approaches.
 
+For a complete overview, refer to the [Master Resource Index](../master-resource-index.md). For quick access information, see the [Access Guide](./access-guide.md).
+
 ## 🎯 Integration Philosophy
 
 ### Core Principles
@@ -20,7 +22,7 @@ This document provides detailed recommendations for integrating curated resource
 
 ## 📚 Category-Specific Integration Strategies
 
-## 1. Official Documentation and Guides
+## 1. [Official Documentation and Guides](../categories/01-official-documentation.md)
 
 ### Integration Approach: **Reference-First with Progressive Depth**
 
@@ -38,7 +40,7 @@ This document provides detailed recommendations for integrating curated resource
 
 #### Pedagogical Strategies
 
-**For TypeScript Handbook** ⭐⭐⭐⭐⭐
+**For [TypeScript Handbook](../specifications/01-official-documentation/typescript-handbook.md)** ⭐⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Structured Reading with Practice
 - Week 1: Basic Types and Variables (2-3 hours)
@@ -52,7 +54,7 @@ This document provides detailed recommendations for integrating curated resource
 - Assessment: TypeScript quiz covering key concepts
 ```
 
-**For Playwright Official Documentation** ⭐⭐⭐⭐⭐
+**For [Playwright Official Documentation](../specifications/01-official-documentation/playwright-official-documentation.md)** ⭐⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Guided Exploration with Hands-On Practice
 - Session 1: Getting Started (1 hour reading + 2 hours practice)
@@ -66,7 +68,7 @@ This document provides detailed recommendations for integrating curated resource
 - Weekly: Build comprehensive test using week's concepts
 ```
 
-**For Microsoft Learn - Playwright** ⭐⭐⭐⭐⭐
+**For [Microsoft Learn - Playwright](../specifications/01-official-documentation/microsoft-learn-playwright.md)** ⭐⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Structured Learning Path with Checkpoints
 - Complete modules in sequence
@@ -89,7 +91,7 @@ This document provides detailed recommendations for integrating curated resource
 
 ---
 
-## 2. Educational Platforms and Free Courses
+## 2. [Educational Platforms and Free Courses](../categories/02-educational-platforms.md)
 
 ### Integration Approach: **Structured Foundation with Flexible Pacing**
 
@@ -106,7 +108,7 @@ This document provides detailed recommendations for integrating curated resource
 
 #### Pedagogical Strategies
 
-**For freeCodeCamp** ⭐⭐⭐⭐
+**For [freeCodeCamp - JavaScript Testing](../specifications/02-educational-platforms/freecodecamp-javascript-testing.md)** ⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Prerequisite Foundation Building
 - Target Audience: Complete beginners with no programming experience
@@ -125,7 +127,7 @@ This document provides detailed recommendations for integrating curated resource
 - Peer code review sessions
 ```
 
-**For Coursera Courses** ⭐⭐⭐⭐
+**For [Coursera - Software Testing Courses](../specifications/02-educational-platforms/coursera-software-testing.md)** ⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Theoretical Foundation with Practical Application
 - Audit Mode: Access all video content and readings
@@ -153,7 +155,7 @@ This document provides detailed recommendations for integrating curated resource
 
 ---
 
-## 3. YouTube Channels and Video Resources
+## 3. [YouTube Channels and Video Resources](../categories/03-video-resources.md)
 
 ### Integration Approach: **Visual Learning with Active Practice**
 
@@ -170,7 +172,7 @@ This document provides detailed recommendations for integrating curated resource
 
 #### Pedagogical Strategies
 
-**For Official Playwright YouTube Channel** ⭐⭐⭐⭐⭐
+**For [Official Playwright YouTube Channel](../specifications/03-video-resources/official-playwright-youtube.md)** ⭐⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Feature-Focused Learning with Immediate Practice
 - Video Selection: Curate specific videos for each module
@@ -194,7 +196,7 @@ MOD-03: Advanced feature videos (4-5 videos, 2-3 hours total)
 - Peer discussion of video content
 ```
 
-**For Tutorial Series** ⭐⭐⭐⭐
+**For [Playwright Tutorial Series - Automation Step by Step](../specifications/03-video-resources/playwright-tutorial-series.md)** ⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Sequential Learning with Project Building
 - Complete Series Approach: Follow entire tutorial series
@@ -222,7 +224,7 @@ MOD-03: Advanced feature videos (4-5 videos, 2-3 hours total)
 
 ---
 
-## 4. Community Resources and GitHub Repositories
+## 4. [Community Resources and GitHub Repositories](../categories/04-community-resources.md)
 
 ### Integration Approach: **Exploration and Pattern Learning**
 
@@ -239,7 +241,7 @@ MOD-03: Advanced feature videos (4-5 videos, 2-3 hours total)
 
 #### Pedagogical Strategies
 
-**For Awesome Playwright** ⭐⭐⭐⭐⭐
+**For [Awesome Playwright](../specifications/04-community-resources/awesome-playwright.md)** ⭐⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Curated Resource Discovery
 - Guided Exploration: Instructor-led tours of key resources
@@ -259,7 +261,7 @@ MOD-03: Advanced feature videos (4-5 videos, 2-3 hours total)
 - MOD-05: CI/CD tools and deployment examples
 ```
 
-**For GitHub Repositories** ⭐⭐⭐⭐⭐
+**For GitHub Repositories (e.g., [Playwright Demo Repository](../specifications/04-community-resources/playwright-demo-repository.md))** ⭐⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Code Analysis and Pattern Learning
 - Repository Tours: Guided exploration of well-structured projects
@@ -279,7 +281,7 @@ MOD-03: Advanced feature videos (4-5 videos, 2-3 hours total)
 - Community engagement practices
 ```
 
-**For Stack Overflow** ⭐⭐⭐⭐
+**For [Stack Overflow - Playwright Tag](../specifications/04-community-resources/stackoverflow-playwright-tag.md)** ⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Problem-Solving and Troubleshooting
 - Question Analysis: Study well-asked questions and quality answers
@@ -307,7 +309,7 @@ MOD-03: Advanced feature videos (4-5 videos, 2-3 hours total)
 
 ---
 
-## 5. Tools and Frameworks Integration
+## 5. [Tools and Frameworks Integration](../categories/05-tools-integration.md)
 
 ### Integration Approach: **Contextual Introduction with Practical Implementation**
 
@@ -323,7 +325,7 @@ MOD-03: Advanced feature videos (4-5 videos, 2-3 hours total)
 
 #### Pedagogical Strategies
 
-**For Testing Frameworks (Jest/Vitest)** ⭐⭐⭐⭐
+**For Testing Frameworks ([Jest](../specifications/05-tools-integration/jest-documentation.md)/[Vitest](../specifications/05-tools-integration/vitest-documentation.md))** ⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Comparative Learning with Hands-On Implementation
 - Framework Comparison: Understand strengths and use cases
@@ -343,7 +345,7 @@ Week 4: Integration with Playwright and CI/CD
 - Choose framework for final project
 ```
 
-**For CI/CD Tools (GitHub Actions)** ⭐⭐⭐⭐⭐
+**For CI/CD Tools ([GitHub Actions](../specifications/05-tools-integration/github-actions-documentation.md))** ⭐⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Progressive Implementation with Real Deployment
 - Concept Introduction: CI/CD principles and benefits
@@ -372,7 +374,7 @@ Phase 4: Production deployment strategies
 
 ---
 
-## 6. Practice Resources and Demo Sites
+## 6. [Practice Resources and Demo Sites](../categories/06-practice-resources.md)
 
 ### Integration Approach: **Progressive Skill Building with Real-World Application**
 
@@ -389,7 +391,7 @@ Phase 4: Production deployment strategies
 
 #### Pedagogical Strategies
 
-**For Try Playwright** ⭐⭐⭐⭐⭐
+**For [Try Playwright](../specifications/06-practice-resources/try-playwright.md)** ⭐⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Immediate Experimentation and Concept Validation
 - First Contact: Initial exposure to Playwright syntax
@@ -409,7 +411,7 @@ Phase 4: Production deployment strategies
 - Troubleshooting: Use for quick debugging and testing
 ```
 
-**For Practice Sites (Expand Testing, Herokuapp)** ⭐⭐⭐⭐⭐
+**For Practice Sites ([Expand Testing](../specifications/06-practice-resources/expand-testing-practice-sites.md), [Herokuapp](../specifications/06-practice-resources/the-internet-herokuapp.md))** ⭐⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Structured Practice with Progressive Complexity
 - Skill Ladders: Organized progression from simple to complex scenarios
@@ -429,7 +431,7 @@ Level 4 (Advanced): Performance and optimization challenges
 - Portfolio Development: Build portfolio of practice site automations
 ```
 
-**For Community Practice Collections** ⭐⭐⭐⭐
+**For [Community Practice Collections](../specifications/06-practice-resources/practice-sites-collection.md)** ⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Diverse Scenario Exposure with Specialization Options
 - Scenario Variety: Expose learners to wide range of testing challenges
@@ -452,7 +454,7 @@ Level 4 (Advanced): Performance and optimization challenges
 
 ---
 
-## 7. Best Practices and Advanced Resources
+## 7. [Best Practices and Advanced Resources](../categories/07-best-practices.md)
 
 ### Integration Approach: **Capstone Learning with Professional Development**
 
@@ -468,7 +470,7 @@ Level 4 (Advanced): Performance and optimization challenges
 
 #### Pedagogical Strategies
 
-**For Official Best Practices** ⭐⭐⭐⭐⭐
+**For [Official Best Practices](../specifications/07-best-practices/playwright-best-practices-guide.md)** ⭐⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Standard-Setting with Practical Implementation
 - Principle Introduction: Understand the "why" behind each practice
@@ -487,7 +489,7 @@ Level 4 (Advanced): Performance and optimization challenges
 - Portfolio Standards: Apply best practices to portfolio projects
 ```
 
-**For Advanced Pattern Resources** ⭐⭐⭐⭐
+**For Advanced Pattern Resources (e.g., [Test Automation Patterns](../specifications/07-best-practices/test-automation-patterns.md))** ⭐⭐⭐⭐
 ```markdown
 **Integration Method**: Pattern Learning with Architectural Thinking
 - Pattern Recognition: Identify and understand common patterns
@@ -547,3 +549,9 @@ Level 4 (Advanced): Performance and optimization challenges
 - **Career Path Alignment**: Resource selection based on career goals
 
 This integration framework ensures that all curated resources work together synergistically to create a comprehensive, engaging, and effective learning experience for Playwright QA automation.
+
+---
+## 📚 Related Guides
+- [Access Guide](./access-guide.md)
+- [Learning Paths](./learning-paths.md)
+- [Module-Resource Mapping](./module-mapping.md)

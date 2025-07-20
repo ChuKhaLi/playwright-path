@@ -71,13 +71,13 @@ Advanced resources focusing on best practices, patterns, and professional develo
 | Category | Essential (⭐⭐⭐⭐⭐) | Highly Rec. (⭐⭐⭐⭐) | Good (⭐⭐⭐) | Total |
 |----------|-------------------|-------------------|-------------|-------|
 | Official Documentation | 3 | 0 | 0 | 3 |
-| Educational Platforms | 1 | 2 | 1 | 4 |
+| Educational Platforms | 0 | 2 | 1 | 3 |
 | Video Resources | 1 | 2 | 0 | 3 |
-| Community Resources | 2 | 2 | 0 | 4 |
+| Community Resources | 1 | 3 | 0 | 4 |
 | Tools Integration | 1 | 2 | 0 | 3 |
 | Practice Resources | 2 | 2 | 0 | 4 |
-| Best Practices | 1 | 2 | 1 | 4 |
-| **Total** | **11** | **12** | **2** | **25** |
+| Best Practices | 0 | 3 | 1 | 4 |
+| **Total** | **8** | **14** | **2** | **24** |
 
 ## 🔄 Maintenance Guidelines
 

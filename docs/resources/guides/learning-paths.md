@@ -4,7 +4,7 @@ This document provides recommended learning sequences for different types of lea
 
 ## 🎯 Learning Path Overview
 
-### Path A: Complete Beginner (No Programming Experience)
+### Path A: Complete Beginner (No Programming Experience) - [Template](../templates/learning-path-template.md)
 **Duration**: 16-20 weeks | **Time Commitment**: 10-15 hours/week
 
 ### Path B: Programming Background (New to Testing)
@@ -24,23 +24,23 @@ This document provides recommended learning sequences for different types of lea
 **Goal**: Establish programming fundamentals and web concepts
 
 #### Week 1-3: Web Fundamentals
-1. **freeCodeCamp - Responsive Web Design** ⭐⭐⭐⭐
+1. **[freeCodeCamp - Responsive Web Design](../specifications/02-educational-platforms/freecodecamp-javascript-testing.md)** ⭐⭐⭐⭐
    - Focus: HTML and CSS basics
    - Time: 15-20 hours
    - Module: MOD-01
 
-2. **MDN Web Docs - HTTP** ⭐⭐⭐⭐⭐
+2. **[MDN Web Docs - HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP)** ⭐⭐⭐⭐⭐
    - Focus: Core HTTP concepts
    - Time: 5-7 hours
    - Module: MOD-01
 
 #### Week 4-6: TypeScript Fundamentals
-1. **TypeScript Handbook - Basics Section** ⭐⭐⭐⭐⭐
+1. **[TypeScript Handbook - Basics Section](../specifications/01-official-documentation/typescript-handbook.md)** ⭐⭐⭐⭐⭐
    - Focus: Types, interfaces, basic concepts
    - Time: 10-12 hours
    - Module: MOD-02
 
-2. **TypeScript Course - Programming with Mosh** ⭐⭐⭐⭐
+2. **[TypeScript Course - Programming with Mosh](../specifications/03-video-resources/typescript-course-mosh.md)** ⭐⭐⭐⭐
    - Focus: First 3 hours covering fundamentals
    - Time: 3-4 hours
    - Module: MOD-02
@@ -49,23 +49,23 @@ This document provides recommended learning sequences for different types of lea
 **Goal**: Understand testing concepts and Playwright basics
 
 #### Week 5-6: Testing Fundamentals
-1. **Coursera - Software Testing Courses (Audit Mode)** ⭐⭐⭐⭐
+1. **[Coursera - Software Testing Courses (Audit Mode)](../specifications/02-educational-platforms/coursera-software-testing.md)** ⭐⭐⭐⭐
    - Focus: Testing principles and methodologies
    - Time: 8-10 hours
    - Module: MOD-01
 
-2. **Microsoft Learn - Playwright (Introduction)** ⭐⭐⭐⭐⭐
+2. **[Microsoft Learn - Playwright (Introduction)](../specifications/01-official-documentation/microsoft-learn-playwright.md)** ⭐⭐⭐⭐⭐
    - Focus: First 2 modules
    - Time: 4-5 hours
    - Module: MOD-02
 
 #### Week 7-8: First Playwright Steps
-1. **Try Playwright** ⭐⭐⭐⭐⭐
+1. **[Try Playwright](../specifications/06-practice-resources/try-playwright.md)** ⭐⭐⭐⭐⭐
    - Focus: Interactive exploration
    - Time: 3-4 hours
    - Module: MOD-02
 
-2. **Playwright Official Documentation - Getting Started** ⭐⭐⭐⭐⭐
+2. **[Playwright Official Documentation - Getting Started](../specifications/01-official-documentation/playwright-official-documentation.md)** ⭐⭐⭐⭐⭐
    - Focus: Installation and first test
    - Time: 4-6 hours
    - Module: MOD-02
@@ -74,23 +74,23 @@ This document provides recommended learning sequences for different types of lea
 **Goal**: Build real automation skills
 
 #### Week 9-10: Core Playwright Skills
-1. **Playwright Tutorial Series - Automation Step by Step** ⭐⭐⭐⭐
+1. **[Playwright Tutorial Series - Automation Step by Step](../specifications/03-video-resources/playwright-tutorial-series.md)** ⭐⭐⭐⭐
    - Focus: First 10 videos
    - Time: 8-10 hours
    - Module: MOD-02, MOD-03
 
-2. **Practice**: The Internet - Herokuapp ⭐⭐⭐⭐
+2. **Practice**: [The Internet - Herokuapp](../specifications/06-practice-resources/the-internet-herokuapp.md) ⭐⭐⭐⭐
    - Focus: Basic scenarios
    - Time: 4-6 hours
    - Module: MOD-02
 
 #### Week 11-12: Advanced Concepts
-1. **Playwright Official Documentation - Advanced Features** ⭐⭐⭐⭐⭐
+1. **[Playwright Official Documentation - Advanced Features](../specifications/01-official-documentation/playwright-official-documentation.md)** ⭐⭐⭐⭐⭐
    - Focus: Locators, assertions, page objects
    - Time: 6-8 hours
    - Module: MOD-03, MOD-04
 
-2. **Practice**: Expand Testing - Practice Sites ⭐⭐⭐⭐⭐
+2. **Practice**: [Expand Testing - Practice Sites](../specifications/06-practice-resources/expand-testing-practice-sites.md) ⭐⭐⭐⭐⭐
    - Focus: Various scenarios
    - Time: 6-8 hours
    - Module: MOD-03
@@ -99,18 +99,18 @@ This document provides recommended learning sequences for different types of lea
 **Goal**: Learn industry best practices
 
 #### Week 13-14: Test Architecture
-1. **Playwright Best Practices Guide** ⭐⭐⭐⭐⭐
+1. **[Playwright Best Practices Guide](../specifications/07-best-practices/playwright-best-practices-guide.md)** ⭐⭐⭐⭐⭐
    - Focus: Complete guide
    - Time: 3-4 hours
    - Module: MOD-04
 
-2. **Test Automation Patterns** ⭐⭐⭐⭐
+2. **[Test Automation Patterns](../specifications/07-best-practices/test-automation-patterns.md)** ⭐⭐⭐⭐
    - Focus: Basic patterns
    - Time: 6-8 hours
    - Module: MOD-04
 
 #### Week 15-16: CI/CD Integration
-1. **GitHub Actions Documentation** ⭐⭐⭐⭐⭐
+1. **[GitHub Actions Documentation](../specifications/05-tools-integration/github-actions-documentation.md)** ⭐⭐⭐⭐⭐
    - Focus: Playwright integration
    - Time: 4-6 hours
    - Module: MOD-05
@@ -127,18 +127,18 @@ This document provides recommended learning sequences for different types of lea
 **Goal**: Bridge programming skills to testing domain
 
 #### Week 1: TypeScript Mastery
-1. **TypeScript Handbook - Complete** ⭐⭐⭐⭐⭐
+1. **[TypeScript Handbook - Complete](../specifications/01-official-documentation/typescript-handbook.md)** ⭐⭐⭐⭐⭐
    - Focus: Advanced types, generics
    - Time: 8-10 hours
    - Module: MOD-01
 
-2. **Jest Documentation** ⭐⭐⭐⭐
+2. **[Jest Documentation](../specifications/05-tools-integration/jest-documentation.md)** ⭐⭐⭐⭐
    - Focus: Testing concepts
    - Time: 3-4 hours
    - Module: MOD-01
 
 #### Week 2: Testing Fundamentals
-1. **Microsoft Learn - Playwright** ⭐⭐⭐⭐⭐
+1. **[Microsoft Learn - Playwright](../specifications/01-official-documentation/microsoft-learn-playwright.md)** ⭐⭐⭐⭐⭐
    - Focus: Complete path
    - Time: 8-10 hours
    - Module: MOD-02
@@ -147,23 +147,23 @@ This document provides recommended learning sequences for different types of lea
 **Goal**: Become proficient with Playwright
 
 #### Week 3-4: Core Skills
-1. **Playwright Official Documentation** ⭐⭐⭐⭐⭐
+1. **[Playwright Official Documentation](../specifications/01-official-documentation/playwright-official-documentation.md)** ⭐⭐⭐⭐⭐
    - Focus: API reference and guides
    - Time: 10-12 hours
    - Module: MOD-02, MOD-03
 
-2. **Official Playwright YouTube Channel** ⭐⭐⭐⭐⭐
+2. **[Official Playwright YouTube Channel](../specifications/03-video-resources/official-playwright-youtube.md)** ⭐⭐⭐⭐⭐
    - Focus: Key feature videos
    - Time: 3-4 hours
    - Module: MOD-02, MOD-03
 
 #### Week 5-6: Advanced Techniques
-1. **Awesome Playwright** ⭐⭐⭐⭐⭐
+1. **[Awesome Playwright](../specifications/04-community-resources/awesome-playwright.md)** ⭐⭐⭐⭐⭐
    - Focus: Advanced examples and patterns
    - Time: 4-6 hours
    - Module: MOD-03, MOD-04
 
-2. **Practice**: 75+ Practice Sites Collection ⭐⭐⭐⭐
+2. **Practice**: [75+ Practice Sites Collection](../specifications/06-practice-resources/practice-sites-collection.md) ⭐⭐⭐⭐
    - Focus: Complex scenarios
    - Time: 8-10 hours
    - Module: MOD-03
@@ -172,23 +172,23 @@ This document provides recommended learning sequences for different types of lea
 **Goal**: Industry-ready skills
 
 #### Week 7-8: Architecture & Patterns
-1. **Playwright Best Practices Guide** ⭐⭐⭐⭐⭐
+1. **[Playwright Best Practices Guide](../specifications/07-best-practices/playwright-best-practices-guide.md)** ⭐⭐⭐⭐⭐
    - Focus: Complete implementation
    - Time: 4-5 hours
    - Module: MOD-04
 
-2. **Test Automation Patterns** ⭐⭐⭐⭐
+2. **[Test Automation Patterns](../specifications/07-best-practices/test-automation-patterns.md)** ⭐⭐⭐⭐
    - Focus: Advanced patterns
    - Time: 8-10 hours
    - Module: MOD-04
 
 #### Week 9-10: CI/CD & Integration
-1. **GitHub Actions Documentation** ⭐⭐⭐⭐⭐
+1. **[GitHub Actions Documentation](../specifications/05-tools-integration/github-actions-documentation.md)** ⭐⭐⭐⭐⭐
    - Focus: Advanced workflows
    - Time: 6-8 hours
    - Module: MOD-05
 
-2. **Vitest Documentation** ⭐⭐⭐⭐
+2. **[Vitest Documentation](../specifications/05-tools-integration/vitest-documentation.md)** ⭐⭐⭐⭐
    - Focus: Modern testing integration
    - Time: 3-4 hours
    - Module: MOD-05
@@ -201,23 +201,23 @@ This document provides recommended learning sequences for different types of lea
 **Goal**: Leverage existing testing knowledge
 
 #### Week 1: Quick Start
-1. **Playwright Official Documentation - Migration Guide** ⭐⭐⭐⭐⭐
+1. **[Playwright Official Documentation - Migration Guide](../specifications/01-official-documentation/playwright-official-documentation.md)** ⭐⭐⭐⭐⭐
    - Focus: Transition from other tools
    - Time: 4-6 hours
    - Module: MOD-02
 
-2. **Try Playwright** ⭐⭐⭐⭐⭐
+2. **[Try Playwright](../specifications/06-practice-resources/try-playwright.md)** ⭐⭐⭐⭐⭐
    - Focus: Hands-on exploration
    - Time: 2-3 hours
    - Module: MOD-02
 
 #### Week 2: Core Features
-1. **Official Playwright YouTube Channel** ⭐⭐⭐⭐⭐
+1. **[Official Playwright YouTube Channel](../specifications/03-video-resources/official-playwright-youtube.md)** ⭐⭐⭐⭐⭐
    - Focus: Feature deep-dives
    - Time: 4-5 hours
    - Module: MOD-02, MOD-03
 
-2. **Microsoft Learn - Playwright** ⭐⭐⭐⭐⭐
+2. **[Microsoft Learn - Playwright](../specifications/01-official-documentation/microsoft-learn-playwright.md)** ⭐⭐⭐⭐⭐
    - Focus: Advanced modules
    - Time: 6-8 hours
    - Module: MOD-03
@@ -226,23 +226,23 @@ This document provides recommended learning sequences for different types of lea
 **Goal**: Master Playwright-specific patterns
 
 #### Week 3: Advanced Techniques
-1. **Playwright Demo Repository** ⭐⭐⭐⭐⭐
+1. **[Playwright Demo Repository](../specifications/04-community-resources/playwright-demo-repository.md)** ⭐⭐⭐⭐⭐
    - Focus: Source code analysis
    - Time: 6-8 hours
    - Module: MOD-03, MOD-04
 
-2. **Stack Overflow - Playwright Tag** ⭐⭐⭐⭐
+2. **[Stack Overflow - Playwright Tag](../specifications/04-community-resources/stackoverflow-playwright-tag.md)** ⭐⭐⭐⭐
    - Focus: Common problems and solutions
    - Time: 3-4 hours
    - Module: MOD-03
 
 #### Week 4: Best Practices
-1. **Playwright Best Practices Guide** ⭐⭐⭐⭐⭐
+1. **[Playwright Best Practices Guide](../specifications/07-best-practices/playwright-best-practices-guide.md)** ⭐⭐⭐⭐⭐
    - Focus: Complete implementation
    - Time: 3-4 hours
    - Module: MOD-04
 
-2. **Playwright Testing Library Integration** ⭐⭐⭐⭐
+2. **[Playwright Testing Library Integration](../specifications/07-best-practices/playwright-testing-library-integration.md)** ⭐⭐⭐⭐
    - Focus: Advanced patterns
    - Time: 4-5 hours
    - Module: MOD-04
@@ -251,12 +251,12 @@ This document provides recommended learning sequences for different types of lea
 **Goal**: Become a Playwright expert
 
 #### Week 5-6: Expert Level
-1. **Community Best Practices Blog Posts** ⭐⭐⭐
+1. **[Community Best Practices Blog Posts](../specifications/07-best-practices/community-best-practices-blog.md)** ⭐⭐⭐
    - Focus: Latest trends and techniques
    - Time: 4-6 hours
    - Module: MOD-04, MOD-05
 
-2. **Advanced Practice**: Expand Testing - Practice Sites ⭐⭐⭐⭐⭐
+2. **Advanced Practice**: [Expand Testing - Practice Sites](../specifications/06-practice-resources/expand-testing-practice-sites.md) ⭐⭐⭐⭐⭐
    - Focus: Complex automation challenges
    - Time: 8-10 hours
    - Module: MOD-04
@@ -269,18 +269,18 @@ This document provides recommended learning sequences for different types of lea
 **Goal**: Stay current with latest developments
 
 #### Week 1: Latest Features
-1. **Official Playwright YouTube Channel** ⭐⭐⭐⭐⭐
+1. **[Official Playwright YouTube Channel](../specifications/03-video-resources/official-playwright-youtube.md)** ⭐⭐⭐⭐⭐
    - Focus: Latest conference talks and features
    - Time: 3-4 hours
    - Module: MOD-05
 
-2. **Awesome Playwright** ⭐⭐⭐⭐⭐
+2. **[Awesome Playwright](../specifications/04-community-resources/awesome-playwright.md)** ⭐⭐⭐⭐⭐
    - Focus: Cutting-edge tools and plugins
    - Time: 3-4 hours
    - Module: MOD-05
 
 #### Week 2: Advanced Integration
-1. **Playwright Community Examples** ⭐⭐⭐⭐
+1. **[Playwright Community Examples](../specifications/04-community-resources/playwright-community-examples.md)** ⭐⭐⭐⭐
    - Focus: Advanced implementation patterns
    - Time: 6-8 hours
    - Module: MOD-05
@@ -365,3 +365,9 @@ This document provides recommended learning sequences for different types of lea
 - **Extended Practice**: Add 2-4 weeks of additional practice between phases
 - **Deep Dive**: Spend extra time on specific topics of interest
 - **Project Focus**: Dedicate final weeks to real-world project implementation
+
+---
+## 📚 Related Guides
+- [Access Guide](./access-guide.md)
+- [Integration Recommendations](./integration-recommendations.md)
+- [Module-Resource Mapping](./module-mapping.md)

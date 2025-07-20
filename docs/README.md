@@ -75,8 +75,16 @@ This project follows key educational principles:
 - **Beginner-First**: Assume zero prior knowledge
 - **Progressive Learning**: Build complexity gradually
 - **Practical Application**: Hands-on learning emphasis
-- **Resource-Rich**: 25+ curated free resources
+- **Resource-Rich**: 24+ curated free resources
 - **Multi-Path**: Personalized learning journeys
+
+##  LIBRARY Comprehensive Resource Library
+
+A cornerstone of this project is the comprehensive library of over 24 curated free online resources, which have been systematically researched, evaluated, and organized to support the 7-module curriculum.
+
+- **Research Summary**: Get a high-level overview of our research findings in the [Resource Integration Summary](./resources/INTEGRATION_SUMMARY.md).
+- **Master Index**: Explore the complete catalog in the [Master Resource Index](./resources/master-resource-index.md).
+- **Resource Categories**: Browse resources by topic in the [Categories Directory](./resources/categories/README.md).
 
 ## 🔧 Technical Architecture
 

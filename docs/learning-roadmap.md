@@ -49,17 +49,17 @@ graph TD
 
 | Module ID | Module Name | Focus |
 | :--- | :--- | :--- |
-| **MOD-01** | Foundations of Web Technologies | HTML, CSS, HTTP, DevTools |
-| **MOD-02** | TypeScript for Automation | TypeScript from basics to advanced |
-| **MOD-03** | Playwright Fundamentals | Core concepts, first tests, locators |
-| **MOD-04** | Advanced Playwright Techniques | Auth, network, file I/O, API testing |
-| **MOD-05** | Test Design and Architecture | POM, data management, best practices |
-| **MOD-06** | CI/CD and DevOps Integration | GitHub Actions, Docker, parallelization |
-| **MOD-07** | Advanced Topics and Specialization | Visual, performance, accessibility testing |
+| **MOD-01** | [Foundations of Web Technologies](./resources/categories/01-official-documentation.md) | HTML, CSS, HTTP, DevTools |
+| **MOD-02** | [TypeScript for Automation](./resources/categories/01-official-documentation.md) | TypeScript from basics to advanced |
+| **MOD-03** | [Playwright Fundamentals](./resources/categories/06-practice-resources.md) | Core concepts, first tests, locators |
+| **MOD-04** | [Advanced Playwright Techniques](./resources/categories/04-community-resources.md) | Auth, network, file I/O, API testing |
+| **MOD-05** | [Test Design and Architecture](./resources/categories/07-best-practices.md) | POM, data management, best practices |
+| **MOD-06** | [CI/CD and DevOps Integration](./resources/categories/05-tools-integration.md) | GitHub Actions, Docker, parallelization |
+| **MOD-07** | [Advanced Topics and Specialization](./resources/categories/07-best-practices.md) | Visual, performance, accessibility testing |
 
 ## 3. Learning Paths
 
-We cater to four distinct learner profiles, each with a tailored path through the modules.
+We cater to four distinct learner profiles, each with a tailored path through the modules. Detailed learning journeys, including resource suggestions for each step, are available in the [Learning Paths Guide](./resources/guides/learning-paths.md).
 
 | Path | Target Audience | Duration | Entry Point |
 | :--- | :--- | :--- | :--- |
@@ -70,10 +70,11 @@ We cater to four distinct learner profiles, each with a tailored path through th
 
 ## 4. Resource Integration Plan
 
-Our curriculum is powered by a curated collection of over 25 of the best free online resources.
+Our curriculum is powered by a curated collection of over 24 of the best free online resources. These have been meticulously organized into a comprehensive resource library.
 
--   **11 Essential (⭐⭐⭐⭐⭐) resources** are deeply integrated into the core curriculum.
--   **12 Highly Recommended (⭐⭐⭐⭐) resources** provide supplementary learning and alternative perspectives.
+-   **Resource Integration**: Each module is supported by a set of specific resources. See the full breakdown in the [Module-Resource Mapping guide](./resources/guides/module-mapping.md).
+-   **8 Essential (⭐⭐⭐⭐⭐) resources** are deeply integrated into the core curriculum.
+-   **Resource Curation**: All resources are detailed in the [Master Resource Index](./resources/master-resource-index.md).
 -   **Resource updates** are planned quarterly to ensure all materials are current (2024-2025 focus).
 
 ## 5. Assessment Strategy

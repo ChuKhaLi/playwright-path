@@ -2,6 +2,8 @@
 
 This guide provides detailed information about accessing curated resources, including registration requirements, formats, time commitments, and any special considerations for learners.
 
+For a complete overview, refer to the [Master Resource Index](../master-resource-index.md). For quick lookups, see the [Resource Summary](../quick-reference/resource-summary.md) and [Cheat Sheet](../quick-reference/cheat-sheet.md).
+
 ## 🔑 Access Requirements Overview
 
 ### No Registration Required (18 resources)
@@ -23,9 +25,9 @@ This guide provides detailed information about accessing curated resources, incl
 
 ## 📋 Detailed Access Information
 
-## 1. Official Documentation and Guides
+## 1. [Official Documentation and Guides](../categories/01-official-documentation.md)
 
-### Playwright Official Documentation ⭐⭐⭐⭐⭐
+### [Playwright Official Documentation](../specifications/01-official-documentation/playwright-official-documentation.md) ⭐⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://playwright.dev/
 - **Format**: Interactive web documentation
@@ -36,7 +38,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Best Access Method**: Desktop browser for code examples
 - **Special Features**: Interactive code playground, search functionality
 
-### TypeScript Handbook ⭐⭐⭐⭐⭐
+### [TypeScript Handbook](../specifications/01-official-documentation/typescript-handbook.md) ⭐⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://www.typescriptlang.org/docs/
 - **Format**: Structured web documentation
@@ -47,7 +49,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Best Access Method**: Desktop browser with code editor
 - **Special Features**: TypeScript playground integration
 
-### Microsoft Learn - Playwright ⭐⭐⭐⭐⭐
+### [Microsoft Learn - Playwright](../specifications/01-official-documentation/microsoft-learn-playwright.md) ⭐⭐⭐⭐⭐
 - **Access**: Free registration recommended (optional)
 - **URL**: https://learn.microsoft.com/en-us/training/paths/playwright/
 - **Format**: Interactive learning modules
@@ -60,9 +62,9 @@ This guide provides detailed information about accessing curated resources, incl
 
 ---
 
-## 2. Educational Platforms and Free Courses
+## 2. [Educational Platforms and Free Courses](../categories/02-educational-platforms.md)
 
-### freeCodeCamp - JavaScript Testing ⭐⭐⭐⭐
+### [freeCodeCamp - JavaScript Testing](../specifications/02-educational-platforms/freecodecamp-javascript-testing.md) ⭐⭐⭐⭐
 - **Access**: Free registration required
 - **URL**: https://www.freecodecamp.org/learn/
 - **Format**: Interactive coding challenges
@@ -74,7 +76,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Registration Requirements**: Email address, username
 - **Special Features**: Progress tracking, completion certificates, community forum
 
-### Coursera - Software Testing Courses ⭐⭐⭐⭐
+### [Coursera - Software Testing Courses](../specifications/02-educational-platforms/coursera-software-testing.md) ⭐⭐⭐⭐
 - **Access**: Audit mode (free) or paid enrollment
 - **URL**: https://www.coursera.org/courses?query=software%20testing
 - **Format**: Video lectures, assignments, peer reviews
@@ -87,7 +89,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Audit Mode Benefits**: Full access to video content and readings
 - **Audit Mode Limitations**: No graded assignments, no certificate
 
-### Class Central - Web Development Testing ⭐⭐⭐
+### [Class Central - Web Development Testing](../specifications/02-educational-platforms/class-central-web-development.md) ⭐⭐⭐
 - **Access**: No registration required (aggregator site)
 - **URL**: https://www.classcentral.com/subject/web-development
 - **Format**: Course listings and reviews
@@ -100,9 +102,9 @@ This guide provides detailed information about accessing curated resources, incl
 
 ---
 
-## 3. YouTube Channels and Video Resources
+## 3. [YouTube Channels and Video Resources](../categories/03-video-resources.md)
 
-### Official Playwright YouTube Channel ⭐⭐⭐⭐⭐
+### [Official Playwright YouTube Channel](../specifications/03-video-resources/official-playwright-youtube.md) ⭐⭐⭐⭐⭐
 - **Access**: No registration required (registration for features)
 - **URL**: https://www.youtube.com/@Playwright
 - **Format**: Video tutorials and presentations
@@ -114,7 +116,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Optional Registration Benefits**: Subscriptions, playlists, comments
 - **Video Quality**: Up to 4K available
 
-### TypeScript Course - Programming with Mosh ⭐⭐⭐⭐
+### [TypeScript Course - Programming with Mosh](../specifications/03-video-resources/typescript-course-mosh.md) ⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://www.youtube.com/watch?v=d56mG7DezGs
 - **Format**: Single comprehensive video course
@@ -126,7 +128,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Video Quality**: HD available
 - **Special Features**: Timestamps for easy navigation
 
-### Playwright Tutorial Series - Automation Step by Step ⭐⭐⭐⭐
+### [Playwright Tutorial Series - Automation Step by Step](../specifications/03-video-resources/playwright-tutorial-series.md) ⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://www.youtube.com/playlist?list=PLhW3qG5bs-L9LuOqHigGPqsYGmUqktTXz
 - **Format**: Playlist of tutorial videos
@@ -139,9 +141,9 @@ This guide provides detailed information about accessing curated resources, incl
 
 ---
 
-## 4. Community Resources and GitHub Repositories
+## 4. [Community Resources and GitHub Repositories](../categories/04-community-resources.md)
 
-### Awesome Playwright ⭐⭐⭐⭐⭐
+### [Awesome Playwright](../specifications/04-community-resources/awesome-playwright.md) ⭐⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://github.com/mxschmitt/awesome-playwright
 - **Format**: Curated markdown list
@@ -152,7 +154,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Best Access Method**: Desktop browser for link navigation
 - **Special Features**: Regular updates, community contributions
 
-### Playwright Demo Repository ⭐⭐⭐⭐⭐
+### [Playwright Demo Repository](../specifications/04-community-resources/playwright-demo-repository.md) ⭐⭐⭐⭐⭐
 - **Access**: No registration required (registration for contributions)
 - **URL**: https://github.com/microsoft/playwright
 - **Format**: Source code repository
@@ -164,7 +166,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Clone Command**: `git clone https://github.com/microsoft/playwright.git`
 - **Special Features**: Issue tracking, discussions, releases
 
-### Stack Overflow - Playwright Tag ⭐⭐⭐⭐
+### [Stack Overflow - Playwright Tag](../specifications/04-community-resources/stackoverflow-playwright-tag.md) ⭐⭐⭐⭐
 - **Access**: No registration required (registration for participation)
 - **URL**: https://stackoverflow.com/questions/tagged/playwright
 - **Format**: Q&A community platform
@@ -176,7 +178,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Registration Benefits**: Ask questions, vote, comment
 - **Search Tips**: Use specific error messages, include code snippets
 
-### Playwright Community Examples ⭐⭐⭐⭐
+### [Playwright Community Examples](../specifications/04-community-resources/playwright-community-examples.md) ⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://github.com/topics/playwright-examples
 - **Format**: Multiple GitHub repositories
@@ -189,9 +191,9 @@ This guide provides detailed information about accessing curated resources, incl
 
 ---
 
-## 5. Tools and Frameworks Integration
+## 5. [Tools and Frameworks Integration](../categories/05-tools-integration.md)
 
-### Jest Documentation ⭐⭐⭐⭐
+### [Jest Documentation](../specifications/05-tools-integration/jest-documentation.md) ⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://jestjs.io/docs/getting-started
 - **Format**: Web documentation
@@ -202,7 +204,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Best Access Method**: Desktop browser with code editor
 - **Special Features**: Interactive examples, API reference
 
-### GitHub Actions Documentation ⭐⭐⭐⭐⭐
+### [GitHub Actions Documentation](../specifications/05-tools-integration/github-actions-documentation.md) ⭐⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://docs.github.com/en/actions
 - **Format**: Comprehensive web documentation
@@ -213,7 +215,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Best Access Method**: Desktop browser
 - **Special Features**: Workflow examples, marketplace integration
 
-### Vitest Documentation ⭐⭐⭐⭐
+### [Vitest Documentation](../specifications/05-tools-integration/vitest-documentation.md) ⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://vitest.dev/guide/
 - **Format**: Modern web documentation
@@ -226,9 +228,9 @@ This guide provides detailed information about accessing curated resources, incl
 
 ---
 
-## 6. Practice Resources and Demo Sites
+## 6. [Practice Resources and Demo Sites](../categories/06-practice-resources.md)
 
-### Expand Testing - Practice Sites ⭐⭐⭐⭐⭐
+### [Expand Testing - Practice Sites](../specifications/06-practice-resources/expand-testing-practice-sites.md) ⭐⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://practice.expandtesting.com/
 - **Format**: Interactive web applications
@@ -240,7 +242,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Special Features**: Designed specifically for automation testing
 - **Practice Scenarios**: Forms, authentication, file uploads, dynamic content
 
-### Try Playwright ⭐⭐⭐⭐⭐
+### [Try Playwright](../specifications/06-practice-resources/try-playwright.md) ⭐⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://try.playwright.tech/
 - **Format**: Interactive online playground
@@ -252,7 +254,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Special Features**: Real-time code execution, shareable links
 - **Supported Languages**: TypeScript, JavaScript, Python, Java, C#
 
-### 75+ Practice Sites Collection ⭐⭐⭐⭐
+### [75+ Practice Sites Collection](../specifications/06-practice-resources/practice-sites-collection.md) ⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://github.com/Playwright-Community/practice-sites
 - **Format**: Curated list of practice websites
@@ -263,7 +265,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Best Access Method**: Desktop browser for automation
 - **Special Features**: Categorized by difficulty and scenario type
 
-### The Internet - Herokuapp ⭐⭐⭐⭐
+### [The Internet - Herokuapp](../specifications/06-practice-resources/the-internet-herokuapp.md) ⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://the-internet.herokuapp.com/
 - **Format**: Practice web application
@@ -277,9 +279,9 @@ This guide provides detailed information about accessing curated resources, incl
 
 ---
 
-## 7. Best Practices and Advanced Resources
+## 7. [Best Practices and Advanced Resources](../categories/07-best-practices.md)
 
-### Playwright Best Practices Guide ⭐⭐⭐⭐⭐
+### [Playwright Best Practices Guide](../specifications/07-best-practices/playwright-best-practices-guide.md) ⭐⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://playwright.dev/docs/best-practices
 - **Format**: Official documentation
@@ -290,7 +292,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Best Access Method**: Desktop browser
 - **Special Features**: Official recommendations, code examples
 
-### Test Automation Patterns ⭐⭐⭐⭐
+### [Test Automation Patterns](../specifications/07-best-practices/test-automation-patterns.md) ⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://testautomationpatterns.org/
 - **Format**: Comprehensive pattern library
@@ -301,7 +303,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Best Access Method**: Desktop browser for detailed reading
 - **Special Features**: Searchable patterns, categorized by type
 
-### Community Best Practices Blog Posts ⭐⭐⭐
+### [Community Best Practices Blog Posts](../specifications/07-best-practices/community-best-practices-blog.md) ⭐⭐⭐
 - **Access**: No registration required (varies by platform)
 - **URL**: https://dev.to/t/playwright
 - **Format**: Blog articles and tutorials
@@ -312,7 +314,7 @@ This guide provides detailed information about accessing curated resources, incl
 - **Best Access Method**: Any device for reading
 - **Special Features**: Community insights, real-world experiences
 
-### Playwright Testing Library Integration ⭐⭐⭐⭐
+### [Playwright Testing Library Integration](../specifications/07-best-practices/playwright-testing-library-integration.md) ⭐⭐⭐⭐
 - **Access**: No registration required
 - **URL**: https://testing-library.com/docs/pptr-testing-library/intro/
 - **Format**: Documentation and examples
@@ -374,6 +376,16 @@ This guide provides detailed information about accessing curated resources, incl
 - **Git**: For cloning repositories and version control
 - **Multiple Monitors**: Helpful for following video tutorials while coding
 
+### Windows-Specific Considerations
+- **PowerShell**: Use PowerShell 7+ for better cross-platform compatibility
+- **Windows Terminal**: Recommended for improved command-line experience
+- **File Paths**: Use forward slashes (/) in Playwright configuration files
+- **Node.js Installation**: Use the official installer or Windows Package Manager (`winget install OpenJS.NodeJS`)
+- **Git Installation**: Use Git for Windows with Windows Terminal integration
+- **Docker Desktop**: Required for containerized testing scenarios (Windows 10/11 Pro, Enterprise, or Education)
+- **WSL2**: Optional but recommended for Linux-compatible development environment
+- **Antivirus Exclusions**: Add Node.js and project directories to antivirus exclusions for better performance
+
 ### Accessibility Features
 - **Screen Reader Support**: Most documentation sites support screen readers
 - **Keyboard Navigation**: Available on all major platforms
@@ -420,3 +432,9 @@ This guide provides detailed information about accessing curated resources, incl
 3. Practice with Expand Testing sites
 
 This access guide ensures learners can make informed decisions about resource selection based on their technical setup, time availability, and learning preferences.
+
+---
+## 📚 Related Guides
+- [Integration Recommendations](./integration-recommendations.md)
+- [Learning Paths](./learning-paths.md)
+- [Module-Resource Mapping](./module-mapping.md)
