@@ -26,11 +26,11 @@
 - N/A
 
 ## 🔗 Resource Specifications
-- [freeCodeCamp - JavaScript Testing](../../specifications/02-educational-platforms/freecodecamp-javascript-testing.md)
-- [Coursera - Software Testing](../../specifications/02-educational-platforms/coursera-software-testing.md)
-- [Class Central - Web Development](../../specifications/02-educational-platforms/class-central-web-development.md)
-- [The Odin Project - Web Development 101](../../specifications/02-educational-platforms/the-odin-project.md)
-- [ExecuteProgram - TypeScript Course](../../specifications/02-educational-platforms/executeprogram-typescript.md)
+- [freeCodeCamp - JavaScript Testing](../specifications/02-educational-platforms/freecodecamp-javascript-testing.md)
+- [Coursera - Software Testing](../specifications/02-educational-platforms/coursera-software-testing.md)
+- [Class Central - Web Development](../specifications/02-educational-platforms/class-central-web-development.md)
+- [The Odin Project - Web Development 101](../specifications/02-educational-platforms/the-odin-project.md)
+- [ExecuteProgram - TypeScript Course](../specifications/02-educational-platforms/executeprogram-typescript.md)
 
 ## 📈 Usage Recommendations
 

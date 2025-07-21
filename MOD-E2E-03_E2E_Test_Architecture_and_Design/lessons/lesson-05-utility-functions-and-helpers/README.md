@@ -53,7 +53,7 @@ This lesson focuses on creating reusable utility functions and helper libraries 
 - **[Examples](examples/)**: Utility function examples and libraries
 - **[Exercises](exercises/)**: Hands-on utility development
 - **[Assessment](assessment.md)**: Code organization evaluation
-- **[Resources](resources.md)**: Utility design best practices
+- **[Resources](../../../MOD-01_Foundations/lessons/lesson-01-html-document-structure/resources.md)**: Utility design best practices
 
 ## 🎯 Success Criteria
 

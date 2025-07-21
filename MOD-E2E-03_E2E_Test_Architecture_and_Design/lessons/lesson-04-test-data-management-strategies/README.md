@@ -51,7 +51,7 @@ This lesson focuses on professional test data management strategies that work se
 - **[Examples](examples/)**: Implementation examples and code samples
 - **[Exercises](exercises/)**: Hands-on data management challenges
 - **[Assessment](assessment.md)**: Data architecture evaluation
-- **[Resources](resources.md)**: Data management best practices
+- **[Resources](../../../MOD-01_Foundations/lessons/lesson-01-html-document-structure/resources.md)**: Data management best practices
 
 ## 🎯 Success Criteria
 
@@ -64,7 +64,7 @@ By completing this lesson, you should be able to:
 
 ## 🔗 Connections
 
-**Previous**: [Lesson 03: API Client Architecture Patterns](../lesson-03-api-client-architecture-patterns/)  
+**Previous**: [Lesson 03: API Client Architecture Patterns](../../../MOD-API-03_API_Test_Architecture_and_Contracts/lessons/lesson-03-api-client-architecture-patterns)  
 **Next**: [Lesson 05: Utility Functions and Helpers](../lesson-05-utility-functions-and-helpers/)  
 **Related**: Lesson 07 (Design Patterns), Lesson 12 (Hybrid Architecture)
 

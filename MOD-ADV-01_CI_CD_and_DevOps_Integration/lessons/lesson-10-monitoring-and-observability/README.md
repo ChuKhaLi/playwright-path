@@ -267,7 +267,7 @@ This comprehensive lesson focuses on implementing production-grade monitoring an
 - **Training and Education**: Train teams on monitoring best practices
 - **Open Source Contribution**: Contribute to monitoring and observability tools
 
-**Next Module**: [MOD-07: Advanced Topics and Specialization →](../../MOD-07_Advanced_Topics_and_Specialization/)
+**Next Module**: [MOD-07: Advanced Topics and Specialization →](../../../docs/memory-bank/modules/MOD-07_Advanced_Topics_and_Specialization)
 
 ---
 

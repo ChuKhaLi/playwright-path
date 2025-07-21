@@ -61,5 +61,5 @@
 
 ## 🔄 Related Resources
 - **Prerequisites**: [TypeScript Handbook](typescript-handbook.md)
-- **Follow-up Resources**: [Awesome Playwright](awesome-playwright.md)
+- **Follow-up Resources**: [Awesome Playwright](../04-community-resources/awesome-playwright.md)
 - **Alternative Options**: None

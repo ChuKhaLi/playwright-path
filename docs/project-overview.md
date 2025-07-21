@@ -70,7 +70,9 @@ Based on research findings, we developed 4 distinct learning paths:
 
 ## The 7-Module Architecture
 
-### Module Structure Overview
+### Granular Module Structure
+
+The curriculum is built upon a 7-module architecture, but with a highly granular approach. Each module is not a single, monolithic block of content; instead, it is composed of many smaller, focused lessons. This structure allows for a more flexible and manageable learning experience, where learners can master individual concepts before moving on.
 
 | Module | Focus Area | Duration | Key Outcomes |
 |--------|------------|----------|--------------|
@@ -81,6 +83,8 @@ Based on research findings, we developed 4 distinct learning paths:
 | **MOD-05** | Test Design and Architecture | 3-5 weeks | POM, best practices, maintainable code |
 | **MOD-06** | CI/CD and DevOps Integration | 2-4 weeks | Pipeline integration, automation |
 | **MOD-07** | Advanced Topics and Specialization | 3-6 weeks | Visual, performance, accessibility testing |
+
+This lesson-based architecture ensures that each topic is covered in depth, with its own set of examples and exercises, providing a more robust and effective learning journey.
 
 ### Progressive Learning Design
 

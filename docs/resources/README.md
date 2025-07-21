@@ -4,8 +4,8 @@ This directory contains curated free online resources to support the learning-pl
 
 > 📖 **Related Documentation**:
 > - [Project Overview](../project-overview.md) - Complete project summary and research findings
-> - [Learning Roadmap](../learning-roadmap.md) - Master learning roadmap with module structure
-> - [Implementation Guide](../implementation-guide.md) - How to use these resources for content creation
+> - [Learning Roadmap](../roadmaps/learning-roadmap.md) - Master learning roadmap with module structure
+> - [Implementation Guide](../guides/implementation-guide.md) - How to use these resources for content creation
 
 ## 📁 Directory Structure
 

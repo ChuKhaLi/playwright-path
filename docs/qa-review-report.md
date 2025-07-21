@@ -24,8 +24,8 @@ This quality assurance review evaluates the comprehensive documentation system c
 - Main project README.md
 - Documentation hub (docs/README.md)
 - Project overview (docs/project-overview.md)
-- Implementation guide (docs/implementation-guide.md)
-- Learning roadmap (docs/learning-roadmap.md)
+- Implementation guide (docs/guides/implementation-guide.md)
+- Learning roadmap (roadmaps/roadmap.md)
 - Resource documentation system (docs/resources/)
 - Memory bank system (docs/memory-bank/)
 
@@ -82,7 +82,7 @@ This quality assurance review evaluates the comprehensive documentation system c
 - ✅ Success metrics clearly defined
 - ✅ Future vision appropriately ambitious yet realistic
 
-### 4. Implementation Guide (docs/implementation-guide.md) ✅ PASSED
+### 4. Implementation Guide (guides/implementation-guide.md) ✅ PASSED
 
 **Strengths:**
 - ✅ Comprehensive content creation workflow
@@ -97,7 +97,7 @@ This quality assurance review evaluates the comprehensive documentation system c
 - ✅ Assessment rubrics and milestone systems
 - ✅ Community contribution guidelines
 
-### 5. Learning Roadmap (docs/learning-roadmap.md) ✅ PASSED
+### 5. Learning Roadmap (roadmaps/roadmap.md) ✅ PASSED
 
 **Strengths:**
 - ✅ Clear 7-module progression structure

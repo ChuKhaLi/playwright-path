@@ -51,7 +51,7 @@ This lesson focuses on creating sophisticated custom fixtures and hooks that ena
 - **[Examples](examples/)**: Advanced fixture implementations
 - **[Exercises](exercises/)**: Complex fixture development challenges
 - **[Assessment](assessment.md)**: Fixture architecture evaluation
-- **[Resources](resources.md)**: Fixture design best practices
+- **[Resources](../../../MOD-01_Foundations/lessons/lesson-01-html-document-structure/resources.md)**: Fixture design best practices
 
 ## 🎯 Success Criteria
 

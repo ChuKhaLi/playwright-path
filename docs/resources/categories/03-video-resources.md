@@ -24,9 +24,9 @@
 - N/A
 
 ## 🔗 Resource Specifications
-- [Official Playwright YouTube](../../specifications/03-video-resources/official-playwright-youtube.md)
-- [TypeScript Course by Mosh](../../specifications/03-video-resources/typescript-course-mosh.md)
-- [Playwright Tutorial Series](../../specifications/03-video-resources/playwright-tutorial-series.md)
+- [Official Playwright YouTube](../specifications/03-video-resources/official-playwright-youtube.md)
+- [TypeScript Course by Mosh](../specifications/03-video-resources/typescript-course-mosh.md)
+- [Playwright Tutorial Series](../specifications/03-video-resources/playwright-tutorial-series.md)
 
 ## 📈 Usage Recommendations
 

@@ -12,7 +12,7 @@ By the end of this module, learners will be able to:
 
 ### 2. Project Structure and Organization
 - Understand and implement proper Playwright project structure
-- Configure [`playwright.config.ts`](../../../MOD-E2E-01_Playwright_E2E_Fundamentals/lessons/lesson-01-playwright-installation-and-setup/examples/basic-playwright-config.ts) for different environments
+- Configure [`playwright.config.ts`](../../../../MOD-E2E-01_Playwright_E2E_Fundamentals/lessons/lesson-01-playwright-installation-and-setup/examples/basic-playwright-config.ts) for different environments
 - Organize test files and directories following best practices
 - Manage test data and resources effectively
 
@@ -57,7 +57,7 @@ By the end of this module, learners will be able to:
 
 **Planned Objectives**:
 - Understand Playwright project directory structure
-- Configure [`playwright.config.ts`](../../../MOD-E2E-01_Playwright_E2E_Fundamentals/lessons/lesson-01-playwright-installation-and-setup/examples/basic-playwright-config.ts) for different environments
+- Configure [`playwright.config.ts`](../../../../MOD-E2E-01_Playwright_E2E_Fundamentals/lessons/lesson-01-playwright-installation-and-setup/examples/basic-playwright-config.ts) for different environments
 - Set up test directories and naming conventions
 - Configure browser settings and test execution options
 - Implement environment-specific configurations

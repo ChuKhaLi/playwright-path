@@ -51,7 +51,7 @@ This lesson focuses on building robust configuration management systems that sup
 - **[Examples](examples/)**: Configuration system examples
 - **[Exercises](exercises/)**: Configuration implementation challenges
 - **[Assessment](assessment.md)**: Configuration architecture evaluation
-- **[Resources](resources.md)**: Configuration best practices
+- **[Resources](../../../MOD-01_Foundations/lessons/lesson-01-html-document-structure/resources.md)**: Configuration best practices
 
 ## 🎯 Success Criteria
 

@@ -34,9 +34,9 @@ This guide provides comprehensive instructions for using the Learning Playwright
 ```
 learning-playwright/
 ├── docs/
-│   ├── learning-roadmap.md          # Master roadmap document
+│   ├── roadmaps/learning-roadmap.md          # Master roadmap document
 │   ├── project-overview.md          # Comprehensive project summary
-│   ├── implementation-guide.md      # This document
+│   ├── guides/implementation-guide.md      # This document
 │   ├── resources/                   # Resource documentation system
 │   └── memory-bank/                 # AI memory and project state
 ├── modules/                         # Future: Actual learning modules
@@ -95,13 +95,13 @@ Content must support 4 different learning paths:
 ### Phase 1: Planning and Research
 
 1. **Review Module Specifications**
-   - Read [`docs/memory-bank/modules/MOD-XX_Name/module_spec.md`](docs/memory-bank/modules/)
+   - Read [`docs/memory-bank/modules/MOD-XX_Name/module_spec.md`](../memory-bank/modules)
    - Understand learning objectives
    - Identify prerequisite knowledge
    - Review resource mappings
 
 2. **Analyze Target Resources**
-   - Study assigned resources from [`docs/resources/module-mapping.md`](docs/resources/module-mapping.md)
+   - Study assigned resources from [`docs/resources/module-mapping.md`](../resources/guides/module-mapping.md)
    - Identify key concepts and examples
    - Plan integration points
    - Note any gaps or overlaps
@@ -227,15 +227,15 @@ async function loginUser(page: Page, credentials: LoginCredentials): Promise<voi
 The comprehensive resource library is a key asset for content creation. Understanding its structure is essential for effective integration.
 
 - #### Using Resource Specifications
-  - Each resource has a dedicated [specification file](./resources/specifications/README.md) detailing its strengths, weaknesses, and ideal use case.
+  - Each resource has a dedicated [specification file](../../resources/specifications/README.md) detailing its strengths, weaknesses, and ideal use case.
   - **Action**: Before integrating a resource, review its specification to ensure it aligns with your learning objectives.
 
 - #### Leveraging Category Files
-  - Resources are grouped into seven main [categories](./resources/categories/README.md).
+  - Resources are grouped into seven main [categories](../../resources/categories/README.md).
   - **Action**: Use the category files to find alternative or supplementary resources for a specific topic.
 
 - #### Utilizing Templates
-  - The [templates](./resources/templates/) folder contains a [Resource Evaluation Template](./resources/templates/resource-evaluation-template.md) and a [Learning Path Template](./resources/templates/learning-path-template.md).
+  - The [templates](../resources/templates) folder contains a [Resource Evaluation Template](../resources/templates/resource-evaluation-template.md) and a [Learning Path Template](../resources/templates/learning-path-template.md).
   - **Action**: Use the evaluation template when proposing new resources. Use the learning path template to design custom learning journeys.
 
 - #### Best Practices for Integration

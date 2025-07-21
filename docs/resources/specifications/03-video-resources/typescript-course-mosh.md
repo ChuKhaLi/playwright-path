@@ -61,5 +61,5 @@
 
 ## 🔄 Related Resources
 - **Prerequisites**: Basic JavaScript knowledge.
-- **Follow-up Resources**: [TypeScript Handbook](typescript-handbook.md)
+- **Follow-up Resources**: [TypeScript Handbook](../01-official-documentation/typescript-handbook.md)
 - **Alternative Options**: Other TypeScript courses on YouTube.

@@ -1,0 +1,1 @@
+# Lesson 1.7: Browser Developer Tools Mastery

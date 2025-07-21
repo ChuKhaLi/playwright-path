@@ -51,7 +51,7 @@ This lesson advances your Page Object Model skills by introducing sophisticated 
 - **[Examples](examples/)**: Complex page object examples
 - **[Exercises](exercises/)**: Advanced practice challenges
 - **[Assessment](assessment.md)**: Pattern application evaluation
-- **[Resources](resources.md)**: Enterprise POM resources
+- **[Resources](../../../MOD-01_Foundations/lessons/lesson-01-html-document-structure/resources.md)**: Enterprise POM resources
 
 ## 🎯 Success Criteria
 
@@ -65,7 +65,7 @@ By completing this lesson, you should be able to:
 ## 🔗 Connections
 
 **Previous**: [Lesson 01: Page Object Model Fundamentals](../lesson-01-page-object-model-fundamentals/)  
-**Next**: [Lesson 03: API Client Architecture Patterns](../lesson-03-api-client-architecture-patterns/)  
+**Next**: [Lesson 03: API Client Architecture Patterns](../../../MOD-API-03_API_Test_Architecture_and_Contracts/lessons/lesson-03-api-client-architecture-patterns)  
 **Related**: Lesson 09 (Custom Fixtures), Lesson 12 (Hybrid Architecture)
 
 ---

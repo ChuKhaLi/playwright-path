@@ -57,7 +57,7 @@ The Page Object Model is a fundamental design pattern in E2E test automation tha
 - **[Examples](examples/)**: Code implementations and samples
 - **[Exercises](exercises/)**: Hands-on practice activities
 - **[Assessment](assessment.md)**: Knowledge validation
-- **[Resources](resources.md)**: Additional learning materials
+- **[Resources](../../../MOD-01_Foundations/lessons/lesson-01-html-document-structure/resources.md)**: Additional learning materials
 
 ## 🎯 Success Criteria
 

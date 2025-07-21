@@ -27,11 +27,11 @@
 - **JSONPlaceholder**: A fake online REST API for testing and prototyping. Perfect for practicing API requests.
 
 ## 🔗 Resource Specifications
-- [Try Playwright](../../specifications/06-practice-resources/try-playwright.md)
-- [The Internet - Herokuapp](../../specifications/06-practice-resources/the-internet-herokuapp.md)
-- [Practice Sites Collection](../../specifications/06-practice-resources/practice-sites-collection.md)
-- [Expand Testing - Practice Sites](../../specifications/06-practice-resources/expand-testing-practice-sites.md)
-- [JSONPlaceholder - Fake Online REST API](../../specifications/06-practice-resources/jsonplaceholder-api.md)
+- [Try Playwright](../specifications/06-practice-resources/try-playwright.md)
+- [The Internet - Herokuapp](../specifications/06-practice-resources/the-internet-herokuapp.md)
+- [Practice Sites Collection](../specifications/06-practice-resources/practice-sites-collection.md)
+- [Expand Testing - Practice Sites](../specifications/06-practice-resources/expand-testing-practice-sites.md)
+- [JSONPlaceholder - Fake Online REST API](../specifications/06-practice-resources/jsonplaceholder-api.md)
 
 ## 📈 Usage Recommendations
 

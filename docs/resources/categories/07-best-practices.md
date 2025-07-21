@@ -25,10 +25,10 @@
 - **Community Best Practices Blog Posts**: Articles and blog posts from experienced practitioners sharing their tips and tricks.
 
 ## 🔗 Resource Specifications
-- [Playwright Best Practices Guide](../../specifications/07-best-practices/playwright-best-practices-guide.md)
-- [Test Automation Patterns](../../specifications/07-best-practices/test-automation-patterns.md)
-- [Playwright Testing Library Integration](../../specifications/07-best-practices/playwright-testing-library-integration.md)
-- [Community Best Practices Blog](../../specifications/07-best-practices/community-best-practices-blog.md)
+- [Playwright Best Practices Guide](../specifications/07-best-practices/playwright-best-practices-guide.md)
+- [Test Automation Patterns](../specifications/07-best-practices/test-automation-patterns.md)
+- [Playwright Testing Library Integration](../specifications/07-best-practices/playwright-testing-library-integration.md)
+- [Community Best Practices Blog](../specifications/07-best-practices/community-best-practices-blog.md)
 
 ## 📈 Usage Recommendations
 

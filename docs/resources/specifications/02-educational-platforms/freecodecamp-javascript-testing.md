@@ -61,5 +61,5 @@
 
 ## 🔄 Related Resources
 - **Prerequisites**: None
-- **Follow-up Resources**: [TypeScript Handbook](typescript-handbook.md)
+- **Follow-up Resources**: [TypeScript Handbook](../01-official-documentation/typescript-handbook.md)
 - **Alternative Options**: [Coursera - Software Testing Courses (Audit Mode)](coursera-software-testing.md)

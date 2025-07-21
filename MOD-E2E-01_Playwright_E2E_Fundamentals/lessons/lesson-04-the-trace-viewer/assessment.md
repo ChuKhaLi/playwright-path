@@ -253,7 +253,7 @@ Congratulations! You're ready to move on to **Lesson 05: Basic Locators and Elem
 ### If You Need to Review:
 - Re-read the [lesson content](../content.md) focusing on areas where you missed questions
 - Complete the [hands-on exercises](../exercises/hands-on-practice.md) again
-- Practice with the [example test](../examples/traceable-test.spec.ts)
+- Practice with the [example test](examples/traceable-test.spec.ts)
 - Try creating your own traceable tests with different scenarios
 
 ### Additional Practice:

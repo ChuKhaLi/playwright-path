@@ -25,10 +25,10 @@
 - N/A
 
 ## 🔗 Resource Specifications
-- [Playwright Official Documentation](../../specifications/01-official-documentation/playwright-official-documentation.md)
-- [TypeScript Handbook](../../specifications/01-official-documentation/typescript-handbook.md)
-- [Microsoft Learn - Playwright](../../specifications/01-official-documentation/microsoft-learn-playwright.md)
-- [MDN Web Docs - HTML, CSS, HTTP](../../specifications/01-official-documentation/mdn-web-docs.md)
+- [Playwright Official Documentation](../specifications/01-official-documentation/playwright-official-documentation.md)
+- [TypeScript Handbook](../specifications/01-official-documentation/typescript-handbook.md)
+- [Microsoft Learn - Playwright](../specifications/01-official-documentation/microsoft-learn-playwright.md)
+- [MDN Web Docs - HTML, CSS, HTTP](../specifications/01-official-documentation/mdn-web-docs.md)
 
 ## 📈 Usage Recommendations
 

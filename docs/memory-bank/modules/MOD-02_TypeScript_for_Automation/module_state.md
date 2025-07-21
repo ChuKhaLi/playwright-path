@@ -141,9 +141,9 @@ This module provides comprehensive TypeScript education focused on features most
 ## 📊 Resource Integration
 
 ### External Resources Mapped
-- [TypeScript Handbook](../../resources/specifications/01-official-documentation/typescript-handbook.md) ⭐⭐⭐⭐⭐
-- [TypeScript Course - Programming with Mosh](../../resources/specifications/03-video-resources/typescript-course-mosh.md) ⭐⭐⭐⭐
-- [ExecuteProgram - TypeScript](../../resources/specifications/02-educational-platforms/executeprogram-typescript.md) ⭐⭐⭐⭐
+- [TypeScript Handbook](../../../resources/specifications/01-official-documentation/typescript-handbook.md) ⭐⭐⭐⭐⭐
+- [TypeScript Course - Programming with Mosh](../../../resources/specifications/03-video-resources/typescript-course-mosh.md) ⭐⭐⭐⭐
+- [ExecuteProgram - TypeScript](../../../resources/specifications/02-educational-platforms/executeprogram-typescript.md) ⭐⭐⭐⭐
 
 ### Integration Points
 - **MOD-01 Prerequisites**: Builds on web technology foundations

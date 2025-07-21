@@ -62,4 +62,4 @@
 ## 🔄 Related Resources
 - **Prerequisites**: None
 - **Follow-up Resources**: [Playwright Official Documentation](playwright-official-documentation.md)
-- **Alternative Options**: [freeCodeCamp - JavaScript Testing](freecodecamp-javascript-testing.md)
+- **Alternative Options**: [freeCodeCamp - JavaScript Testing](../02-educational-platforms/freecodecamp-javascript-testing.md)

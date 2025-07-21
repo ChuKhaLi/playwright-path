@@ -1,0 +1,1 @@
+# Lesson 3.2: Page Object Model (POM) Design Pattern

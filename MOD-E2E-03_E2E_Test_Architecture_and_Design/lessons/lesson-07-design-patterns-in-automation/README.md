@@ -60,7 +60,7 @@ This is a **comprehensive special focus lesson** that teaches professional desig
 - **[Examples](examples/)**: **Professional-grade** pattern examples
 - **[Exercises](exercises/)**: **Complex** real-world pattern challenges
 - **[Assessment](assessment.md)**: **Advanced** pattern application evaluation
-- **[Resources](resources.md)**: **Industry** design pattern best practices
+- **[Resources](../../../MOD-01_Foundations/lessons/lesson-01-html-document-structure/resources.md)**: **Industry** design pattern best practices
 
 ## 🎯 Success Criteria
 

@@ -93,7 +93,7 @@ MOD-01_Foundations/
 ### 🔗 Navigation
 
 - **Next Module**: [MOD-02: TypeScript for Automation](../MOD-02_TypeScript_for_Automation/README.md)
-- **Learning Paths**: [Personalized Learning Journeys](../../resources/guides/learning-paths.md)
+- **Learning Paths**: [Personalized Learning Journeys](../docs/resources/guides/learning-paths.md)
 - **Resource Hub**: [Complete Resource Documentation](../../resources/README.md)
 
 ---

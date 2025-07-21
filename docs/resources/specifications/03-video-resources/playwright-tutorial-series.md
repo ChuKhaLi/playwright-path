@@ -61,5 +61,5 @@
 
 ## 🔄 Related Resources
 - **Prerequisites**: Basic testing knowledge.
-- **Follow-up Resources**: [Playwright Official Documentation](playwright-official-documentation.md)
+- **Follow-up Resources**: [Playwright Official Documentation](../01-official-documentation/playwright-official-documentation.md)
 - **Alternative Options**: [Official Playwright YouTube Channel](official-playwright-youtube.md)

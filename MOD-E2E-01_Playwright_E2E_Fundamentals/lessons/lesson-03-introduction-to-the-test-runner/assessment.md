@@ -199,7 +199,7 @@ Which hook would be most appropriate for logging into an application before each
 - 📚 Review the [lesson content](../content.md) focusing on areas you missed
 - 🛠️ Complete the [hands-on practice exercise](../exercises/hands-on-practice.md)
 - 🔄 Retake this assessment
-- 💡 Review the [test runner demo example](../examples/test-runner-demo.spec.ts)
+- 💡 Review the [test runner demo example](examples/test-runner-demo.spec.ts)
 
 ### Key Concepts to Remember
 

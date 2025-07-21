@@ -25,10 +25,10 @@
 - **Playwright Demo Repository**: Official and community-driven demo projects that showcase various features.
 
 ## 🔗 Resource Specifications
-- [Stack Overflow - Playwright Tag](../../specifications/04-community-resources/stackoverflow-playwright-tag.md)
-- [Awesome Playwright](../../specifications/04-community-resources/awesome-playwright.md)
-- [Playwright Community Examples](../../specifications/04-community-resources/playwright-community-examples.md)
-- [Playwright Demo Repository](../../specifications/04-community-resources/playwright-demo-repository.md)
+- [Stack Overflow - Playwright Tag](../specifications/04-community-resources/stackoverflow-playwright-tag.md)
+- [Awesome Playwright](../specifications/04-community-resources/awesome-playwright.md)
+- [Playwright Community Examples](../specifications/04-community-resources/playwright-community-examples.md)
+- [Playwright Demo Repository](../specifications/04-community-resources/playwright-demo-repository.md)
 
 ## 📈 Usage Recommendations
 

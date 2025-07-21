@@ -221,9 +221,9 @@ Focus on Lessons 3-4, 7-8, 11-12. Cutting-edge testing techniques and future tec
 
 ### **Essential Resources**
 - [Playwright Official Documentation](https://playwright.dev/) ⭐⭐⭐⭐⭐
-- [Visual Testing Best Practices](docs/resources/specifications/07-best-practices/applitools-percy-visual-testing.md) ⭐⭐⭐⭐
-- [Accessibility Testing Guide](docs/resources/specifications/07-best-practices/lighthouse-axe-accessibility-performance.md) ⭐⭐⭐⭐⭐
-- [API Testing Patterns](docs/resources/specifications/07-best-practices/test-automation-patterns.md) ⭐⭐⭐⭐
+- [Visual Testing Best Practices](../docs/resources/specifications/07-best-practices/applitools-percy-visual-testing.md) ⭐⭐⭐⭐
+- [Accessibility Testing Guide](../docs/resources/specifications/07-best-practices/lighthouse-axe-accessibility-performance.md) ⭐⭐⭐⭐⭐
+- [API Testing Patterns](../docs/resources/specifications/07-best-practices/test-automation-patterns.md) ⭐⭐⭐⭐
 
 ### **Specialization Resources**
 - **Visual Testing**: Percy Documentation, Applitools University
@@ -233,8 +233,8 @@ Focus on Lessons 3-4, 7-8, 11-12. Cutting-edge testing techniques and future tec
 - **Security**: OWASP Testing Guide, Security Testing Handbook
 
 ### **Community and Support**
-- [Playwright Community](docs/resources/specifications/04-community-resources/playwright-community-examples.md) ⭐⭐⭐⭐
-- [Testing Best Practices](docs/resources/specifications/07-best-practices/playwright-best-practices-guide.md) ⭐⭐⭐⭐⭐
+- [Playwright Community](../docs/resources/specifications/04-community-resources/playwright-community-examples.md) ⭐⭐⭐⭐
+- [Testing Best Practices](../docs/resources/specifications/07-best-practices/playwright-best-practices-guide.md) ⭐⭐⭐⭐⭐
 - Industry conferences and meetups
 - Professional testing communities
 

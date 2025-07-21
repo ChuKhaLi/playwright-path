@@ -62,7 +62,7 @@ This is a **comprehensive special focus lesson** that teaches professional API c
 - **[Examples](examples/)**: **Professional-grade** code implementations
 - **[Exercises](exercises/)**: **Complex** real-world challenges
 - **[Assessment](assessment.md)**: **Advanced** architecture evaluation
-- **[Resources](resources.md)**: **Industry** best practices and patterns
+- **[Resources](../../../MOD-01_Foundations/lessons/lesson-01-html-document-structure/resources.md)**: **Industry** best practices and patterns
 
 ## 🎯 Success Criteria
 
@@ -124,8 +124,8 @@ This lesson is **critical** for:
 
 ## 🔗 Connections
 
-**Previous**: [Lesson 02: Advanced Page Object Patterns](../lesson-02-advanced-page-object-patterns/)  
-**Next**: [Lesson 04: Test Data Management Strategies](../lesson-04-test-data-management-strategies/)  
+**Previous**: [Lesson 02: Advanced Page Object Patterns](../../../MOD-E2E-03_E2E_Test_Architecture_and_Design/lessons/lesson-02-advanced-page-object-patterns)  
+**Next**: [Lesson 04: Test Data Management Strategies](../../../MOD-E2E-03_E2E_Test_Architecture_and_Design/lessons/lesson-04-test-data-management-strategies)  
 **Related**: Lesson 07 (Design Patterns), Lesson 12 (Hybrid Architecture)
 
 ---

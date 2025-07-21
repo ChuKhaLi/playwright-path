@@ -5,13 +5,13 @@ Welcome to the comprehensive documentation system for the Learning Playwright pr
 ## 🎯 Quick Start
 
 **For Learners:**
-- Start with the [Learning Roadmap](learning-roadmap.md) to understand the complete journey
-- Choose your path from [Learning Paths](resources/learning-paths.md) based on your experience
+- Start with the [Learning Roadmap](roadmaps/roadmap.md) to understand the complete journey
+- Choose your path from [Learning Paths](resources/guides/learning-paths.md) based on your experience
 - Access [25+ Curated Resources](resources/README.md) to support your learning
 
 **For Instructors & Content Creators:**
 - Review the [Project Overview](project-overview.md) for comprehensive context
-- Follow the [Implementation Guide](implementation-guide.md) for content creation
+- Follow the [Implementation Guide](guides/implementation-guide.md) for content creation
 - Understand the [Memory Bank System](memory-bank/memory_bank_structure.md) for project architecture
 
 ## 📚 Documentation Structure
@@ -19,19 +19,19 @@ Welcome to the comprehensive documentation system for the Learning Playwright pr
 ### Core Documentation
 | Document | Purpose | Audience |
 |----------|---------|----------|
-| [Learning Roadmap](learning-roadmap.md) | Master plan and 7-module structure | All users |
+| [Learning Roadmap](roadmaps/roadmap.md) | Master plan and 7-module structure | All users |
 | [Project Overview](project-overview.md) | Research findings and project summary | Instructors, stakeholders |
-| [Implementation Guide](implementation-guide.md) | Content creation and instruction guide | Content creators, instructors |
+| [Implementation Guide](guides/implementation-guide.md) | Content creation and instruction guide | Content creators, instructors |
 
 ### Resource System
 | Document | Purpose | Audience |
 |----------|---------|----------|
 | [Resource Hub](resources/README.md) | Main resource directory | All users |
 | [Master Resource Index](resources/master-resource-index.md) | Complete catalog of 25+ resources | Learners, instructors |
-| [Learning Paths](resources/learning-paths.md) | 4 personalized learning journeys | Learners |
-| [Module Mapping](resources/module-mapping.md) | Resources mapped to modules | Content creators |
-| [Access Guide](resources/access-guide.md) | Resource requirements and formats | All users |
-| [Integration Recommendations](resources/integration-recommendations.md) | Pedagogical strategies | Instructors |
+| [Learning Paths](resources/guides/learning-paths.md) | 4 personalized learning journeys | Learners |
+| [Module Mapping](resources/guides/module-mapping.md) | Resources mapped to modules | Content creators |
+| [Access Guide](resources/guides/access-guide.md) | Resource requirements and formats | All users |
+| [Integration Recommendations](resources/guides/integration-recommendations.md) | Pedagogical strategies | Instructors |
 
 ### Memory Bank System
 | Document | Purpose | Audience |
@@ -120,13 +120,13 @@ A sophisticated project state management system:
 ## 🤝 Contributing
 
 ### For Content Contributors
-1. Review the [Implementation Guide](implementation-guide.md)
+1. Review the [Implementation Guide](guides/implementation-guide.md)
 2. Understand the [Memory Bank System](memory-bank/memory_bank_structure.md)
-3. Follow the established [Educational Standards](../README.md#educational-philosophy)
+3. Follow the established [Educational Standards](../../README.md#educational-philosophy)
 4. Use the AI-powered development modes for assistance
 
 ### For Resource Contributors
-1. Review the [Resource Curation Guidelines](resources/integration-recommendations.md)
+1. Review the [Resource Curation Guidelines](resources/guides/integration-recommendations.md)
 2. Check the [Master Resource Index](resources/master-resource-index.md) for existing resources
 3. Follow the quality evaluation criteria
 4. Submit resources through the established contribution process
@@ -147,7 +147,7 @@ A sophisticated project state management system:
 
 ### Getting Help
 - **Documentation Issues**: Check this documentation hub first
-- **Technical Questions**: Review the [Implementation Guide](implementation-guide.md)
+- **Technical Questions**: Review the [Implementation Guide](guides/implementation-guide.md)
 - **Resource Questions**: Consult the [Resource Documentation](resources/README.md)
 - **Community Support**: Engage through GitHub issues and discussions
 

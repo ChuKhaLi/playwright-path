@@ -51,7 +51,7 @@ This lesson focuses on organizing test code in a way that promotes maintainabili
 - **[Examples](examples/)**: Directory structure examples
 - **[Exercises](exercises/)**: Framework organization challenges
 - **[Assessment](assessment.md)**: Architecture evaluation
-- **[Resources](resources.md)**: Organization best practices
+- **[Resources](../../../MOD-01_Foundations/lessons/lesson-01-html-document-structure/resources.md)**: Organization best practices
 
 ## 🎯 Success Criteria
 

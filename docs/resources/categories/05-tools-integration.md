@@ -24,9 +24,9 @@
 - N/A
 
 ## 🔗 Resource Specifications
-- [GitHub Actions Documentation](../../specifications/05-tools-integration/github-actions-documentation.md)
-- [Jest Documentation](../../specifications/05-tools-integration/jest-documentation.md)
-- [Vitest Documentation](../../specifications/05-tools-integration/vitest-documentation.md)
+- [GitHub Actions Documentation](../specifications/05-tools-integration/github-actions-documentation.md)
+- [Jest Documentation](../specifications/05-tools-integration/jest-documentation.md)
+- [Vitest Documentation](../specifications/05-tools-integration/vitest-documentation.md)
 
 ## 📈 Usage Recommendations
 
