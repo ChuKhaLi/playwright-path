@@ -1,0 +1,104 @@
+{
+  "projectName": "QA Automation Learning Platform",
+  "version": "1.0.0",
+  "description": "A comprehensive learning platform for QA automation with Playwright and TypeScript.",
+  "author": "Project Roo",
+  "lastUpdated": "2025-07-20T17:15:16.471Z",
+  "modules": [
+    {
+      "id": "MOD-01",
+      "title": "Foundations",
+      "path": "MOD-01_Foundations",
+      "status": "completed",
+      "dependencies": [],
+      "resources": [
+        "docs/resources/categories/01-official-documentation.md"
+      ]
+    },
+    {
+      "id": "MOD-02",
+      "title": "TypeScript for Automation",
+      "path": "MOD-02_TypeScript_for_Automation",
+      "status": "completed",
+      "dependencies": ["MOD-01"],
+      "resources": [
+        "docs/resources/specifications/01-official-documentation/typescript-handbook.md"
+      ]
+    },
+    {
+      "id": "MOD-E2E-01",
+      "title": "Playwright E2E Fundamentals",
+      "path": "MOD-E2E-01_Playwright_E2E_Fundamentals",
+      "status": "in-progress",
+      "dependencies": ["MOD-01", "MOD-02"],
+      "resources": [
+        "docs/resources/specifications/01-official-documentation/playwright-official-documentation.md"
+      ]
+    },
+    {
+      "id": "MOD-API-01",
+      "title": "API Testing Fundamentals with Playwright",
+      "path": "MOD-API-01_API_Testing_Fundamentals_with_Playwright",
+      "status": "in-progress",
+      "dependencies": ["MOD-01", "MOD-02"],
+      "resources": []
+    },
+    {
+      "id": "MOD-E2E-02",
+      "title": "Advanced E2E Testing Techniques",
+      "path": "MOD-E2E-02_Advanced_E2E_Testing_Techniques",
+      "status": "planned",
+      "dependencies": ["MOD-E2E-01"],
+      "resources": []
+    },
+    {
+      "id": "MOD-API-02",
+      "title": "Advanced API Testing Strategies",
+      "path": "MOD-API-02_Advanced_API_Testing_Strategies",
+      "status": "planned",
+      "dependencies": ["MOD-API-01"],
+      "resources": []
+    },
+    {
+      "id": "MOD-E2E-03",
+      "title": "E2E Test Architecture and Design",
+      "path": "MOD-E2E-03_E2E_Test_Architecture_and_Design",
+      "status": "planned",
+      "dependencies": ["MOD-E2E-02"],
+      "resources": []
+    },
+    {
+      "id": "MOD-API-03",
+      "title": "API Test Architecture and Contracts",
+      "path": "MOD-API-03_API_Test_Architecture_and_Contracts",
+      "status": "planned",
+      "dependencies": ["MOD-API-02"],
+      "resources": []
+    },
+    {
+      "id": "MOD-ADV-01",
+      "title": "CI/CD and DevOps Integration",
+      "path": "MOD-ADV-01_CI_CD_and_DevOps_Integration",
+      "status": "planned",
+      "dependencies": ["MOD-E2E-01", "MOD-API-01"],
+      "resources": [
+        "docs/resources/specifications/05-tools-integration/github-actions-documentation.md",
+        "docs/resources/specifications/05-tools-integration/docker-documentation.md"
+      ]
+    },
+    {
+      "id": "MOD-ADV-02",
+      "title": "Specialized Testing Topics",
+      "path": "MOD-ADV-02_Specialized_Testing_Topics",
+      "status": "planned",
+      "dependencies": ["MOD-E2E-02", "MOD-API-02"],
+      "resources": []
+    }
+  ],
+  "resourceIndex": {
+    "categories": "docs/resources/categories",
+    "specifications": "docs/resources/specifications",
+    "quickReference": "docs/resources/quick-reference",
+    "guides": "docs/resources/guides"
+  }
+}

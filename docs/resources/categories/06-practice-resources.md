@@ -1,8 +1,8 @@
 # Practice Resources
 
 ## 📋 Category Overview
-- **Resource Count**: 4 resources
-- **Focus Area**: Hands-on skill development through interactive exercises and practice websites.
+- **Resource Count**: 5 resources
+- **Focus Area**: Hands-on skill development through interactive exercises, practice websites, and API testing endpoints.
 - **Target Audience**: All levels.
 - **Integration Role**: Applying theoretical knowledge to practical, real-world scenarios.
 
@@ -11,6 +11,7 @@
 - Practice automating a wide variety of web elements and user interactions on dedicated test sites.
 - Explore a collection of websites designed for test automation practice.
 - Learn to handle both simple and complex automation challenges.
+- Practice making API requests and validating responses.
 
 ## 📚 Resources in this Category
 
@@ -23,13 +24,14 @@
 - **Expand Testing - Practice Sites**: Another excellent list of practice sites with descriptions of what you can test on each one.
 
 ### ⭐⭐⭐ Good Resources
-- N/A
+- **JSONPlaceholder**: A fake online REST API for testing and prototyping. Perfect for practicing API requests.
 
 ## 🔗 Resource Specifications
 - [Try Playwright](../../specifications/06-practice-resources/try-playwright.md)
 - [The Internet - Herokuapp](../../specifications/06-practice-resources/the-internet-herokuapp.md)
 - [Practice Sites Collection](../../specifications/06-practice-resources/practice-sites-collection.md)
 - [Expand Testing - Practice Sites](../../specifications/06-practice-resources/expand-testing-practice-sites.md)
+- [JSONPlaceholder - Fake Online REST API](../../specifications/06-practice-resources/jsonplaceholder-api.md)
 
 ## 📈 Usage Recommendations
 
@@ -50,6 +52,7 @@
 - **MOD-03**: "The Internet" provides practical exercises for every topic in this module.
 - **MOD-04**: Use these sites to practice advanced techniques like authentication and file downloads.
 - **MOD-07**: Perfect for trying out visual regression testing or other specialized techniques.
+- **MOD-API-01**: "JSONPlaceholder" is an essential resource for this module.
 
 ## 🔄 Learning Path Integration
 
@@ -86,8 +89,8 @@
 - **Follow-up**: [Best Practices](./07-best-practices.md)
 
 ## 📊 Category Statistics
-- **Total Resources**: 4
+- **Total Resources**: 5
 - **Free Resources**: 100%
 - **Current Resources (2024-2025)**: 100%
-- **No Registration Required**: 4
+- **No Registration Required**: 5
 - **Mobile-Friendly**: 2

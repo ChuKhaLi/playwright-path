@@ -43,7 +43,7 @@ When you change a function signature or interface, TypeScript will show you all 
 
 First, ensure you have Node.js installed. TypeScript requires Node.js to run.
 
-```bash
+```powershell
 # Check if Node.js is installed
 node --version
 npm --version
@@ -55,7 +55,7 @@ If not installed, download from [nodejs.org](https://nodejs.org/) and install th
 
 You can install TypeScript globally or locally in your project. For learning purposes, we'll install it globally first:
 
-```bash
+```powershell
 # Install TypeScript globally
 npm install -g typescript
 
@@ -67,10 +67,10 @@ tsc --version
 
 Let's create a new project directory and initialize it:
 
-```bash
+```powershell
 # Create project directory
-mkdir typescript-automation-basics
-cd typescript-automation-basics
+New-Item -ItemType Directory -Name "typescript-automation-basics"
+Set-Location -Path "typescript-automation-basics"
 
 # Initialize npm project
 npm init -y
@@ -86,7 +86,7 @@ npm install --save-dev @types/node
 
 Create a `tsconfig.json` file to configure the TypeScript compiler:
 
-```bash
+```powershell
 # Generate default tsconfig.json
 npx tsc --init
 ```
@@ -124,11 +124,11 @@ Let's customize the configuration for our testing needs:
 
 Create the basic project structure:
 
-```bash
-mkdir src
-mkdir src/utils
-mkdir src/types
-mkdir tests
+```powershell
+New-Item -ItemType Directory -Name "src"
+New-Item -ItemType Directory -Name "src/utils"
+New-Item -ItemType Directory -Name "src/types"
+New-Item -ItemType Directory -Name "tests"
 ```
 
 Your project structure should look like this:
@@ -440,7 +440,7 @@ export { ApiResponse, validateApiResponse, extractResponseData };
 
 Now let's compile and test our TypeScript code:
 
-```bash
+```powershell
 # Compile TypeScript to JavaScript
 npx tsc
 
@@ -458,14 +458,14 @@ Add these scripts to your `package.json`:
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "clean": "rm -rf dist",
+    "clean": "if (Test-Path -Path dist) { Remove-Item -Recurse -Force dist }",
     "dev": "tsc --watch"
   }
 }
 ```
 
 Now you can use:
-```bash
+```powershell
 npm run build        # Compile once
 npm run build:watch  # Compile and watch for changes
 npm run clean        # Remove compiled files

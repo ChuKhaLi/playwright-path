@@ -13,17 +13,17 @@ These exercises will help you practice the fundamental TypeScript concepts cover
 ## 🔧 Setup Instructions
 
 1. Create a new directory for your exercises:
-```bash
-mkdir lesson-01-exercises
-cd lesson-01-exercises
+```powershell
+New-Item -ItemType Directory -Name "lesson-01-exercises"
+Set-Location -Path "lesson-01-exercises"
 npm init -y
 npm install --save-dev typescript @types/node
 npx tsc --init
 ```
 
 2. Create a `src` directory for your TypeScript files:
-```bash
-mkdir src
+```powershell
+New-Item -ItemType Directory -Name "src"
 ```
 
 3. Update your `tsconfig.json` to include the src directory:
