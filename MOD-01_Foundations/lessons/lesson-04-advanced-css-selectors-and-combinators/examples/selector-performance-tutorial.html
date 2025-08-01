@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selector Performance Tutorial</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .good, .bad {
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .good {
+            background: #d5f4e6;
+            border: 2px solid #27ae60;
+        }
+
+        .good::before {
+            content: "✅ GOOD";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .bad {
+            background: #fdeaea;
+            border: 2px solid #e74c3c;
+        }
+
+        .bad::before {
+            content: "❌ AVOID";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        .performance-metric {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin: 5px 0;
+        }
+
+        .fast { background: #27ae60; }
+        .moderate { background: #f39c12; }
+        .slow { background: #e74c3c; }
+
+        /* Demonstration elements */
+        .demo-area {
+            background: white;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .demo-item {
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            background: #ecf0f1;
+            transition: all 0.3s ease;
+        }
+
+        /* Efficient selectors - fast performance */
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .nav-item {
+            background: #2ecc71;
+            color: white;
+        }
+
+        [data-component="widget"] {
+            background: #9b59b6;
+            color: white;
+        }
+
+        .sidebar .title {
+            background: #e67e22;
+            color: white;
+        }
+
+        /* Less efficient selectors - for demonstration only */
+        /* These would be slow in a real large-scale application */
+        
+        /* Overly specific - avoid in production */
+        .container .content .section .demo-area .demo-grid .demo-item.special {
+            border: 3px solid #e74c3c;
+            background: #fdeaea;
+        }
+
+        /* Universal selector chains - very slow */
+        * * * .universal-target {
+            border: 2px solid #f39c12;
+            background: #fff3cd;
+        }
+
+        /* Complex :has() chains - use carefully */
+        .demo-item:has(span:has(.nested-indicator)) {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
+        }
+
+        /* Efficient :has() usage */
+        .card:has(.action-button) {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+
+        .benchmark-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .benchmark-table th {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .benchmark-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .benchmark-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .tip-box {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tip-box h4 {
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .demo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CSS Selector Performance Tutorial</h1>
+            <p>Learn how to write efficient selectors for better performance and maintainability</p>
+        </div>
+
+        <div class="content">
+            <!-- Performance Fundamentals -->
+            <div class="section">
+                <h2>Selector Performance Fundamentals</h2>
+                <p>CSS selectors are parsed from <strong>right to left</strong>. The browser starts with the rightmost selector (key selector) and works backward to find matches. Understanding this is crucial for writing efficient selectors.</p>
+                
+                <div class="comparison">
+                    <div class="good">
+                        <h4>Efficient Approach</h4>
+                        <div class="code">.button { }</div>
+                        <div class="performance-metric fast">Fast</div>
+                        <p>Simple class selector - browser quickly finds all elements with class "button"</p>
+                    </div>
+                    <div class="bad">
+                        <h4>Inefficient Approach</h4>
+                        <div class="code">div.container div.main div.sidebar div.widget button.button { }</div>
+                        <div class="performance-metric slow">Slow</div>
+                        <p>Overly specific - browser must traverse DOM tree for each button element</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selector Types Performance -->
+            <div class="section">
+                <h2>Selector Performance Ranking</h2>
+                <p>Different selector types have varying performance characteristics:</p>
+                
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Selector Type</th>
+                            <th>Performance</th>
+                            <th>Example</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ID Selector</td>
+                            <td><span class="performance-metric fast">Fastest</span></td>
+                            <td><code>#header</code></td>
+                            <td>Unique elements</td>
+                        </tr>
+                        <tr>
+                            <td>Class Selector</td>
+                            <td><span class="performance-metric fast">Fast</span></td>
+                            <td><code>.nav-item</code></td>
+                            <td>Common styling patterns</td>
+                        </tr>
+                        <tr>
+                            <td>Type Selector</td>
+                            <td><span class="performance-metric fast">Fast</span></td>
+                            <td><code>button</code></td>
+                            <td>Element-specific styles</td>
+                        </tr>
+                        <tr>
+                            <td>Attribute Selector</td>
+                            <td><span class="performance-metric moderate">Moderate</span></td>
+                            <td><code>[data-testid="submit"]</code></td>
+                            <td>Testing, dynamic content</td>
+                        </tr>
+                        <tr>
+                            <td>Pseudo-class</td>
+                            <td><span class="performance-metric moderate">Moderate</span></td>
+                            <td><code>:hover, :nth-child()</code></td>
+                            <td>Interactive states</td>
+                        </tr>
+                        <tr>
+                            <td>Universal Selector</td>
+                            <td><span class="performance-metric slow">Slow</span></td>
+                            <td><code>*</code></td>
+                            <td>Reset styles only</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Practical Examples -->
+            <div class="section">
+                <h2>Performance-Optimized Examples</h2>
+                
+                <div class="demo-area">
+                    <h3>Demonstration Elements</h3>
+                    <div class="demo-grid">
+                        <div class="demo-item btn-primary" data-testid="demo-btn-1">Fast Class</div>
+                        <div class="demo-item nav-item" data-testid="demo-nav-1">Efficient Nav</div>
+                        <div class="demo-item" data-component="widget" data-testid="demo-widget-1">Attribute Target</div>
+                        <div class="demo-item title" data-testid="demo-title-1">Sidebar Title</div>
+                        <div class="demo-item special universal-target" data-testid="demo-special-1">
+                            <span>Overly Specific</span>
+                        </div>
+                        <div class="demo-item" data-testid="demo-nested-1">
+                            <span class="nested-indicator">Nested :has()</span>
+                        </div>
+                        <div class="demo-item card" data-testid="demo-card-1">
+                            <button class="action-button">Card with Button</button>
+                        </div>
+                        <div class="demo-item tooltip" data-tooltip="Hover for tooltip" data-testid="demo-tooltip-1">Hover Me</div>
+                    </div>
+                </div>
+
+                <div class="comparison">
+                    <div class="good">
+                        <h4>✅ Optimized Selectors</h4>
+                        <div class="code">
+/* Direct class targeting */
+.btn-primary { }
+.nav-item { }
+
+/* Efficient attribute selectors */
+[data-component="widget"] { }
+
+/* Limited specificity */
+.sidebar .title { }
+
+/* Simple :has() usage */
+.card:has(.action-button) { }
+                        </div>
+                        <div class="performance-metric fast">High Performance</div>
+                    </div>
+                    <div class="bad">
+                        <h4>❌ Inefficient Selectors</h4>
+                        <div class="code">
+/* Overly specific */
+.container .content .section .demo-area .demo-grid .demo-item.special { }
+
+/* Universal selector chains */
+* * * .universal-target { }
+
+/* Complex :has() nesting */
+.demo-item:has(span:has(.nested-indicator)) { }
+                        </div>
+                        <div class="performance-metric slow">Poor Performance</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modern Selector Best Practices -->
+            <div class="section">
+                <h2>Modern Selector Best Practices</h2>
+                
+                <div class="tip-box">
+                    <h4>💡 Pro Tips for Better Performance</h4>
+                    <ul>
+                        <li><strong>Use classes over complex selectors:</strong> <code>.error-message</code> instead of <code>div.container p.text span.error</code></li>
+                        <li><strong>Leverage :is() and :where():</strong> Modern browsers optimize these selectors</li>
+                        <li><strong>Be strategic with :has():</strong> Powerful but use judiciously in performance-critical areas</li>
+                        <li><strong>Avoid descendant selectors when possible:</strong> Use child combinators <code>&gt;</code> for better performance</li>
+                    </ul>
+                </div>
+
+                <h3>Testing-Friendly Performance Patterns</h3>
+                <div class="comparison">
+                    <div class="good">
+                        <h4>QA Automation Optimized</h4>
+                        <div class="code">
+/* Efficient test selectors */
+[data-testid="login-form"] { }
+[data-testid^="btn-"] { }
+[data-testid$="-modal"] { }
+
+/* Component-based targeting */
+[data-component="navigation"] { }
+[data-page="dashboard"] .widget { }
+                        </div>
+                        <p>Fast, stable, and automation-friendly selectors that won't break with UI changes.</p>
+                    </div>
+                    <div class="bad">
+                        <h4>Avoid for Testing</h4>
+                        <div class="code">
+/* Brittle and slow */
+#app > div > div:nth-child(3) > form > div:first-child button { }
+
+/* Performance killers */
+* [class*="btn"] { }
+div:has(div:has(button)) { }
+                        </div>
+                        <p>These selectors are slow and likely to break when the DOM structure changes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- :has() Performance Guide -->
+            <div class="section">
+                <h2>:has() Selector Performance Guide</h2>
+                <p>The :has() pseudo-class is powerful but requires careful consideration for performance:</p>
+                
+                <div class="comparison">
+                    <div class="good">
+                        <h4>Efficient :has() Usage</h4>
+                        <div class="code">
+/* Simple, direct relationships */
+.card:has(.badge) { }
+.form:has(.error) { }
+article:has(img) { }
+
+/* Limited scope */
+.sidebar:has(.widget:empty) { }
+                        </div>
+                        <div class="performance-metric moderate">Good Performance</div>
+                    </div>
+                    <div class="bad">
+                        <h4>Avoid Complex :has() Chains</h4>
+                        <div class="code">
+/* Nested :has() - performance killer */
+div:has(div:has(div:has(.target))) { }
+
+/* Universal with :has() */
+*:has(.anything) { }
+
+/* Complex combinations */
+.container:has(.sidebar:has(.widget:has(.title:contains("text")))) { }
+                        </div>
+                        <div class="performance-metric slow">Poor Performance</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Measurement -->
+            <div class="section">
+                <h2>Measuring Selector Performance</h2>
+                <p>Use browser developer tools to identify performance bottlenecks:</p>
+                
+                <div class="tip-box">
+                    <h4>🔧 Performance Testing Tools</h4>
+                    <ul>
+                        <li><strong>Chrome DevTools:</strong> Performance tab → Record → Analyze CSS parsing time</li>
+                        <li><strong>Firefox DevTools:</strong> Performance panel → CSS selector performance insights</li>
+                        <li><strong>Lighthouse:</strong> Audits for unused CSS and render-blocking stylesheets</li>
+                        <li><strong>WebPageTest:</strong> Detailed CSS performance metrics</li>
+                    </ul>
+                </div>
+
+                <div class="code">
+/* JavaScript performance testing */
+console.time('selector-performance');
+document.querySelectorAll('.your-selector');
+console.timeEnd('selector-performance');
+
+/* Compare different approaches */
+console.time('efficient');
+document.querySelectorAll('.button');
+console.timeEnd('efficient');
+
+console.time('inefficient');
+document.querySelectorAll('div.container div.main button.button');
+console.timeEnd('inefficient');
+                </div>
+            </div>
+
+            <!-- Real-World Guidelines -->
+            <div class="section">
+                <h2>Real-World Performance Guidelines</h2>
+                
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Recommended Approach</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Button Styling</td>
+                            <td>Single class selector</td>
+                            <td><code>.btn-primary</code></td>
+                        </tr>
+                        <tr>
+                            <td>Form Validation</td>
+                            <td>Pseudo-class with class</td>
+                            <td><code>.form-field:invalid</code></td>
+                        </tr>
+                        <tr>
+                            <td>Component States</td>
+                            <td>Data attributes</td>
+                            <td><code>[data-state="loading"]</code></td>
+                        </tr>
+                        <tr>
+                            <td>Testing Selectors</td>
+                            <td>Test-specific attributes</td>
+                            <td><code>[data-testid="submit-btn"]</code></td>
+                        </tr>
+                        <tr>
+                            <td>Layout Containers</td>
+                            <td>Semantic classes</td>
+                            <td><code>.main-content</code></td>
+                        </tr>
+                        <tr>
+                            <td>Dynamic Content</td>
+                            <td>:has() with caution</td>
+                            <td><code>.card:has(.alert)</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Final Tips -->
+            <div class="section">
+                <h2>Performance Checklist</h2>
+                <div class="tip-box">
+                    <h4>✅ Before Deploying CSS Selectors</h4>
+                    <ul>
+                        <li>Avoid selectors with more than 3-4 levels of specificity</li>
+                        <li>Use classes instead of complex descendant selectors</li>
+                        <li>Test :has() selectors in production-like environments</li>
+                        <li>Prefer child combinators (&gt;) over descendant combinators (space)</li>
+                        <li>Use browser dev tools to profile CSS performance</li>
+                        <li>Consider CSS-in-JS solutions for dynamic styling needs</li>
+                        <li>Regularly audit unused CSS with tools like PurgeCSS</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Performance demonstration script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Demonstrate selector performance measurement
+            console.log('=== CSS Selector Performance Demo ===');
+            
+            // Efficient selector test
+            console.time('Efficient: .btn-primary');
+            const efficientResult = document.querySelectorAll('.btn-primary');
+            console.timeEnd('Efficient: .btn-primary');
+            console.log(`Found ${efficientResult.length} elements`);
+            
+            // Less efficient selector test
+            console.time('Less Efficient: .container .demo-area .demo-grid .demo-item.btn-primary');
+            const lessEfficientResult = document.querySelectorAll('.container .demo-area .demo-grid .demo-item.btn-primary');  
+            console.timeEnd('Less Efficient: .container .demo-area .demo-grid .demo-item.btn-primary');
+            console.log(`Found ${lessEfficientResult.length} elements`);
+            
+            // Modern :has() performance test (if supported)
+            if (CSS.supports('selector(:has(*))')) {
+                console.time('Modern: .card:has(.action-button)');
+                const modernResult = document.querySelectorAll('.card:has(.action-button)');
+                console.timeEnd('Modern: .card:has(.action-button)');
+                console.log(`Found ${modernResult.length} elements with :has()`);
+            } else {
+                console.log(':has() not supported in this browser');
+            }
+            
+            // Add interactive behavior to demonstrate selector matching
+            document.querySelectorAll('.demo-item').forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    console.log(`Clicked item ${index + 1}: ${this.getAttribute('data-testid')}`);
+                    
+                    // Demonstrate different ways to select this element
+                    console.log('Selection methods for this element:');
+                    console.log(`- By test ID: [data-testid="${this.getAttribute('data-testid')}"]`);
+                    if (this.className) {
+                        console.log(`- By class: .${this.className.split(' ').join('.')}`);
+                    }
+                    if (this.getAttribute('data-component')) {
+                        console.log(`- By component: [data-component="${this.getAttribute('data-component')}"]`);
+                    }
+                });
+            });
+            
+            // Performance monitoring for real applications
+            if ('performance' in window && 'measure' in performance) {
+                // Mark start of CSS selector usage
+                performance.mark('css-selectors-start');
+                
+                setTimeout(() => {
+                    performance.mark('css-selectors-end');
+                    performance.measure('css-selectors-duration', 'css-selectors-start', 'css-selectors-end');
+                    
+                    const measures = performance.getEntriesByName('css-selectors-duration');
+                    if (measures.length > 0) {
+                        console.log(`CSS selector operations took: ${measures[0].duration.toFixed(2)}ms`);
+                    }
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

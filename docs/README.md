@@ -10,8 +10,9 @@ Welcome to the comprehensive documentation system for the Learning Playwright pr
 - Access [25+ Curated Resources](resources/README.md) to support your learning
 
 **For Instructors & Content Creators:**
-- Review the [Project Overview](project-overview.md) for comprehensive context
-- Follow the [Implementation Guide](guides/implementation-guide.md) for content creation
+- Review the [Learning Module Standard](learning-module-standard.md) for comprehensive content guidelines
+- Follow the [Project Overview](project-overview.md) for comprehensive context
+- Use the [Implementation Guide](guides/implementation-guide.md) for content creation
 - Understand the [Memory Bank System](memory-bank/memory_bank_structure.md) for project architecture
 
 ## 📚 Documentation Structure
@@ -19,6 +20,7 @@ Welcome to the comprehensive documentation system for the Learning Playwright pr
 ### Core Documentation
 | Document | Purpose | Audience |
 |----------|---------|----------|
+| [Learning Module Standard](learning-module-standard.md) | Comprehensive standard for creating learning modules | Content creators, instructors |
 | [Learning Roadmap](roadmaps/roadmap.md) | Master plan and 7-module structure | All users |
 | [Project Overview](project-overview.md) | Research findings and project summary | Instructors, stakeholders |
 | [Implementation Guide](guides/implementation-guide.md) | Content creation and instruction guide | Content creators, instructors |
@@ -120,10 +122,11 @@ A sophisticated project state management system:
 ## 🤝 Contributing
 
 ### For Content Contributors
-1. Review the [Implementation Guide](guides/implementation-guide.md)
-2. Understand the [Memory Bank System](memory-bank/memory_bank_structure.md)
-3. Follow the established [Educational Standards](../../README.md#educational-philosophy)
-4. Use the AI-powered development modes for assistance
+1. Follow the [Learning Module Standard](learning-module-standard.md) for all content creation
+2. Review the [Implementation Guide](guides/implementation-guide.md) for practical guidance
+3. Understand the [Memory Bank System](memory-bank/memory_bank_structure.md)
+4. Follow the established [Educational Standards](../../README.md#educational-philosophy)
+5. Use the AI-powered development modes for assistance
 
 ### For Resource Contributors
 1. Review the [Resource Curation Guidelines](resources/guides/integration-recommendations.md)

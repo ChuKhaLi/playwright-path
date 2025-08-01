@@ -135,6 +135,13 @@ Each module includes measurable learning objectives:
 
 ## Technical Architecture
 
+### Learning Module Standard
+The project follows a comprehensive [Learning Module Standard](learning-module-standard.md) that defines:
+- **Module Structure**: Standardized directory layout and file organization
+- **Content Standards**: Progressive learning design and assessment frameworks
+- **Resource Integration**: Integration with the curated resource system
+- **Quality Assurance**: Content review processes and maintenance schedules
+
 ### Memory Bank System
 A sophisticated project state management system:
 - **Global State**: Project-wide specifications and progress

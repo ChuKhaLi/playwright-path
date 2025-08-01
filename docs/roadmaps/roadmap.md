@@ -5,7 +5,7 @@ This document outlines the master plan for the learning-playwright project, guid
 > 📚 **Documentation Navigation**:
 > - [Project Overview](../project-overview.md) - Executive summary and research findings
 > - [Implementation Guide](../guides/implementation-guide.md) - Content creation and instruction guide
-> - [Resource Documentation](resources/README.md) - 25+ curated free resources
+> - [Resource Documentation](../resources/README.md) - 25+ curated free resources
 > - [Learning Paths](../resources/guides/learning-paths.md) - Personalized learning journeys
 
 ## 1. Vision and Philosophy

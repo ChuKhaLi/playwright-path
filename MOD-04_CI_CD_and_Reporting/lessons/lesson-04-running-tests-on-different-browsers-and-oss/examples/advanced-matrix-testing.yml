@@ -1,0 +1,735 @@
+# Advanced Cross-Browser Matrix Testing Configuration
+# This GitHub Actions workflow demonstrates comprehensive matrix testing
+# strategies for cross-browser and cross-platform validation
+
+name: 🌐 Advanced Cross-Browser Matrix Testing
+
+on:
+  # Trigger on pushes to main branches
+  push:
+    branches: [ main, develop, release/* ]
+  
+  # Trigger on pull requests
+  pull_request:
+    branches: [ main, develop ]
+  
+  # Schedule regular testing (weekdays at 2 AM UTC)
+  schedule:
+    - cron: '0 2 * * 1-5'
+  
+  # Manual trigger with customizable options
+  workflow_dispatch:
+    inputs:
+      test_type:
+        description: 'Type of tests to run'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - smoke
+          - regression
+          - performance
+      browsers:
+        description: 'Browsers to test (comma-separated)'
+        required: false
+        default: 'chromium,firefox,webkit'
+      platforms:
+        description: 'Platforms to test (comma-separated)'
+        required: false
+        default: 'ubuntu-latest,windows-latest,macos-latest'
+      parallel_jobs:
+        description: 'Maximum parallel jobs'
+        required: false
+        default: '6'
+        type: number
+
+# Environment variables for all jobs
+env:
+  NODE_VERSION: '20'
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '0'
+  CI: true
+
+jobs:
+  # ============================================================================
+  # Pre-test Setup and Validation
+  # ============================================================================
+  
+  setup:
+    name: 🔧 Setup and Validation
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.generate-matrix.outputs.matrix }}
+      test-files: ${{ steps.detect-changes.outputs.test-files }}
+      should-run-tests: ${{ steps.detect-changes.outputs.should-run-tests }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Validate configuration
+        run: |
+          # Validate playwright.config.ts
+          npx playwright install --dry-run
+          
+          # Check test file syntax
+          npm run lint:tests || echo "Linting warnings found"
+          
+          # Validate test structure
+          find tests -name "*.spec.ts" -exec node -c {} \;
+      
+      - name: Detect changes and generate matrix
+        id: detect-changes
+        run: |
+          # Detect changed files
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          echo "Changed files: $CHANGED_FILES"
+          
+          # Check if tests should run
+          if [[ "$CHANGED_FILES" =~ (tests/|src/|playwright\.config\.ts) ]] || [[ "${{ github.event_name }}" == "schedule" ]] || [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "should-run-tests=true" >> $GITHUB_OUTPUT
+          else
+            echo "should-run-tests=false" >> $GITHUB_OUTPUT
+          fi
+          
+          # Get test files
+          TEST_FILES=$(find tests -name "*.spec.ts" | jq -R -s -c 'split("\n")[:-1]')
+          echo "test-files=$TEST_FILES" >> $GITHUB_OUTPUT
+      
+      - name: Generate dynamic matrix
+        id: generate-matrix
+        run: |
+          # Use input parameters or defaults
+          BROWSERS="${{ github.event.inputs.browsers || 'chromium,firefox,webkit' }}"
+          PLATFORMS="${{ github.event.inputs.platforms || 'ubuntu-latest,windows-latest,macos-latest' }}"
+          TEST_TYPE="${{ github.event.inputs.test_type || 'full' }}"
+          
+          # Generate matrix using Python
+          MATRIX=$(python3 << 'EOF'
+          import json
+          import os
+          
+          browsers = os.environ['BROWSERS'].split(',')
+          platforms = os.environ['PLATFORMS'].split(',')
+          test_type = os.environ['TEST_TYPE']
+          
+          matrix = []
+          
+          for platform in platforms:
+              for browser in browsers:
+                  # Skip webkit on non-macOS platforms
+                  if browser == 'webkit' and 'macos' not in platform:
+                      continue
+                  
+                  # Base configuration
+                  config = {
+                      'os': platform,
+                      'browser': browser,
+                      'node-version': '20',
+                      'test-type': test_type,
+                  }
+                  
+                  # Add platform-specific configurations
+                  if 'ubuntu' in platform:
+                      config.update({
+                          'display': ':99',
+                          'workers': 2,
+                          'timeout-multiplier': 1.0,
+                      })
+                  elif 'windows' in platform:
+                      config.update({
+                          'workers': 3,
+                          'timeout-multiplier': 1.2,
+                      })
+                  elif 'macos' in platform:
+                      config.update({
+                          'workers': 2,
+                          'timeout-multiplier': 1.1,
+                      })
+                  
+                  # Add browser-specific configurations
+                  if browser == 'firefox':
+                      config['timeout-multiplier'] = config.get('timeout-multiplier', 1.0) * 1.3
+                  elif browser == 'webkit':
+                      config['timeout-multiplier'] = config.get('timeout-multiplier', 1.0) * 1.2
+                  
+                  # Add special test configurations
+                  if platform == 'ubuntu-latest' and browser == 'chromium':
+                      config['run-performance-tests'] = True
+                  if platform == 'windows-latest' and browser == 'chromium':
+                      config['run-accessibility-tests'] = True
+                  if platform == 'macos-latest' and browser == 'webkit':
+                      config['run-mobile-tests'] = True
+                  
+                  matrix.append(config)
+          
+          # Output matrix
+          matrix_json = json.dumps({'include': matrix})
+          print(matrix_json)
+          EOF
+          )
+          
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          echo "Generated matrix:"
+          echo "$MATRIX" | jq .
+
+  # ============================================================================
+  # Cross-Browser Testing Matrix
+  # ============================================================================
+  
+  cross-browser-tests:
+    name: 🧪 ${{ matrix.browser }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs: setup
+    if: needs.setup.outputs.should-run-tests == 'true'
+    
+    strategy:
+      fail-fast: false
+      max-parallel: ${{ fromJson(github.event.inputs.parallel_jobs || '6') }}
+      matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
+    
+    timeout-minutes: ${{ fromJson(matrix.timeout-multiplier * 60) || 60 }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      # Platform-specific setup
+      - name: Setup Linux Display (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1280x720x24 &
+          sleep 3
+      
+      - name: Setup Windows Environment  
+        if: matrix.os == 'windows-latest'
+        run: |
+          # Windows-specific setup
+          echo "Setting up Windows environment for ${{ matrix.browser }}"
+          # Set Windows-specific environment variables
+          echo "PLAYWRIGHT_BROWSERS_PATH=C:\ms-playwright" >> $GITHUB_ENV
+      
+      - name: Setup macOS Environment
+        if: matrix.os == 'macos-latest'
+        run: |
+          # macOS-specific setup
+          echo "Setting up macOS environment for ${{ matrix.browser }}"
+          # Enable developer mode for WebKit
+          sudo DevToolsSecurity -enable
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install Playwright Browser - ${{ matrix.browser }}
+        run: |
+          npx playwright install ${{ matrix.browser }} --with-deps
+          
+          # Verify browser installation
+          npx playwright install-deps ${{ matrix.browser }}
+      
+      - name: Verify browser installation
+        run: |
+          echo "Verifying ${{ matrix.browser }} installation on ${{ matrix.os }}"
+          npx playwright --version
+          
+          # Test browser launch
+          node -e "
+          const { chromium, firefox, webkit } = require('@playwright/test');
+          (async () => {
+            const browsers = { chromium, firefox, webkit };
+            const browser = await browsers['${{ matrix.browser }}'].launch({ headless: true });
+            const context = await browser.newContext();
+            const page = await context.newPage();
+            await page.goto('data:text/html,<h1>Browser Test</h1>');
+            const title = await page.textContent('h1');
+            console.log('Browser working:', title);
+            await browser.close();
+          })();
+          "
+      
+      # Core test execution
+      - name: Run Core Tests - ${{ matrix.browser }}
+        run: |
+          npx playwright test \
+            --project=${{ matrix.browser }} \
+            --workers=${{ matrix.workers || 1 }} \
+            --reporter=github \
+            --output-dir=test-results-${{ strategy.job-index }}
+        env:
+          BROWSER: ${{ matrix.browser }}
+          OS: ${{ matrix.os }}
+          TEST_TYPE: ${{ matrix.test-type }}
+          PWTEST_SKIP_TEST_OUTPUT: 1
+      
+      # Conditional test execution based on matrix configuration
+      - name: Run Performance Tests
+        if: matrix.run-performance-tests
+        run: |
+          echo "Running performance tests on ${{ matrix.browser }}"
+          npx playwright test \
+            --project=${{ matrix.browser }} \
+            --grep="@performance" \
+            --workers=1 \
+            --reporter=json:performance-results.json
+      
+      - name: Run Accessibility Tests
+        if: matrix.run-accessibility-tests
+        run: |
+          echo "Running accessibility tests on ${{ matrix.browser }}"
+          npx playwright test \
+            --project=${{ matrix.browser }} \
+            --grep="@accessibility" \
+            --workers=${{ matrix.workers || 1 }} \
+            --reporter=json:accessibility-results.json
+      
+      - name: Run Mobile Tests
+        if: matrix.run-mobile-tests
+        run: |
+          echo "Running mobile tests on ${{ matrix.browser }}"
+          npx playwright test \
+            --project="Mobile Safari" \
+            --workers=1 \
+            --reporter=json:mobile-results.json
+      
+      # Test result collection and analysis
+      - name: Collect Test Metrics
+        if: always()
+        run: |
+          echo "Collecting test metrics for ${{ matrix.browser }} on ${{ matrix.os }}"
+          
+          # Create metrics directory
+          mkdir -p metrics
+          
+          # Collect browser-specific metrics
+          node -e "
+          const fs = require('fs');
+          const metrics = {
+            browser: '${{ matrix.browser }}',
+            os: '${{ matrix.os }}',
+            timestamp: new Date().toISOString(),
+            testType: '${{ matrix.test-type }}',
+            workers: ${{ matrix.workers || 1 }},
+            timeoutMultiplier: ${{ matrix.timeout-multiplier || 1.0 }},
+            jobIndex: ${{ strategy.job-index }}
+          };
+          
+          fs.writeFileSync('metrics/test-metrics.json', JSON.stringify(metrics, null, 2));
+          console.log('Metrics collected:', metrics);
+          "
+      
+      - name: Generate Browser Report
+        if: always()
+        run: |
+          # Generate detailed browser-specific report
+          npx playwright show-report \
+            --reporter=html \
+            --output-dir=browser-report-${{ strategy.job-index }} || true
+          
+          # Generate JSON summary
+          npx playwright show-report \
+            --reporter=json \
+            --output-file=browser-summary-${{ strategy.job-index }}.json || true
+      
+      # Artifact upload with organized structure
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ matrix.os }}-${{ matrix.browser }}-${{ strategy.job-index }}
+          path: |
+            test-results-${{ strategy.job-index }}/
+            browser-report-${{ strategy.job-index }}/
+            browser-summary-${{ strategy.job-index }}.json
+            metrics/
+            performance-results.json
+            accessibility-results.json
+            mobile-results.json
+          retention-days: 30
+      
+      - name: Upload Screenshots and Videos
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: debug-${{ matrix.os }}-${{ matrix.browser }}-${{ strategy.job-index }}
+          path: |
+            test-results-${{ strategy.job-index }}/screenshots/
+            test-results-${{ strategy.job-index }}/videos/
+            test-results-${{ strategy.job-index }}/traces/
+          retention-days: 14
+
+  # ============================================================================
+  # Test Results Analysis and Reporting
+  # ============================================================================
+  
+  analyze-results:
+    name: 📊 Analyze Cross-Browser Results
+    runs-on: ubuntu-latest
+    needs: [setup, cross-browser-tests]
+    if: always() && needs.setup.outputs.should-run-tests == 'true'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+      
+      - name: Install analysis dependencies
+        run: |
+          npm install --no-save lodash chalk
+      
+      - name: Analyze cross-browser results
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+          const _ = require('lodash');
+          const chalk = require('chalk');
+          
+          // Collect all test results
+          const artifactDirs = fs.readdirSync('artifacts/');
+          const results = [];
+          const metrics = [];
+          
+          for (const dir of artifactDirs) {
+            const dirPath = path.join('artifacts', dir);
+            
+            // Collect metrics
+            const metricsFile = path.join(dirPath, 'metrics', 'test-metrics.json');
+            if (fs.existsSync(metricsFile)) {
+              const metric = JSON.parse(fs.readFileSync(metricsFile, 'utf8'));
+              metrics.push(metric);
+            }
+            
+            // Collect test summaries
+            const summaryFiles = fs.readdirSync(dirPath).filter(f => f.startsWith('browser-summary-'));
+            for (const summaryFile of summaryFiles) {
+              const summaryPath = path.join(dirPath, summaryFile);
+              if (fs.existsSync(summaryPath)) {
+                try {
+                  const summary = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
+                  results.push({
+                    ...summary,
+                    artifactDir: dir
+                  });
+                } catch (e) {
+                  console.log(`Warning: Could not parse ${summaryPath}`);
+                }
+              }
+            }
+          }
+          
+          // Generate analysis report
+          console.log(chalk.blue('\n=== Cross-Browser Test Analysis ===\n'));
+          
+          // Summary by browser
+          const browserSummary = _.groupBy(metrics, 'browser');
+          for (const [browser, browserMetrics] of Object.entries(browserSummary)) {
+            console.log(chalk.green(`${browser.toUpperCase()}:`));
+            
+            const platforms = _.groupBy(browserMetrics, 'os');
+            for (const [os, osMetrics] of Object.entries(platforms)) {
+              const osName = os.replace('-latest', '');
+              const avgWorkers = _.meanBy(osMetrics, 'workers');
+              const avgTimeout = _.meanBy(osMetrics, 'timeoutMultiplier');
+              
+              console.log(`  ${osName}: Workers=${avgWorkers}, Timeout=${avgTimeout.toFixed(2)}x`);
+            }
+            console.log();
+          }
+          
+          // Performance comparison
+          if (results.length > 0) {
+            console.log(chalk.blue('Performance Comparison:'));
+            
+            const performanceData = results.map(r => ({
+              browser: r.browser || 'unknown',
+              os: r.os || 'unknown',
+              duration: r.stats?.duration || 0,
+              tests: r.stats?.total || 0,
+              passed: r.stats?.passed || 0,
+              failed: r.stats?.failed || 0
+            }));
+            
+            const sorted = _.orderBy(performanceData, ['duration'], ['asc']);
+            for (const perf of sorted) {
+              const passRate = perf.tests > 0 ? ((perf.passed / perf.tests) * 100).toFixed(1) : 0;
+              console.log(`  ${perf.browser} (${perf.os}): ${perf.duration}ms, Pass Rate: ${passRate}%`);
+            }
+          }
+          
+          // Generate detailed report
+          const report = {
+            timestamp: new Date().toISOString(),
+            summary: {
+              totalConfigurations: metrics.length,
+              browsers: _.uniq(metrics.map(m => m.browser)),
+              platforms: _.uniq(metrics.map(m => m.os)),
+              testTypes: _.uniq(metrics.map(m => m.testType))
+            },
+            metrics,
+            results: results.map(r => _.pick(r, ['browser', 'os', 'stats', 'duration']))
+          };
+          
+          fs.writeFileSync('cross-browser-analysis.json', JSON.stringify(report, null, 2));
+          
+          console.log(chalk.green('\n✅ Analysis complete. Report saved to cross-browser-analysis.json'));
+          EOF
+      
+      - name: Generate HTML Report
+        run: |
+          # Create HTML summary report
+          cat > cross-browser-report.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Cross-Browser Test Results</title>
+              <style>
+                  body { font-family: Arial, sans-serif; margin: 20px; }
+                  table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+                  th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                  th { background-color: #f2f2f2; }
+                  .pass { color: green; }
+                  .fail { color: red; }
+                  .summary { background-color: #f9f9f9; padding: 15px; margin: 20px 0; }
+              </style>
+          </head>
+          <body>
+              <h1>Cross-Browser Test Results</h1>
+              <div class="summary">
+                  <h2>Test Summary</h2>
+                  <p><strong>Test Run:</strong> ${{ github.run_number }}</p>
+                  <p><strong>Commit:</strong> ${{ github.sha }}</p>
+                  <p><strong>Branch:</strong> ${{ github.ref_name }}</p>
+                  <p><strong>Timestamp:</strong> $(date -u)</p>
+              </div>
+              
+              <h2>Browser Compatibility Matrix</h2>
+              <table>
+                  <tr>
+                      <th>Browser</th>
+                      <th>Platform</th>
+                      <th>Status</th>
+                      <th>Duration</th>
+                      <th>Tests</th>
+                  </tr>
+                  <!-- Results will be populated by the analysis script -->
+              </table>
+              
+              <p><em>Detailed results available in artifacts.</em></p>
+          </body>
+          </html>
+          EOF
+      
+      - name: Upload Analysis Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: cross-browser-analysis
+          path: |
+            cross-browser-analysis.json
+            cross-browser-report.html
+          retention-days: 90
+      
+      - name: Comment PR with Results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            if (fs.existsSync('cross-browser-analysis.json')) {
+              const analysis = JSON.parse(fs.readFileSync('cross-browser-analysis.json', 'utf8'));
+              
+              const comment = `## 🌐 Cross-Browser Test Results
+              
+              **Test Configurations:** ${analysis.summary.totalConfigurations}
+              **Browsers:** ${analysis.summary.browsers.join(', ')}
+              **Platforms:** ${analysis.summary.platforms.map(p => p.replace('-latest', '')).join(', ')}
+              
+              ### Results Summary
+              ${analysis.results.map(r => 
+                `- **${r.browser}**: ${r.stats?.passed || 0}/${r.stats?.total || 0} tests passed`
+              ).join('\n')}
+              
+              📊 Detailed analysis available in workflow artifacts.
+              `;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
+  # ============================================================================
+  # Performance Benchmarking (Optional)
+  # ============================================================================
+  
+  performance-benchmark:
+    name: 🚀 Performance Benchmark
+    runs-on: ubuntu-latest
+    needs: [setup, cross-browser-tests]
+    if: |
+      always() && 
+      needs.setup.outputs.should-run-tests == 'true' &&
+      (github.event.inputs.test_type == 'performance' || github.event.inputs.test_type == 'full')
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install all browsers
+        run: npx playwright install --with-deps
+      
+      - name: Run performance benchmarks
+        run: |
+          echo "Running comprehensive performance benchmarks..."
+          
+          # Run performance tests for each browser
+          for browser in chromium firefox webkit; do
+            echo "Benchmarking $browser..."
+            
+            npx playwright test \
+              --project=$browser \
+              --grep="@performance" \
+              --workers=1 \
+              --reporter=json:performance-$browser.json || true
+            
+            # Extract performance metrics
+            node -e "
+            const fs = require('fs');
+            try {
+              const results = JSON.parse(fs.readFileSync('performance-$browser.json', 'utf8'));
+              const suites = results.suites || [];
+              
+              const metrics = suites.flatMap(suite => 
+                suite.specs?.map(spec => ({
+                  browser: '$browser',
+                  test: spec.title,
+                  duration: spec.tests?.[0]?.results?.[0]?.duration || 0,
+                  status: spec.tests?.[0]?.results?.[0]?.status || 'unknown'
+                })) || []
+              );
+              
+              fs.writeFileSync('metrics-$browser.json', JSON.stringify(metrics, null, 2));
+              console.log('Performance metrics for $browser:', metrics.length, 'tests');
+            } catch (e) {
+              console.log('No performance results for $browser');
+            }
+            "
+          done
+      
+      - name: Generate performance comparison
+        run: |
+          node -e "
+          const fs = require('fs');
+          const browsers = ['chromium', 'firefox', 'webkit'];
+          const allMetrics = [];
+          
+          for (const browser of browsers) {
+            const file = \`metrics-\${browser}.json\`;
+            if (fs.existsSync(file)) {
+              const metrics = JSON.parse(fs.readFileSync(file, 'utf8'));
+              allMetrics.push(...metrics);
+            }
+          }
+          
+          // Group by test name and compare
+          const testGroups = {};
+          for (const metric of allMetrics) {
+            if (!testGroups[metric.test]) {
+              testGroups[metric.test] = {};
+            }
+            testGroups[metric.test][metric.browser] = metric.duration;
+          }
+          
+          console.log('Performance Comparison Report:');
+          console.log('============================');
+          
+          for (const [testName, browsers] of Object.entries(testGroups)) {
+            console.log(\`\nTest: \${testName}\`);
+            
+            const sorted = Object.entries(browsers).sort((a, b) => a[1] - b[1]);
+            for (const [browser, duration] of sorted) {
+              console.log(\`  \${browser}: \${duration}ms\`);
+            }
+          }
+          
+          fs.writeFileSync('performance-comparison.json', JSON.stringify(testGroups, null, 2));
+          "
+      
+      - name: Upload performance results
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-benchmarks
+          path: |
+            performance-*.json
+            metrics-*.json
+            performance-comparison.json
+          retention-days: 30
+
+# ============================================================================
+# Notification and Cleanup
+# ============================================================================
+
+  notify-results:
+    name: 📢 Notify Results
+    runs-on: ubuntu-latest
+    needs: [setup, cross-browser-tests, analyze-results]
+    if: always() && needs.setup.outputs.should-run-tests == 'true'
+    
+    steps:
+      - name: Notify on success
+        if: needs.cross-browser-tests.result == 'success'
+        run: |
+          echo "✅ All cross-browser tests passed successfully!"
+          echo "Tested browsers: ${{ github.event.inputs.browsers || 'chromium,firefox,webkit' }}"
+          echo "Tested platforms: ${{ github.event.inputs.platforms || 'ubuntu-latest,windows-latest,macos-latest' }}"
+      
+      - name: Notify on failure
+        if: needs.cross-browser-tests.result == 'failure'
+        run: |
+          echo "❌ Some cross-browser tests failed."
+          echo "Check the individual job results for details."
+          echo "Artifacts contain screenshots, videos, and detailed reports."
+          
+          # Set workflow status
+          exit 1

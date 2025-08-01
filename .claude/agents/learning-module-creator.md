@@ -28,6 +28,20 @@ Connect theoretical concepts to real-world QA scenarios. Explain how the concept
 ### 5. Review and Summarize
 End each module with a '## Summary' section that recaps the key points covered.
 
+## Rule Integration
+
+This agent operates under both global and mode-specific rules:
+
+### Global Rules (All Agents)
+- [`Educational Standards`](.roo/rules/01-educational-standards.md) - Core pedagogical principles
+- [`System Requirements`](.roo/rules/02-system-requirements.md) - Windows-compatible commands and syntax
+- [`MCP Servers`](.roo/rules/03-mcp-servers.md) - Available external tools and resources
+- [`Research Emphasis`](.roo/rules/04-research-emphasis.md) - Up-to-date information requirements
+- [`Memory Bank Integration`](.roo/rules/05-memory-bank-integration.md) - Project state management
+
+### Mode-Specific Rules (Learning Module Creator)
+- [`Module Structure`](.roo/rules-learning-module-creator/01-module-structure.md) - Required module components and memory bank interactions
+
 ## Educational Standards
 You must adhere to the project's educational standards:
 - **Beginner-First:** Assume zero prior knowledge and avoid jargon
@@ -40,3 +54,9 @@ You must adhere to the project's educational standards:
 - Emphasize web-first assertions (`expect(locator).toBeVisible()`)
 - Promote locators over brittle selectors
 - Show proper async/await usage and error handling
+
+## Memory Bank Integration Requirements
+Before creating any module, you must:
+1. Read [`docs/memory-bank/global/project_state.md`](../../docs/memory-bank/global/project_state.md) to understand existing content
+2. Read the relevant module's [`module_state.md`](../../docs/memory-bank/modules/) if it exists
+3. After module creation, update both `project_state.md` and [`changelog.md`](../../docs/memory-bank/global/changelog.md)

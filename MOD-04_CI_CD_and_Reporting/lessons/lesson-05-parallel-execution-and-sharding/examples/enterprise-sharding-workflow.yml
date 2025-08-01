@@ -1,0 +1,496 @@
+# Enterprise Sharding Workflow
+# 
+# This GitHub Actions workflow demonstrates advanced sharding strategies for large-scale
+# test suites in enterprise environments. It includes dynamic shard allocation, intelligent
+# load balancing, and comprehensive artifact management.
+#
+# Key Features Demonstrated:
+# - Dynamic shard calculation based on test suite size
+# - Multi-dimensional matrix strategies (browser x shard x platform)
+# - Intelligent test distribution with load balancing
+# - Resource-optimized runner allocation
+# - Comprehensive artifact collection and report merging
+# - Performance monitoring and metrics collection
+# - Failure recovery and retry strategies
+
+name: Enterprise Parallel Testing with Advanced Sharding
+
+on:
+  push:
+    branches: [main, develop, release/*]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Run full test suite daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: 'Test suite to run'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - 'smoke'
+          - 'regression'
+          - 'full'
+          - 'performance'
+      shard_count:
+        description: 'Number of shards (0 for auto-calculation)'
+        required: false
+        default: '0'
+        type: string
+      browser_matrix:
+        description: 'Browser matrix'
+        required: false
+        default: 'chromium,firefox,webkit'
+        type: string
+
+# Global environment variables
+env:
+  NODE_VERSION: '18'
+  PLAYWRIGHT_VERSION: '1.40.0'
+  # Auto-calculate or use input
+  CUSTOM_SHARD_COUNT: ${{ github.event.inputs.shard_count || '0' }}
+  TEST_SUITE: ${{ github.event.inputs.test_suite || 'regression' }}
+  BROWSER_MATRIX: ${{ github.event.inputs.browser_matrix || 'chromium,firefox' }}
+  
+  # Enterprise configuration
+  ENTERPRISE_MODE: 'true'
+  PERFORMANCE_MONITORING: 'enabled'
+  ARTIFACT_RETENTION_DAYS: 30
+
+jobs:
+  # =====================================
+  # 1. PREPARATION AND ANALYSIS
+  # =====================================
+  
+  analyze-test-suite:
+    name: Analyze Test Suite and Calculate Optimal Sharding
+    runs-on: ubuntu-latest
+    outputs:
+      total-tests: ${{ steps.count-tests.outputs.total }}
+      test-files: ${{ steps.count-tests.outputs.files }}
+      optimal-shards: ${{ steps.calculate-shards.outputs.shards }}
+      shard-matrix: ${{ steps.generate-matrix.outputs.matrix }}
+      browser-list: ${{ steps.parse-browsers.outputs.browsers }}
+      estimated-duration: ${{ steps.estimate-duration.outputs.duration }}
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for change analysis
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+        
+      - name: Count and analyze tests
+        id: count-tests
+        run: |
+          echo "🔍 Analyzing test suite: ${{ env.TEST_SUITE }}"
+          
+          # Define test patterns based on suite type
+          case "${{ env.TEST_SUITE }}" in
+            "smoke")
+              PATTERN="**/smoke/**/*.spec.ts"
+              ;;
+            "regression")
+              PATTERN="**/regression/**/*.spec.ts **/integration/**/*.spec.ts"
+              ;;
+            "performance")
+              PATTERN="**/performance/**/*.spec.ts"
+              ;;
+            "full")
+              PATTERN="**/*.spec.ts"
+              ;;
+            *)
+              PATTERN="**/regression/**/*.spec.ts"
+              ;;
+          esac
+          
+          # Count test files and individual tests
+          if [ "${{ env.TEST_SUITE }}" = "full" ]; then
+            TEST_FILES=$(find tests -name "*.spec.ts" | wc -l)
+            TOTAL_TESTS=$(find tests -name "*.spec.ts" -exec grep -c "test(" {} \; | awk '{sum+=$1} END {print sum}')
+          else
+            TEST_FILES=$(find tests -path "tests/${{ env.TEST_SUITE }}/**/*.spec.ts" -o -path "tests/**/integration/**/*.spec.ts" | wc -l)
+            TOTAL_TESTS=$(find tests -path "tests/${{ env.TEST_SUITE }}/**/*.spec.ts" -o -path "tests/**/integration/**/*.spec.ts" -exec grep -c "test(" {} \; | awk '{sum+=$1} END {print sum}')
+          fi
+          
+          echo "Found $TEST_FILES test files with $TOTAL_TESTS individual tests"
+          echo "total=$TOTAL_TESTS" >> $GITHUB_OUTPUT
+          echo "files=$TEST_FILES" >> $GITHUB_OUTPUT
+          
+      - name: Calculate optimal shard count
+        id: calculate-shards
+        run: |
+          TOTAL_TESTS=${{ steps.count-tests.outputs.total }}
+          CUSTOM_SHARDS=${{ env.CUSTOM_SHARD_COUNT }}
+          
+          echo "📊 Calculating optimal shard count..."
+          echo "Total tests: $TOTAL_TESTS"
+          echo "Custom shard count: $CUSTOM_SHARDS"
+          
+          if [ "$CUSTOM_SHARDS" != "0" ]; then
+            OPTIMAL_SHARDS=$CUSTOM_SHARDS
+            echo "Using custom shard count: $OPTIMAL_SHARDS"
+          else
+            # Calculate based on test count and optimal execution time
+            # Target: ~100-200 tests per shard, max 15 minutes per shard
+            if [ $TOTAL_TESTS -le 100 ]; then
+              OPTIMAL_SHARDS=1
+            elif [ $TOTAL_TESTS -le 500 ]; then
+              OPTIMAL_SHARDS=4
+            elif [ $TOTAL_TESTS -le 1000 ]; then
+              OPTIMAL_SHARDS=8
+            elif [ $TOTAL_TESTS -le 2000 ]; then
+              OPTIMAL_SHARDS=12
+            else
+              OPTIMAL_SHARDS=16
+            fi
+            echo "Calculated optimal shard count: $OPTIMAL_SHARDS"
+          fi
+          
+          echo "shards=$OPTIMAL_SHARDS" >> $GITHUB_OUTPUT
+          
+      - name: Parse browser matrix
+        id: parse-browsers
+        run: |
+          BROWSERS="${{ env.BROWSER_MATRIX }}"
+          echo "browsers=[\"$(echo $BROWSERS | sed 's/,/\",\"/g')\"]" >> $GITHUB_OUTPUT
+          
+      - name: Generate execution matrix
+        id: generate-matrix
+        run: |
+          SHARDS=${{ steps.calculate-shards.outputs.shards }}
+          BROWSERS='${{ steps.parse-browsers.outputs.browsers }}'
+          
+          # Generate matrix combinations
+          MATRIX=$(node -e "
+            const shards = $SHARDS;
+            const browsers = $BROWSERS;
+            const platforms = ['ubuntu-latest'];
+            
+            const matrix = [];
+            for (let shard = 1; shard <= shards; shard++) {
+              for (const browser of browsers) {
+                for (const platform of platforms) {
+                  matrix.push({
+                    shard: shard,
+                    total_shards: shards,
+                    browser: browser,
+                    platform: platform,
+                    runner_id: \`\${browser}-shard-\${shard}\`
+                  });
+                }
+              }
+            }
+            console.log(JSON.stringify({ include: matrix }));
+          ")
+          
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          
+      - name: Estimate execution duration
+        id: estimate-duration
+        run: |
+          TOTAL_TESTS=${{ steps.count-tests.outputs.total }}
+          SHARDS=${{ steps.calculate-shards.outputs.shards }}
+          BROWSERS_COUNT=$(echo '${{ steps.parse-browsers.outputs.browsers }}' | jq length)
+          
+          # Rough estimation: 2 seconds per test on average
+          TESTS_PER_SHARD=$((TOTAL_TESTS / SHARDS))
+          ESTIMATED_MINUTES=$(((TESTS_PER_SHARD * 2) / 60))
+          
+          echo "📈 Execution Estimation:"
+          echo "  Tests per shard: $TESTS_PER_SHARD"
+          echo "  Estimated duration per shard: ${ESTIMATED_MINUTES} minutes"
+          echo "  Total parallel runners: $((SHARDS * BROWSERS_COUNT))"
+          
+          echo "duration=${ESTIMATED_MINUTES}" >> $GITHUB_OUTPUT
+
+  # =====================================
+  # 2. PARALLEL TEST EXECUTION
+  # =====================================
+  
+  execute-tests:
+    name: 'Execute Tests: ${{ matrix.browser }} (Shard ${{ matrix.shard }}/${{ matrix.total_shards }})'
+    runs-on: ${{ matrix.platform }}
+    needs: analyze-test-suite
+    if: needs.analyze-test-suite.outputs.total-tests != '0'
+    
+    timeout-minutes: 45  # Generous timeout for enterprise environments
+    
+    strategy:
+      fail-fast: false  # Continue other jobs even if some fail
+      matrix: ${{ fromJSON(needs.analyze-test-suite.outputs.shard-matrix) }}
+      
+    env:
+      # Shard-specific environment variables
+      SHARD_INDEX: ${{ matrix.shard }}
+      TOTAL_SHARDS: ${{ matrix.total_shards }}
+      BROWSER: ${{ matrix.browser }}
+      RUNNER_ID: ${{ matrix.runner_id }}
+      
+      # Performance optimization
+      PLAYWRIGHT_WORKERS: 4
+      NODE_OPTIONS: '--max-old-space-size=4096'
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js with caching
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Install Playwright browsers
+        run: |
+          # Install only the required browser for this shard
+          npx playwright install --with-deps ${{ matrix.browser }}
+          
+      - name: Create test result directories
+        run: |
+          mkdir -p test-results/${{ matrix.runner_id }}
+          mkdir -p playwright-report/${{ matrix.runner_id }}
+          mkdir -p performance-metrics/${{ matrix.runner_id }}
+          
+      - name: Run tests with sharding
+        run: |
+          echo "🚀 Starting test execution for shard ${{ matrix.shard }}/${{ matrix.total_shards }}"
+          echo "Browser: ${{ matrix.browser }}"
+          echo "Runner ID: ${{ matrix.runner_id }}"
+          echo "Estimated tests in this shard: ~$((${{ needs.analyze-test-suite.outputs.total-tests }} / ${{ matrix.total_shards }}))"
+          
+          # Set test pattern based on suite type
+          case "${{ env.TEST_SUITE }}" in
+            "smoke")
+              TEST_PATTERN="**/smoke/**/*.spec.ts"
+              ;;
+            "regression")
+              TEST_PATTERN="**/regression/**/*.spec.ts"
+              ;;
+            "performance")
+              TEST_PATTERN="**/performance/**/*.spec.ts"
+              ;;
+            "full")
+              TEST_PATTERN="**/*.spec.ts"
+              ;;
+            *)
+              TEST_PATTERN="**/regression/**/*.spec.ts"
+              ;;
+          esac
+          
+          # Execute tests with comprehensive configuration
+          npx playwright test \
+            --shard=${{ matrix.shard }}/${{ matrix.total_shards }} \
+            --project=${{ matrix.browser }} \
+            --workers=${{ env.PLAYWRIGHT_WORKERS }} \
+            --reporter=json,junit,html \
+            --output-dir=test-results/${{ matrix.runner_id }} \
+            $TEST_PATTERN
+            
+        env:
+          # Additional environment variables for test execution
+          TEST_ENVIRONMENT: 'ci'
+          SHARD_IDENTIFIER: ${{ matrix.runner_id }}
+          PERFORMANCE_MONITORING: ${{ env.PERFORMANCE_MONITORING }}
+          
+      - name: Collect performance metrics
+        if: always()
+        run: |
+          echo "📊 Collecting performance metrics for ${{ matrix.runner_id }}"
+          
+          # Create performance report
+          cat > performance-metrics/${{ matrix.runner_id }}/metrics.json << EOF
+          {
+            "runner_id": "${{ matrix.runner_id }}",
+            "shard": ${{ matrix.shard }},
+            "total_shards": ${{ matrix.total_shards }},
+            "browser": "${{ matrix.browser }}",
+            "platform": "${{ matrix.platform }}",
+            "execution_time": "$(date -Iseconds)",
+            "estimated_tests": $((${{ needs.analyze-test-suite.outputs.total-tests }} / ${{ matrix.total_shards }})),
+            "worker_count": ${{ env.PLAYWRIGHT_WORKERS }},
+            "node_memory_limit": "${{ env.NODE_OPTIONS }}"
+          }
+          EOF
+          
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.runner_id }}
+          path: test-results/${{ matrix.runner_id }}/
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+          
+      - name: Upload HTML reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: html-report-${{ matrix.runner_id }}
+          path: playwright-report/${{ matrix.runner_id }}/
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+          
+      - name: Upload performance metrics
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: performance-metrics-${{ matrix.runner_id }}
+          path: performance-metrics/${{ matrix.runner_id }}/
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+
+  # =====================================
+  # 3. REPORT CONSOLIDATION
+  # =====================================
+  
+  merge-reports:
+    name: Merge Test Reports and Generate Enterprise Summary
+    runs-on: ubuntu-latest
+    needs: [analyze-test-suite, execute-tests]
+    if: always() && needs.analyze-test-suite.outputs.total-tests != '0'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Download all test artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-artifacts
+          pattern: 'test-results-*'
+          
+      - name: Download all HTML reports
+        uses: actions/download-artifact@v4
+        with:
+          path: all-html-reports
+          pattern: 'html-report-*'
+          
+      - name: Download performance metrics
+        uses: actions/download-artifact@v4
+        with:
+          path: all-performance-metrics
+          pattern: 'performance-metrics-*'
+          
+      - name: Merge HTML reports
+        run: |
+          echo "📊 Merging HTML reports from all shards..."
+          
+          # Create merged report directory
+          mkdir -p merged-reports/html
+          
+          # Use Playwright's merge-reports command
+          npx playwright merge-reports \
+            --reporter=html \
+            --config=playwright.config.ts \
+            all-html-reports/html-report-*/
+            
+          # Move merged report
+          if [ -d "playwright-report" ]; then
+            mv playwright-report/* merged-reports/html/
+          fi
+          
+      - name: Generate enterprise summary report
+        run: |
+          echo "📈 Generating enterprise summary report..."
+          
+          # Create comprehensive summary
+          cat > merged-reports/enterprise-summary.md << 'EOF'
+          # Enterprise Test Execution Summary
+          
+          ## Execution Overview
+          - **Test Suite**: ${{ env.TEST_SUITE }}
+          - **Total Tests**: ${{ needs.analyze-test-suite.outputs.total-tests }}
+          - **Test Files**: ${{ needs.analyze-test-suite.outputs.test-files }}
+          - **Shards Used**: ${{ needs.analyze-test-suite.outputs.optimal-shards }}
+          - **Browsers**: ${{ env.BROWSER_MATRIX }}
+          - **Estimated Duration per Shard**: ${{ needs.analyze-test-suite.outputs.estimated-duration }} minutes
+          - **Parallel Runners**: $((${{ needs.analyze-test-suite.outputs.optimal-shards }} * $(echo '${{ needs.analyze-test-suite.outputs.browser-list }}' | jq length)))
+          
+          ## Performance Metrics
+          EOF
+          
+          # Process performance metrics
+          echo "### Shard Performance Details" >> merged-reports/enterprise-summary.md
+          
+          for metrics_dir in all-performance-metrics/performance-metrics-*/; do
+            if [ -f "$metrics_dir/metrics.json" ]; then
+              RUNNER_ID=$(jq -r '.runner_id' "$metrics_dir/metrics.json")
+              SHARD=$(jq -r '.shard' "$metrics_dir/metrics.json")
+              BROWSER=$(jq -r '.browser' "$metrics_dir/metrics.json")
+              ESTIMATED_TESTS=$(jq -r '.estimated_tests' "$metrics_dir/metrics.json")
+              
+              echo "- **$RUNNER_ID**: Browser: $BROWSER, Shard: $SHARD, Est. Tests: $ESTIMATED_TESTS" >> merged-reports/enterprise-summary.md
+            fi
+          done
+          
+      - name: Upload merged reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: enterprise-merged-reports
+          path: merged-reports/
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+
+  # =====================================
+  # 4. NOTIFICATION AND CLEANUP
+  # =====================================
+  
+  notify-completion:
+    name: Notify Completion and Status
+    runs-on: ubuntu-latest
+    needs: [analyze-test-suite, execute-tests, merge-reports]
+    if: always()
+    
+    steps:
+      - name: Determine overall status
+        id: status
+        run: |
+          if [ "${{ needs.execute-tests.result }}" = "success" ]; then
+            echo "status=✅ SUCCESS" >> $GITHUB_OUTPUT
+            echo "color=good" >> $GITHUB_OUTPUT
+          elif [ "${{ needs.execute-tests.result }}" = "failure" ]; then
+            echo "status=❌ FAILED" >> $GITHUB_OUTPUT
+            echo "color=danger" >> $GITHUB_OUTPUT
+          else
+            echo "status=⚠️ PARTIAL" >> $GITHUB_OUTPUT
+            echo "color=warning" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Output final status
+        run: |
+          echo "🎯 Enterprise parallel test execution completed!"
+          echo "${{ steps.status.outputs.status }}"
+          echo ""
+          echo "📊 Key Metrics:"
+          echo "  - Total Tests: ${{ needs.analyze-test-suite.outputs.total-tests || 'N/A' }}"
+          echo "  - Optimal Shards: ${{ needs.analyze-test-suite.outputs.optimal-shards || 'N/A' }}"
+          echo "  - Estimated Time per Shard: ${{ needs.analyze-test-suite.outputs.estimated-duration || 'N/A' }} minutes"
+          echo ""
+          echo "📁 Artifacts available:"
+          echo "  - Merged HTML reports"
+          echo "  - Individual shard results"
+          echo ""
+          echo "For detailed results, check the 'enterprise-merged-reports' artifact."

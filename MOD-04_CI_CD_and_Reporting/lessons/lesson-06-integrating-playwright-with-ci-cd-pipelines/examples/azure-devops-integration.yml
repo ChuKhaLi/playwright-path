@@ -1,0 +1,712 @@
+# Azure DevOps Pipeline Integration Example
+# Demonstrates enterprise-grade Playwright integration with Azure DevOps
+# including multi-stage deployment, comprehensive testing, and quality gates
+
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+      - feature/*
+      - release/*
+      - hotfix/*
+  paths:
+    exclude:
+      - docs/*
+      - README.md
+      - '*.md'
+
+pr:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    exclude:
+      - docs/*
+      - README.md
+
+variables:
+  # Global variables
+  - name: nodeVersion
+    value: '18.x'
+  - name: playwrightVersion
+    value: '1.40.0'
+  - name: artifactRetentionDays
+    value: 30
+  
+  # Variable groups (configured in Azure DevOps Library)
+  - group: playwright-testing-secrets
+  - group: deployment-configuration
+  
+  # Conditional variables based on branch
+  - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
+    - name: deploymentEnvironment
+      value: 'production'
+    - name: requireApproval
+      value: true
+  - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/develop') }}:
+    - name: deploymentEnvironment
+      value: 'staging'
+    - name: requireApproval
+      value: false
+  - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/') }}:
+    - name: deploymentEnvironment
+      value: 'development'
+    - name: requireApproval
+      value: false
+
+stages:
+  # Stage 1: Build and Quality Analysis
+  - stage: BuildAndAnalysis
+    displayName: 'Build & Quality Analysis'
+    jobs:
+      - job: CodeQuality
+        displayName: 'Code Quality Assessment'
+        pool:
+          vmImage: 'ubuntu-latest'
+        variables:
+          npm_config_cache: $(Pipeline.Workspace)/.npm
+          
+        steps:
+          - task: NodeTool@0
+            displayName: 'Install Node.js $(nodeVersion)'
+            inputs:
+              versionSpec: $(nodeVersion)
+              
+          - task: Cache@2
+            displayName: 'Cache npm packages'
+            inputs:
+              key: 'npm | "$(Agent.OS)" | package-lock.json'
+              restoreKeys: |
+                npm | "$(Agent.OS)"
+                npm
+              path: $(npm_config_cache)
+              
+          - script: |
+              npm ci --cache $(npm_config_cache) --prefer-offline
+            displayName: 'Install dependencies'
+            
+          - script: |
+              echo "Running comprehensive code quality analysis..."
+              
+              # ESLint analysis
+              npm run lint -- --format=json --output-file=$(Agent.TempDirectory)/eslint-results.json || true
+              
+              # TypeScript compilation check
+              npx tsc --noEmit --pretty
+              
+              # Calculate quality metrics
+              LINT_ERRORS=$(jq '[.[] | .errorCount] | add // 0' $(Agent.TempDirectory)/eslint-results.json)
+              LINT_WARNINGS=$(jq '[.[] | .warningCount] | add // 0' $(Agent.TempDirectory)/eslint-results.json)
+              
+              QUALITY_SCORE=$((100 - LINT_ERRORS * 3 - LINT_WARNINGS))
+              QUALITY_SCORE=$((QUALITY_SCORE < 0 ? 0 : QUALITY_SCORE))
+              
+              echo "##vso[task.setvariable variable=qualityScore;isOutput=true]$QUALITY_SCORE"
+              
+              echo "Code Quality Metrics:"
+              echo "  Errors: $LINT_ERRORS"
+              echo "  Warnings: $LINT_WARNINGS" 
+              echo "  Quality Score: $QUALITY_SCORE/100"
+              
+              # Set quality gate
+              if [ $QUALITY_SCORE -lt 80 ]; then
+                echo "##vso[task.logissue type=error]Quality score $QUALITY_SCORE is below threshold (80)"
+                exit 1
+              fi
+            displayName: 'Code quality analysis'
+            name: qualityMetrics
+            
+          - script: |
+              echo "Running security vulnerability scan..."
+              
+              # Security audit
+              npm audit --audit-level=moderate --json > $(Agent.TempDirectory)/security-audit.json || true
+              
+              HIGH_VULNS=$(jq '.metadata.vulnerabilities.high // 0' $(Agent.TempDirectory)/security-audit.json)
+              MODERATE_VULNS=$(jq '.metadata.vulnerabilities.moderate // 0' $(Agent.TempDirectory)/security-audit.json)
+              
+              echo "##vso[task.setvariable variable=highVulnerabilities;isOutput=true]$HIGH_VULNS"
+              echo "##vso[task.setvariable variable=moderateVulnerabilities;isOutput=true]$MODERATE_VULNS"
+              
+              echo "Security Scan Results:"
+              echo "  High: $HIGH_VULNS"
+              echo "  Moderate: $MODERATE_VULNS"
+              
+              if [ $HIGH_VULNS -gt 0 ]; then
+                echo "##vso[task.logissue type=error]High severity vulnerabilities found: $HIGH_VULNS"
+                exit 1
+              fi
+              
+              if [ $MODERATE_VULNS -gt 5 ]; then
+                echo "##vso[task.logissue type=warning]Multiple moderate vulnerabilities found: $MODERATE_VULNS"
+              fi
+            displayName: 'Security vulnerability scan'
+            name: securityScan
+            
+          - task: PublishTestResults@2
+            displayName: 'Publish lint results'
+            condition: always()
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: '$(Agent.TempDirectory)/lint-results.xml'
+              failTaskOnFailedTests: false
+              testRunTitle: 'ESLint Results'
+              
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish quality analysis artifacts'
+            condition: always()
+            inputs:
+              pathToPublish: '$(Agent.TempDirectory)'
+              artifactName: 'quality-analysis'
+              
+  # Stage 2: Multi-Environment Testing
+  - stage: Testing
+    displayName: 'Multi-Environment Testing'
+    dependsOn: BuildAndAnalysis
+    condition: succeeded()
+    variables:
+      qualityScore: $[ stageDependencies.BuildAndAnalysis.CodeQuality.outputs['qualityMetrics.qualityScore'] ]
+      
+    jobs:
+      # Development Environment Testing
+      - job: TestDevelopment
+        displayName: 'Development Environment Tests'
+        condition: or(eq(variables.deploymentEnvironment, 'development'), eq(variables['Build.Reason'], 'PullRequest'))
+        pool:
+          vmImage: 'ubuntu-latest'
+        variables:
+          testEnvironment: 'development'
+          parallelWorkers: 4
+          testTimeout: 30000
+          maxRetries: 1
+        
+        steps:
+          - task: NodeTool@0
+            displayName: 'Install Node.js'
+            inputs:
+              versionSpec: $(nodeVersion)
+              
+          - script: npm ci --silent
+            displayName: 'Install dependencies'
+            
+          - script: npx playwright install --with-deps
+            displayName: 'Install Playwright browsers'
+            
+          - script: |
+              echo "Generating $(testEnvironment) configuration..."
+              
+              cat > playwright-$(testEnvironment).config.ts << EOF
+              import { defineConfig } from '@playwright/test';
+              
+              export default defineConfig({
+                testDir: './tests',
+                workers: $(parallelWorkers),
+                timeout: $(testTimeout),
+                retries: $(maxRetries),
+                
+                use: {
+                  baseURL: '$(DEV_BASE_URL)',
+                  headless: true,
+                  screenshot: 'only-on-failure',
+                  video: 'retain-on-failure',
+                  trace: 'retain-on-failure',
+                },
+                
+                projects: [
+                  {
+                    name: 'chromium',
+                    use: { ...require('@playwright/test').devices['Desktop Chrome'] },
+                  },
+                ],
+                
+                reporter: [
+                  ['junit', { outputFile: 'test-results-$(testEnvironment).xml' }],
+                  ['json', { outputFile: 'test-results-$(testEnvironment).json' }],
+                  ['html', { open: 'never', outputFolder: 'playwright-report-$(testEnvironment)' }],
+                ],
+              });
+              EOF
+            displayName: 'Generate test configuration'
+            
+          - script: |
+              echo "Running $(testEnvironment) tests..."
+              
+              npx playwright test \
+                --config=playwright-$(testEnvironment).config.ts \
+                --grep="@development|@smoke"
+            displayName: 'Execute development tests'
+            env:
+              TEST_USERNAME: $(TEST_USERNAME_DEV)
+              TEST_PASSWORD: $(TEST_PASSWORD_DEV)
+              
+          - script: |
+              echo "Validating development quality gates..."
+              
+              if [ -f "test-results-$(testEnvironment).json" ]; then
+                TOTAL_TESTS=$(jq '.stats.total' test-results-$(testEnvironment).json)
+                PASSED_TESTS=$(jq '.stats.passed' test-results-$(testEnvironment).json)
+                
+                if [ "$TOTAL_TESTS" -gt 0 ]; then
+                  PASS_RATE=$(echo "scale=2; $PASSED_TESTS * 100 / $TOTAL_TESTS" | bc)
+                else
+                  PASS_RATE=0
+                fi
+                
+                echo "Pass Rate: $PASS_RATE%"
+                
+                if (( $(echo "$PASS_RATE >= 95" | bc -l) )); then
+                  echo "✅ Development quality gate passed"
+                else
+                  echo "##vso[task.logissue type=error]Development quality gate failed: $PASS_RATE% < 95%"
+                  exit 1
+                fi
+              fi
+            displayName: 'Validate quality gates'
+            
+          - task: PublishTestResults@2
+            displayName: 'Publish development test results'
+            condition: always()
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: 'test-results-$(testEnvironment).xml'
+              testRunTitle: 'Development Tests'
+              
+      # Staging Environment Testing
+      - job: TestStaging
+        displayName: 'Staging Environment Tests'
+        condition: or(eq(variables.deploymentEnvironment, 'staging'), eq(variables.deploymentEnvironment, 'production'))
+        pool:
+          vmImage: 'ubuntu-latest'
+        variables:
+          testEnvironment: 'staging'
+          parallelWorkers: 8
+          testTimeout: 60000
+          maxRetries: 2
+        
+        steps:
+          - task: NodeTool@0
+            displayName: 'Install Node.js'
+            inputs:
+              versionSpec: $(nodeVersion)
+              
+          - script: npm ci --silent
+            displayName: 'Install dependencies'
+            
+          - script: npx playwright install --with-deps
+            displayName: 'Install Playwright browsers'
+            
+          - script: |
+              echo "Generating $(testEnvironment) configuration..."
+              
+              cat > playwright-$(testEnvironment).config.ts << EOF
+              import { defineConfig } from '@playwright/test';
+              
+              export default defineConfig({
+                testDir: './tests',
+                workers: $(parallelWorkers),
+                timeout: $(testTimeout),
+                retries: $(maxRetries),
+                
+                use: {
+                  baseURL: '$(STAGING_BASE_URL)',
+                  headless: true,
+                  screenshot: 'only-on-failure',
+                  video: 'retain-on-failure',
+                  trace: 'retain-on-failure',
+                },
+                
+                projects: [
+                  {
+                    name: 'chromium',
+                    use: { ...require('@playwright/test').devices['Desktop Chrome'] },
+                  },
+                  {
+                    name: 'firefox',
+                    use: { ...require('@playwright/test').devices['Desktop Firefox'] },
+                  },
+                  {
+                    name: 'webkit',
+                    use: { ...require('@playwright/test').devices['Desktop Safari'] },
+                  },
+                ],
+                
+                reporter: [
+                  ['junit', { outputFile: 'test-results-$(testEnvironment).xml' }],
+                  ['json', { outputFile: 'test-results-$(testEnvironment).json' }],
+                  ['html', { open: 'never', outputFolder: 'playwright-report-$(testEnvironment)' }],
+                ],
+              });
+              EOF
+            displayName: 'Generate test configuration'
+            
+          - script: |
+              echo "Running $(testEnvironment) tests..."
+              
+              npx playwright test \
+                --config=playwright-$(testEnvironment).config.ts \
+                --grep="@staging|@integration|@e2e"
+            displayName: 'Execute staging tests'
+            env:
+              TEST_USERNAME: $(TEST_USERNAME_STAGING)
+              TEST_PASSWORD: $(TEST_PASSWORD_STAGING)
+              
+          - script: |
+              echo "Validating staging quality gates..."
+              
+              if [ -f "test-results-$(testEnvironment).json" ]; then
+                TOTAL_TESTS=$(jq '.stats.total' test-results-$(testEnvironment).json)
+                PASSED_TESTS=$(jq '.stats.passed' test-results-$(testEnvironment).json)
+                
+                if [ "$TOTAL_TESTS" -gt 0 ]; then
+                  PASS_RATE=$(echo "scale=2; $PASSED_TESTS * 100 / $TOTAL_TESTS" | bc)
+                else
+                  PASS_RATE=0
+                fi
+                
+                echo "Pass Rate: $PASS_RATE%"
+                
+                if (( $(echo "$PASS_RATE >= 98" | bc -l) )); then
+                  echo "✅ Staging quality gate passed"
+                else
+                  echo "##vso[task.logissue type=error]Staging quality gate failed: $PASS_RATE% < 98%"
+                  exit 1
+                fi
+              fi
+            displayName: 'Validate quality gates'
+            
+          - task: PublishTestResults@2
+            displayName: 'Publish staging test results'
+            condition: always()
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: 'test-results-$(testEnvironment).xml'
+              testRunTitle: 'Staging Tests'
+              
+          - task: PublishBuildArtifacts@1
+            displayName: 'Upload staging artifacts'
+            condition: always()
+            inputs:
+              pathToPublish: 'playwright-report-$(testEnvironment)'
+              artifactName: 'staging-test-reports'
+
+  # Stage 3: Production Deployment
+  - stage: ProductionDeployment
+    displayName: 'Production Deployment'
+    dependsOn: Testing
+    condition: and(succeeded(), eq(variables.deploymentEnvironment, 'production'))
+    
+    jobs:
+      # Manual Approval Gate
+      - deployment: ProductionApproval
+        displayName: 'Production Deployment Approval'
+        environment: 'production-approval'
+        pool:
+          vmImage: 'ubuntu-latest'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: |
+                    echo "Production Deployment Readiness Check"
+                    echo "====================================="
+                    echo "Quality Score: $(qualityScore)/100"
+                    echo "Branch: $(Build.SourceBranch)"
+                    echo "Commit: $(Build.SourceVersion)"
+                    echo ""
+                    echo "Awaiting manual approval for production deployment..."
+                  displayName: 'Deployment readiness summary'
+                  
+      # Production Deployment Execution
+      - deployment: ProductionDeploy
+        displayName: 'Deploy to Production'
+        dependsOn: ProductionApproval
+        environment: 'production'
+        pool:
+          vmImage: 'ubuntu-latest'
+        variables:
+          deploymentSlot: 'production'
+          
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: |
+                    echo "Executing production deployment..."
+                    echo "Deployment slot: $(deploymentSlot)"
+                    echo "Version: $(Build.SourceVersion)"
+                    
+                    # Production deployment logic would go here
+                    # This might include:
+                    # - Azure Web App deployment
+                    # - Database migrations
+                    # - CDN cache invalidation
+                    # - Load balancer configuration
+                    
+                    echo "Production deployment completed successfully"
+                  displayName: 'Execute production deployment'
+                  
+            on:
+              failure:
+                steps:
+                  - script: |
+                      echo "Production deployment failed!"
+                      echo "Initiating rollback procedures..."
+                      
+                      # Rollback logic would go here
+                      
+                      echo "##vso[task.logissue type=error]Production deployment failed - rollback initiated"
+                    displayName: 'Handle deployment failure'
+
+  # Stage 4: Production Validation
+  - stage: ProductionValidation
+    displayName: 'Production Validation'
+    dependsOn: ProductionDeployment
+    condition: succeeded()
+    
+    jobs:
+      - job: ProductionSmokeTests
+        displayName: 'Production Smoke Tests'
+        pool:
+          vmImage: 'ubuntu-latest'
+          
+        steps:
+          - task: NodeTool@0
+            displayName: 'Install Node.js'
+            inputs:
+              versionSpec: $(nodeVersion)
+              
+          - script: npm ci --silent
+            displayName: 'Install dependencies'
+            
+          - script: npx playwright install --with-deps chromium firefox
+            displayName: 'Install browsers for production testing'
+            
+          - script: |
+              echo "Generating production test configuration..."
+              
+              cat > playwright-production.config.ts << EOF
+              import { defineConfig } from '@playwright/test';
+              
+              export default defineConfig({
+                testDir: './tests',
+                workers: 6,
+                timeout: 45000,
+                retries: 3,
+                
+                use: {
+                  baseURL: '$(PROD_BASE_URL)',
+                  headless: true,
+                  screenshot: 'only-on-failure',
+                  video: 'retain-on-failure',
+                  trace: 'retain-on-failure',
+                },
+                
+                projects: [
+                  {
+                    name: 'chromium',
+                    use: { ...require('@playwright/test').devices['Desktop Chrome'] },
+                  },
+                  {
+                    name: 'firefox',
+                    use: { ...require('@playwright/test').devices['Desktop Firefox'] },
+                  },
+                ],
+                
+                reporter: [
+                  ['line'],
+                  ['junit', { outputFile: 'production-test-results.xml' }],
+                  ['json', { outputFile: 'production-test-results.json' }],
+                  ['html', { open: 'never', outputFolder: 'production-report' }],
+                ],
+              });
+              EOF
+            displayName: 'Generate production configuration'
+            
+          - script: |
+              echo "Running production smoke tests..."
+              
+              npx playwright test \
+                --config=playwright-production.config.ts \
+                --grep="@smoke|@critical|@production"
+                
+              echo "Production smoke tests completed"
+            displayName: 'Execute production smoke tests'
+            env:
+              ENVIRONMENT: production
+              PROD_USERNAME: $(PROD_USERNAME)
+              PROD_PASSWORD: $(PROD_PASSWORD)
+              PROD_API_KEY: $(PROD_API_KEY)
+              
+          - script: |
+              echo "Validating production test results..."
+              
+              if [ -f "production-test-results.json" ]; then
+                TOTAL_TESTS=$(jq '.stats.total' production-test-results.json)
+                PASSED_TESTS=$(jq '.stats.passed' production-test-results.json)
+                FAILED_TESTS=$(jq '.stats.failed' production-test-results.json)
+                
+                echo "Production Test Results:"
+                echo "  Total: $TOTAL_TESTS"
+                echo "  Passed: $PASSED_TESTS"
+                echo "  Failed: $FAILED_TESTS"
+                
+                if [ $FAILED_TESTS -gt 0 ]; then
+                  echo "##vso[task.logissue type=error]Production validation failed: $FAILED_TESTS test(s) failed"
+                  exit 1
+                fi
+                
+                echo "##vso[task.setvariable variable=productionTestsPassed;isOutput=true]true"
+                echo "Production validation successful"
+              else
+                echo "##vso[task.logissue type=error]Production test results not found"
+                exit 1
+              fi
+            displayName: 'Validate production results'
+            name: productionValidation
+            
+          - task: PublishTestResults@2
+            displayName: 'Publish production test results'
+            condition: always()
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: 'production-test-results.xml'
+              testRunTitle: 'Production Smoke Tests'
+              
+          - task: PublishBuildArtifacts@1
+            displayName: 'Upload production test artifacts'
+            condition: always()
+            inputs:
+              pathToPublish: 'production-report'
+              artifactName: 'production-test-report'
+
+  # Stage 5: Notification and Monitoring
+  - stage: NotificationAndMonitoring
+    displayName: 'Notification & Monitoring'
+    dependsOn: 
+      - BuildAndAnalysis
+      - Testing
+      - ProductionDeployment
+      - ProductionValidation
+    condition: always()
+    
+    jobs:
+      - job: SendNotifications
+        displayName: 'Send Deployment Notifications'
+        pool:
+          vmImage: 'ubuntu-latest'
+        variables:
+          buildStatus: $[ stageDependencies.BuildAndAnalysis.CodeQuality.result ]
+          testStatus: $[ stageDependencies.Testing.TestStaging.result ]
+          deployStatus: $[ stageDependencies.ProductionDeployment.ProductionDeploy.result ]
+          validationStatus: $[ stageDependencies.ProductionValidation.ProductionSmokeTests.result ]
+          qualityScore: $[ stageDependencies.BuildAndAnalysis.CodeQuality.outputs['qualityMetrics.qualityScore'] ]
+          
+        steps:
+          - script: |
+              echo "Preparing deployment notification..."
+              
+              # Determine overall status
+              if [[ "$(validationStatus)" == "Succeeded" ]]; then
+                STATUS="✅ SUCCESS"
+                MESSAGE="Production deployment completed successfully"
+                COLOR="good"
+              elif [[ "$(deployStatus)" == "Failed" ]]; then
+                STATUS="❌ FAILED"  
+                MESSAGE="Production deployment failed - immediate attention required"
+                COLOR="danger"
+              elif [[ "$(testStatus)" == "Failed" ]]; then
+                STATUS="⚠️ BLOCKED"
+                MESSAGE="Deployment blocked due to test failures"
+                COLOR="warning"
+              else
+                STATUS="ℹ️ PARTIAL"
+                MESSAGE="Pipeline completed with partial success"
+                COLOR="warning"
+              fi
+              
+              echo "##vso[task.setvariable variable=notificationStatus]$STATUS"
+              echo "##vso[task.setvariable variable=notificationMessage]$MESSAGE"
+              echo "##vso[task.setvariable variable=notificationColor]$COLOR"
+              
+              echo "Notification prepared:"
+              echo "  Status: $STATUS"
+              echo "  Message: $MESSAGE"
+            displayName: 'Prepare notification content'
+            
+          - task: InvokeRESTAPI@1
+            displayName: 'Send Slack notification'
+            condition: always()
+            inputs:
+              connectionType: 'connectedServiceName'
+              serviceConnection: 'slack-webhook'
+              method: 'POST'
+              headers: |
+                Content-Type: application/json
+              body: |
+                {
+                  "text": "🚀 Azure DevOps Pipeline Completed",
+                  "attachments": [{
+                    "color": "$(notificationColor)",
+                    "fields": [
+                      {
+                        "title": "Status",
+                        "value": "$(notificationStatus)",
+                        "short": true
+                      },
+                      {
+                        "title": "Environment", 
+                        "value": "$(deploymentEnvironment)",
+                        "short": true
+                      },
+                      {
+                        "title": "Branch",
+                        "value": "$(Build.SourceBranchName)",
+                        "short": true
+                      },
+                      {
+                        "title": "Quality Score",
+                        "value": "$(qualityScore)/100",
+                        "short": true
+                      },
+                      {
+                        "title": "Build Number",
+                        "value": "$(Build.BuildNumber)",
+                        "short": false
+                      },
+                      {
+                        "title": "Message",
+                        "value": "$(notificationMessage)",
+                        "short": false
+                      }
+                    ],
+                    "actions": [{
+                      "type": "button",
+                      "text": "View Pipeline",
+                      "url": "$(System.TeamFoundationCollectionUri)$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)"
+                    }],
+                    "footer": "Azure DevOps",
+                    "ts": "$(System.DateTime)"
+                  }]
+                }
+                
+          - script: |
+              echo "# 🚀 Azure DevOps Pipeline Summary" 
+              echo ""
+              echo "## Status: $(notificationStatus)"
+              echo ""
+              echo "### Pipeline Results"
+              echo "- **Build & Analysis**: $(buildStatus)"
+              echo "- **Testing**: $(testStatus)" 
+              echo "- **Deployment**: $(deployStatus)"
+              echo "- **Validation**: $(validationStatus)"
+              echo ""
+              echo "### Key Metrics"
+              echo "- **Quality Score**: $(qualityScore)/100"
+              echo "- **Environment**: $(deploymentEnvironment)"
+              echo "- **Branch**: $(Build.SourceBranchName)"
+              echo "- **Build**: $(Build.BuildNumber)"
+              echo ""
+              echo "$(notificationMessage)"
+            displayName: 'Create pipeline summary'

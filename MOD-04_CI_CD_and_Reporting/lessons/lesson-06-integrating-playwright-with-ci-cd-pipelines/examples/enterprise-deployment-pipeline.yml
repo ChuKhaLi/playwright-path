@@ -1,0 +1,632 @@
+# Enterprise Deployment Pipeline Example
+# This example demonstrates a comprehensive CI/CD pipeline integrating Playwright tests
+# with advanced quality gates, multi-environment deployment, and failure recovery
+
+name: Enterprise CI/CD Pipeline with Playwright Integration
+
+on:
+  push:
+    branches: [main, develop, 'feature/*', 'release/*', 'hotfix/*']
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment for deployment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+      deployment_type:
+        description: 'Type of deployment to execute'
+        required: true
+        default: 'standard'
+        type: choice
+        options:
+          - standard
+          - hotfix
+          - rollback
+      skip_tests:
+        description: 'Skip test execution (emergency deployments only)'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  NODE_VERSION: '18'
+  PLAYWRIGHT_VERSION: '1.40.0'
+  ARTIFACT_RETENTION_DAYS: 30
+
+jobs:
+  # Phase 1: Security and Quality Scanning
+  security-and-quality:
+    name: Security & Quality Analysis
+    runs-on: ubuntu-latest
+    outputs:
+      quality-score: ${{ steps.quality-metrics.outputs.score }}
+      security-status: ${{ steps.security-scan.outputs.status }}
+      vulnerabilities: ${{ steps.security-scan.outputs.vulnerabilities }}
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: |
+          npm ci --silent
+          echo "✅ Dependencies installed successfully"
+          
+      - name: Run static code analysis
+        run: |
+          echo "🔍 Running ESLint analysis..."
+          npm run lint -- --format=json --output-file=eslint-results.json || true
+          
+          echo "🔍 Running TypeScript compilation check..."
+          npx tsc --noEmit --pretty
+          
+          echo "✅ Static analysis completed"
+          
+      - name: Calculate quality metrics
+        id: quality-metrics
+        run: |
+          # Calculate comprehensive quality score
+          LINT_ERRORS=$(jq '[.[] | .errorCount] | add // 0' eslint-results.json)
+          LINT_WARNINGS=$(jq '[.[] | .warningCount] | add // 0' eslint-results.json)
+          
+          # Quality score calculation (0-100)
+          QUALITY_SCORE=$((100 - LINT_ERRORS * 3 - LINT_WARNINGS))
+          QUALITY_SCORE=$((QUALITY_SCORE < 0 ? 0 : QUALITY_SCORE))
+          
+          echo "score=$QUALITY_SCORE" >> $GITHUB_OUTPUT
+          
+          echo "📊 Code Quality Metrics:"
+          echo "   Errors: $LINT_ERRORS"
+          echo "   Warnings: $LINT_WARNINGS"
+          echo "   Quality Score: $QUALITY_SCORE/100"
+          
+          # Set quality gate threshold
+          if [ $QUALITY_SCORE -lt 80 ]; then
+            echo "❌ Quality score below threshold (80)"
+            exit 1
+          fi
+          
+      - name: Security vulnerability scan
+        id: security-scan
+        run: |
+          echo "🔒 Running security audit..."
+          
+          # Run npm audit and capture results
+          npm audit --audit-level=moderate --json > security-audit.json || true
+          
+          HIGH_VULNS=$(jq '.metadata.vulnerabilities.high // 0' security-audit.json)
+          MODERATE_VULNS=$(jq '.metadata.vulnerabilities.moderate // 0' security-audit.json)
+          TOTAL_VULNS=$((HIGH_VULNS + MODERATE_VULNS))
+          
+          echo "vulnerabilities=$TOTAL_VULNS" >> $GITHUB_OUTPUT
+          
+          echo "🔒 Security Scan Results:"
+          echo "   High: $HIGH_VULNS"
+          echo "   Moderate: $MODERATE_VULNS"
+          echo "   Total: $TOTAL_VULNS"
+          
+          if [ $HIGH_VULNS -gt 0 ]; then
+            echo "status=failed" >> $GITHUB_OUTPUT
+            echo "❌ High severity vulnerabilities found"
+            exit 1
+          elif [ $MODERATE_VULNS -gt 5 ]; then
+            echo "status=warning" >> $GITHUB_OUTPUT
+            echo "⚠️ Multiple moderate vulnerabilities found"
+          else
+            echo "status=passed" >> $GITHUB_OUTPUT
+            echo "✅ Security scan passed"
+          fi
+          
+      - name: Upload analysis artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: code-analysis-results
+          path: |
+            eslint-results.json
+            security-audit.json
+          retention-days: 7
+
+  # Phase 2: Multi-Environment Testing Matrix
+  test-matrix:
+    name: Test Environment - ${{ matrix.environment }}
+    runs-on: ubuntu-latest
+    needs: security-and-quality
+    if: needs.security-and-quality.outputs.quality-score >= '80' && github.event.inputs.skip_tests != 'true'
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [development, staging]
+        include:
+          - environment: development
+            base_url: ${{ secrets.DEV_BASE_URL }}
+            parallel_workers: 4
+            test_timeout: 30000
+            retries: 1
+          - environment: staging
+            base_url: ${{ secrets.STAGING_BASE_URL }}
+            parallel_workers: 8
+            test_timeout: 60000
+            retries: 2
+            
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci --silent
+        
+      - name: Install Playwright browsers
+        run: |
+          npx playwright install --with-deps
+          echo "✅ Playwright browsers installed"
+          
+      - name: Generate environment-specific configuration
+        run: |
+          echo "⚙️ Generating Playwright configuration for ${{ matrix.environment }}"
+          
+          cat > playwright.config.ts << EOF
+          import { defineConfig } from '@playwright/test';
+          
+          export default defineConfig({
+            testDir: './tests',
+            workers: ${{ matrix.parallel_workers }},
+            timeout: ${{ matrix.test_timeout }},
+            retries: ${{ matrix.retries }},
+            
+            use: {
+              baseURL: '${{ matrix.base_url }}',
+              headless: true,
+              screenshot: 'only-on-failure',
+              video: 'retain-on-failure',
+              trace: 'retain-on-failure',
+            },
+            
+            projects: [
+              {
+                name: 'chromium',
+                use: { ...require('@playwright/test').devices['Desktop Chrome'] },
+              },
+              {
+                name: 'firefox',
+                use: { ...require('@playwright/test').devices['Desktop Firefox'] },
+              },
+            ],
+            
+            reporter: [
+              ['line'],
+              ['json', { outputFile: 'test-results.json' }],
+              ['junit', { outputFile: 'test-results.xml' }],
+              ['html', { open: 'never', outputFolder: 'playwright-report' }],
+            ],
+            
+            outputDir: 'test-results/',
+          });
+          EOF
+          
+          echo "✅ Configuration generated for ${{ matrix.environment }}"
+          
+      - name: Execute environment-specific tests
+        env:
+          ENVIRONMENT: ${{ matrix.environment }}
+          TEST_USERNAME: ${{ secrets[format('TEST_USERNAME_{0}', matrix.environment)] }}
+          TEST_PASSWORD: ${{ secrets[format('TEST_PASSWORD_{0}', matrix.environment)] }}
+          API_KEY: ${{ secrets[format('API_KEY_{0}', matrix.environment)] }}
+        run: |
+          echo "🧪 Running Playwright tests for ${{ matrix.environment }}"
+          
+          # Run tests with environment-specific tags
+          npx playwright test \
+            --reporter=json,junit,html \
+            --grep="@${{ matrix.environment }}|@smoke|@critical"
+            
+          echo "✅ Test execution completed"
+          
+      - name: Validate quality gates
+        run: |
+          echo "🚪 Validating quality gates for ${{ matrix.environment }}"
+          
+          # Parse test results
+          if [ -f "test-results.json" ]; then
+            TOTAL_TESTS=$(jq '.stats.total' test-results.json)
+            PASSED_TESTS=$(jq '.stats.passed' test-results.json)
+            FAILED_TESTS=$(jq '.stats.failed' test-results.json)
+            
+            if [ "$TOTAL_TESTS" -gt 0 ]; then
+              PASS_RATE=$(echo "scale=2; $PASSED_TESTS * 100 / $TOTAL_TESTS" | bc)
+            else
+              PASS_RATE=0
+            fi
+            
+            echo "📊 Test Results Summary:"
+            echo "   Total Tests: $TOTAL_TESTS"
+            echo "   Passed: $PASSED_TESTS"
+            echo "   Failed: $FAILED_TESTS"
+            echo "   Pass Rate: $PASS_RATE%"
+            
+            # Environment-specific quality gates
+            case "${{ matrix.environment }}" in
+              "development")
+                REQUIRED_PASS_RATE=95
+                ;;
+              "staging")
+                REQUIRED_PASS_RATE=98
+                ;;
+              *)
+                REQUIRED_PASS_RATE=90
+                ;;
+            esac
+            
+            echo "🎯 Required Pass Rate: $REQUIRED_PASS_RATE%"
+            
+            if (( $(echo "$PASS_RATE >= $REQUIRED_PASS_RATE" | bc -l) )); then
+              echo "✅ Quality gate passed for ${{ matrix.environment }}"
+            else
+              echo "❌ Quality gate failed for ${{ matrix.environment }}"
+              echo "   Required: $REQUIRED_PASS_RATE%, Actual: $PASS_RATE%"
+              exit 1
+            fi
+          else
+            echo "❌ Test results file not found"
+            exit 1
+          fi
+          
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.environment }}
+          path: |
+            test-results/
+            playwright-report/
+            test-results.json
+            test-results.xml
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+
+  # Phase 3: Production Deployment Gate
+  production-gate:
+    name: Production Deployment Approval
+    runs-on: ubuntu-latest
+    needs: [security-and-quality, test-matrix]
+    if: |
+      github.ref == 'refs/heads/main' && 
+      needs.test-matrix.result == 'success' &&
+      (github.event.inputs.environment == 'production' || github.event.inputs.environment == '')
+    environment: 
+      name: production-approval
+      url: https://example.com/production
+      
+    steps:
+      - name: Display deployment readiness summary
+        run: |
+          echo "🚀 Production Deployment Readiness Summary"
+          echo "================================================"
+          echo "✅ Code Quality Score: ${{ needs.security-and-quality.outputs.quality-score }}/100"
+          echo "✅ Security Status: ${{ needs.security-and-quality.outputs.security-status }}"
+          echo "✅ Environment Tests: Passed"
+          echo "✅ Quality Gates: All environments validated"
+          echo ""
+          echo "🔐 Awaiting manual approval for production deployment..."
+          
+      - name: Validate deployment prerequisites  
+        run: |
+          echo "🔍 Validating deployment prerequisites..."
+          
+          # Check if this is a hotfix deployment
+          if [[ "${{ github.event.inputs.deployment_type }}" == "hotfix" ]]; then
+            echo "🚨 HOTFIX DEPLOYMENT DETECTED"
+            echo "   Expedited deployment process will be used"
+          fi
+          
+          # Validate branch and commit
+          echo "📋 Deployment Details:"
+          echo "   Branch: ${{ github.ref_name }}"
+          echo "   Commit: ${{ github.sha }}"
+          echo "   Actor: ${{ github.actor }}"
+          echo "   Deployment Type: ${{ github.event.inputs.deployment_type || 'standard' }}"
+          
+          echo "✅ All prerequisites validated"
+
+  # Phase 4: Production Deployment and Validation
+  production-deployment:
+    name: Production Deployment & Validation
+    runs-on: ubuntu-latest
+    needs: production-gate
+    if: success()
+    environment: 
+      name: production
+      url: https://example.com
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci --silent
+        
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox
+        
+      - name: Execute deployment
+        run: |
+          echo "🚀 Executing production deployment..."
+          echo "   Version: ${{ github.sha }}"
+          echo "   Type: ${{ github.event.inputs.deployment_type || 'standard' }}"
+          
+          # Placeholder for actual deployment logic
+          # This would typically involve:
+          # - Building the application
+          # - Deploying to production infrastructure
+          # - Updating load balancer configurations
+          # - Running database migrations
+          
+          echo "✅ Production deployment completed"
+          
+      - name: Generate production test configuration
+        run: |
+          echo "⚙️ Generating production test configuration..."
+          
+          cat > playwright-production.config.ts << EOF
+          import { defineConfig } from '@playwright/test';
+          
+          export default defineConfig({
+            testDir: './tests',
+            workers: 6,
+            timeout: 45000,
+            retries: 3,
+            
+            use: {
+              baseURL: '${{ secrets.PROD_BASE_URL }}',
+              headless: true,
+              screenshot: 'only-on-failure',
+              video: 'retain-on-failure',
+              trace: 'retain-on-failure',
+            },
+            
+            projects: [
+              {
+                name: 'chromium',
+                use: { ...require('@playwright/test').devices['Desktop Chrome'] },
+              },
+              {
+                name: 'firefox',
+                use: { ...require('@playwright/test').devices['Desktop Firefox'] },
+              },
+            ],
+            
+            reporter: [
+              ['line'],
+              ['json', { outputFile: 'production-test-results.json' }],
+              ['html', { open: 'never', outputFolder: 'production-report' }],
+            ],
+          });
+          EOF
+          
+      - name: Run production smoke tests
+        env:
+          ENVIRONMENT: production
+          PROD_USERNAME: ${{ secrets.PROD_USERNAME }}
+          PROD_PASSWORD: ${{ secrets.PROD_PASSWORD }}
+          PROD_API_KEY: ${{ secrets.PROD_API_KEY }}
+        run: |
+          echo "🏭 Running production smoke tests..."
+          
+          npx playwright test \
+            --config=playwright-production.config.ts \
+            --grep="@smoke|@critical|@production" \
+            --reporter=json,html
+            
+          echo "✅ Production smoke tests completed"
+          
+      - name: Validate production deployment
+        run: |
+          echo "🔍 Validating production deployment..."
+          
+          if [ -f "production-test-results.json" ]; then
+            TOTAL_TESTS=$(jq '.stats.total' production-test-results.json)
+            PASSED_TESTS=$(jq '.stats.passed' production-test-results.json)
+            FAILED_TESTS=$(jq '.stats.failed' production-test-results.json)
+            
+            echo "🏭 Production Test Results:"
+            echo "   Total Tests: $TOTAL_TESTS"
+            echo "   Passed: $PASSED_TESTS"
+            echo "   Failed: $FAILED_TESTS"
+            
+            # Critical: All production tests must pass
+            if [ $FAILED_TESTS -gt 0 ]; then
+              echo "❌ Production validation failed"
+              echo "🚨 CRITICAL: $FAILED_TESTS test(s) failed in production"
+              echo "🔄 Consider initiating rollback procedure"
+              exit 1
+            fi
+            
+            echo "✅ Production deployment validation successful"
+          else
+            echo "❌ Production test results not found"
+            exit 1
+          fi
+          
+      - name: Health check validation
+        run: |
+          echo "🏥 Running production health checks..."
+          
+          # Check application health endpoint
+          HEALTH_URL="${{ secrets.PROD_BASE_URL }}/health"
+          
+          for i in {1..5}; do
+            echo "   Attempt $i/5: Checking $HEALTH_URL"
+            
+            if curl -f -s "$HEALTH_URL" > /dev/null; then
+              echo "✅ Health check passed"
+              break
+            else
+              if [ $i -eq 5 ]; then
+                echo "❌ Health check failed after 5 attempts"
+                exit 1
+              fi
+              echo "⏳ Waiting 10 seconds before retry..."
+              sleep 10
+            fi
+          done
+          
+      - name: Upload production artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: production-deployment-results
+          path: |
+            production-test-results.json
+            production-report/
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+
+  # Phase 5: Deployment Notification and Monitoring
+  deployment-notification:
+    name: Deployment Notification
+    runs-on: ubuntu-latest
+    needs: [security-and-quality, test-matrix, production-deployment]
+    if: always()
+    
+    steps:
+      - name: Determine deployment status
+        id: status
+        run: |
+          # Determine overall deployment status
+          SECURITY_STATUS="${{ needs.security-and-quality.result }}"
+          TEST_STATUS="${{ needs.test-matrix.result }}"
+          DEPLOY_STATUS="${{ needs.production-deployment.result }}"
+          
+          echo "📊 Pipeline Results Summary:"
+          echo "   Security & Quality: $SECURITY_STATUS"
+          echo "   Environment Testing: $TEST_STATUS"
+          echo "   Production Deployment: $DEPLOY_STATUS"
+          
+          if [[ "$DEPLOY_STATUS" == "success" ]]; then
+            echo "status=✅ SUCCESS" >> $GITHUB_OUTPUT
+            echo "message=Production deployment completed successfully" >> $GITHUB_OUTPUT
+            echo "color=28a745" >> $GITHUB_OUTPUT
+            echo "emoji=🚀" >> $GITHUB_OUTPUT
+          elif [[ "$DEPLOY_STATUS" == "failure" ]]; then
+            echo "status=❌ FAILED" >> $GITHUB_OUTPUT
+            echo "message=Production deployment failed - immediate attention required" >> $GITHUB_OUTPUT
+            echo "color=d73a49" >> $GITHUB_OUTPUT
+            echo "emoji=🚨" >> $GITHUB_OUTPUT
+          elif [[ "$TEST_STATUS" == "failure" ]]; then
+            echo "status=⚠️ BLOCKED" >> $GITHUB_OUTPUT
+            echo "message=Deployment blocked due to test failures" >> $GITHUB_OUTPUT
+            echo "color=ffc107" >> $GITHUB_OUTPUT
+            echo "emoji=🛑" >> $GITHUB_OUTPUT
+          else
+            echo "status=ℹ️ PARTIAL" >> $GITHUB_OUTPUT
+            echo "message=Pipeline completed with partial success" >> $GITHUB_OUTPUT
+            echo "color=17a2b8" >> $GITHUB_OUTPUT
+            echo "emoji=ℹ️" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Send comprehensive notification
+        uses: 8398a7/action-slack@v3
+        if: always()
+        with:
+          status: custom
+          custom_payload: |
+            {
+              "text": "${{ steps.status.outputs.emoji }} CI/CD Pipeline Completed",
+              "attachments": [{
+                "color": "${{ steps.status.outputs.color }}",
+                "fields": [
+                  {
+                    "title": "Status",
+                    "value": "${{ steps.status.outputs.status }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Environment",
+                    "value": "Production",
+                    "short": true
+                  },
+                  {
+                    "title": "Branch",
+                    "value": "${{ github.ref_name }}",
+                    "short": true
+                  },
+                  {
+                    "title": "Quality Score",
+                    "value": "${{ needs.security-and-quality.outputs.quality-score }}/100",
+                    "short": true
+                  },
+                  {
+                    "title": "Commit",
+                    "value": "`${{ github.sha }}`",
+                    "short": false
+                  },
+                  {
+                    "title": "Message",
+                    "value": "${{ steps.status.outputs.message }}",
+                    "short": false
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "button",
+                    "text": "View Pipeline",
+                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  },
+                  {
+                    "type": "button", 
+                    "text": "View Reports",
+                    "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts"
+                  }
+                ],
+                "footer": "GitHub Actions",
+                "ts": "${{ github.event.head_commit.timestamp }}"
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          
+      - name: Create deployment summary
+        if: always()
+        run: |
+          echo "# 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Status: ${{ steps.status.outputs.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Pipeline Results" >> $GITHUB_STEP_SUMMARY
+          echo "- **Security & Quality**: ${{ needs.security-and-quality.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment Testing**: ${{ needs.test-matrix.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Production Deployment**: ${{ needs.production-deployment.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Key Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "- **Code Quality Score**: ${{ needs.security-and-quality.outputs.quality-score }}/100" >> $GITHUB_STEP_SUMMARY
+          echo "- **Security Status**: ${{ needs.security-and-quality.outputs.security-status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "${{ steps.status.outputs.message }}" >> $GITHUB_STEP_SUMMARY

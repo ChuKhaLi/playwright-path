@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Feedback Survey - HTML Forms Example</title>
+    <style>
+        /* Clean survey form styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .survey-intro {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            margin: 0 0 20px 0;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        input[type="url"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        /* Rating Scale Styling */
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .rating-scale input[type="radio"] {
+            width: auto;
+            margin: 0 5px;
+        }
+        
+        .rating-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        /* Checkbox and Radio Groups */
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .checkbox-option,
+        .radio-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+            transition: background-color 0.2s ease;
+        }
+        
+        .checkbox-option:hover,
+        .radio-option:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .checkbox-option input,
+        .radio-option input {
+            width: auto;
+            margin: 0;
+        }
+        
+        .option-label {
+            flex: 1;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        
+        /* Range Slider Styling */
+        .range-container {
+            margin: 15px 0;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        .range-value {
+            text-align: center;
+            font-weight: 600;
+            color: #3498db;
+            margin-top: 10px;
+        }
+        
+        /* Submit Button */
+        .form-actions {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .rating-scale {
+                font-size: 14px;
+            }
+            
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Feedback Survey</h1>
+        <p class="survey-intro">
+            Help us improve our product! Your feedback is valuable and will help shape future updates.
+            This survey takes approximately 5-7 minutes to complete.
+        </p>
+        
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" data-testid="progress-fill"></div>
+        </div>
+        
+        <form action="/api/survey" method="post" data-testid="survey-form" id="surveyForm">
+            <!-- Section 1: Basic Information -->
+            <div class="section">
+                <h2 class="section-title">1. Basic Information</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customerName">
+                            Name <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               id="customerName" 
+                               name="name" 
+                               required 
+                               maxlength="50"
+                               data-testid="name-input"
+                               placeholder="Your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customerEmail">
+                            Email <span class="required">*</span>
+                        </label>
+                        <input type="email" 
+                               id="customerEmail" 
+                               name="email" 
+                               required 
+                               data-testid="email-input"
+                               placeholder="your.email@example.com">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customerAge">Age</label>
+                        <input type="number" 
+                               id="customerAge" 
+                               name="age" 
+                               min="13" 
+                               max="120"
+                               data-testid="age-input"
+                               placeholder="25">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customerLocation">Location</label>
+                        <select id="customerLocation" 
+                                name="location" 
+                                data-testid="location-select">
+                            <option value="">Select your region</option>
+                            <option value="north-america">North America</option>
+                            <option value="south-america">South America</option>
+                            <option value="europe">Europe</option>
+                            <option value="asia">Asia</option>
+                            <option value="africa">Africa</option>
+                            <option value="oceania">Oceania</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 2: Product Usage -->
+            <div class="section">
+                <h2 class="section-title">2. Product Usage</h2>
+                
+                <div class="form-group">
+                    <label for="usageDuration">How long have you been using our product?</label>
+                    <select id="usageDuration" 
+                            name="usageDuration" 
+                            required 
+                            data-testid="usage-duration-select">
+                        <option value="">Please select</option>
+                        <option value="less-than-1-month">Less than 1 month</option>
+                        <option value="1-3-months">1-3 months</option>
+                        <option value="3-6-months">3-6 months</option>
+                        <option value="6-12-months">6-12 months</option>
+                        <option value="more-than-1-year">More than 1 year</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>How frequently do you use our product? <span class="required">*</span></label>
+                    <div class="radio-group" data-testid="frequency-group">
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="daily" 
+                                   name="frequency" 
+                                   value="daily" 
+                                   required
+                                   data-testid="frequency-daily">
+                            <label for="daily" class="option-label">Daily - Multiple times per day</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="weekly" 
+                                   name="frequency" 
+                                   value="weekly" 
+                                   required
+                                   data-testid="frequency-weekly">
+                            <label for="weekly" class="option-label">Weekly - A few times per week</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="monthly" 
+                                   name="frequency" 
+                                   value="monthly" 
+                                   required
+                                   data-testid="frequency-monthly">
+                            <label for="monthly" class="option-label">Monthly - A few times per month</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="rarely" 
+                                   name="frequency" 
+                                   value="rarely" 
+                                   required
+                                   data-testid="frequency-rarely">
+                            <label for="rarely" class="option-label">Rarely - Less than once per month</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Which features do you use most often? (Select all that apply)</label>
+                    <div class="checkbox-group" data-testid="features-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" 
+                                   id="feature-dashboard" 
+                                   name="features" 
+                                   value="dashboard"
+                                   data-testid="feature-dashboard">
+                            <label for="feature-dashboard" class="option-label">Dashboard & Analytics</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" 
+                                   id="feature-reporting" 
+                                   name="features" 
+                                   value="reporting"
+                                   data-testid="feature-reporting">
+                            <label for="feature-reporting" class="option-label">Reporting Tools</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" 
+                                   id="feature-collaboration" 
+                                   name="features" 
+                                   value="collaboration"
+                                   data-testid="feature-collaboration">
+                            <label for="feature-collaboration" class="option-label">Team Collaboration</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" 
+                                   id="feature-integrations" 
+                                   name="features" 
+                                   value="integrations"
+                                   data-testid="feature-integrations">
+                            <label for="feature-integrations" class="option-label">Third-party Integrations</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" 
+                                   id="feature-mobile" 
+                                   name="features" 
+                                   value="mobile"
+                                   data-testid="feature-mobile">
+                            <label for="feature-mobile" class="option-label">Mobile App</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 3: Satisfaction Ratings -->
+            <div class="section">
+                <h2 class="section-title">3. Satisfaction Ratings</h2>
+                
+                <div class="form-group">
+                    <label>Overall Satisfaction <span class="required">*</span></label>
+                    <div class="rating-scale" data-testid="overall-rating">
+                        <input type="radio" name="overallSatisfaction" value="1" required data-testid="rating-1">
+                        <input type="radio" name="overallSatisfaction" value="2" required data-testid="rating-2">
+                        <input type="radio" name="overallSatisfaction" value="3" required data-testid="rating-3">
+                        <input type="radio" name="overallSatisfaction" value="4" required data-testid="rating-4">
+                        <input type="radio" name="overallSatisfaction" value="5" required data-testid="rating-5">
+                    </div>
+                    <div class="rating-labels">
+                        <span>Very Dissatisfied</span>
+                        <span>Dissatisfied</span>
+                        <span>Neutral</span>
+                        <span>Satisfied</span>
+                        <span>Very Satisfied</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="easeOfUse">Ease of Use (1 = Very Difficult, 10 = Very Easy)</label>
+                    <div class="range-container">
+                        <input type="range" 
+                               id="easeOfUse" 
+                               name="easeOfUse" 
+                               min="1" 
+                               max="10" 
+                               value="5"
+                               data-testid="ease-of-use-range">
+                        <div class="range-labels">
+                            <span>Very Difficult</span>
+                            <span>Very Easy</span>
+                        </div>
+                        <div class="range-value" data-testid="ease-of-use-value">5</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="performanceRating">Performance Rating (1 = Very Slow, 10 = Very Fast)</label>
+                    <div class="range-container">
+                        <input type="range" 
+                               id="performanceRating" 
+                               name="performanceRating" 
+                               min="1" 
+                               max="10" 
+                               value="5"
+                               data-testid="performance-range">
+                        <div class="range-labels">
+                            <span>Very Slow</span>
+                            <span>Very Fast</span>
+                        </div>
+                        <div class="range-value" data-testid="performance-value">5</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 4: Feedback -->
+            <div class="section">
+                <h2 class="section-title">4. Your Feedback</h2>
+                
+                <div class="form-group">
+                    <label for="improvements">What would you like to see improved?</label>
+                    <textarea id="improvements" 
+                              name="improvements" 
+                              rows="4" 
+                              maxlength="500"
+                              data-testid="improvements-textarea"
+                              placeholder="Tell us what we could do better..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="additionalFeatures">What additional features would you like to see?</label>
+                    <textarea id="additionalFeatures" 
+                              name="additionalFeatures" 
+                              rows="4" 
+                              maxlength="500"
+                              data-testid="features-textarea"
+                              placeholder="Describe any new features you'd find valuable..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Would you recommend our product to others? <span class="required">*</span></label>
+                    <div class="radio-group" data-testid="recommend-group">
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="definitely-yes" 
+                                   name="recommend" 
+                                   value="definitely-yes" 
+                                   required
+                                   data-testid="recommend-definitely-yes">
+                            <label for="definitely-yes" class="option-label">Definitely Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="probably-yes" 
+                                   name="recommend" 
+                                   value="probably-yes" 
+                                   required
+                                   data-testid="recommend-probably-yes">
+                            <label for="probably-yes" class="option-label">Probably Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="neutral" 
+                                   name="recommend" 
+                                   value="neutral" 
+                                   required
+                                   data-testid="recommend-neutral">
+                            <label for="neutral" class="option-label">Neutral</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="probably-no" 
+                                   name="recommend" 
+                                   value="probably-no" 
+                                   required
+                                   data-testid="recommend-probably-no">
+                            <label for="probably-no" class="option-label">Probably No</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" 
+                                   id="definitely-no" 
+                                   name="recommend" 
+                                   value="definitely-no" 
+                                   required
+                                   data-testid="recommend-definitely-no">
+                            <label for="definitely-no" class="option-label">Definitely No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="form-actions">
+                <button type="submit" data-testid="submit-button">
+                    Submit Survey
+                </button>
+            </div>
+            
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message" data-testid="success-message">
+                <strong>Thank you for your feedback!</strong><br>
+                Your responses have been recorded and will help us improve our product.
+                We appreciate you taking the time to share your thoughts with us.
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Survey form handling with progress tracking
+        const form = document.getElementById('surveyForm');
+        const progressFill = document.querySelector('[data-testid="progress-fill"]');
+        const totalSections = document.querySelectorAll('.section').length;
+        
+        // Update progress based on completed sections
+        function updateProgress() {
+            let completedSections = 0;
+            
+            document.querySelectorAll('.section').forEach((section, index) => {
+                const inputs = section.querySelectorAll('input[required], select[required], textarea[required]');
+                let sectionComplete = true;
+                
+                inputs.forEach(input => {
+                    if (input.type === 'radio') {
+                        const radioGroup = section.querySelectorAll(`input[name="${input.name}"]`);
+                        const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+                        if (!isChecked) sectionComplete = false;
+                    } else if (!input.value.trim()) {
+                        sectionComplete = false;
+                    }
+                });
+                
+                if (sectionComplete) completedSections++;
+            });
+            
+            const progress = (completedSections / totalSections) * 100;
+            progressFill.style.width = progress + '%';
+        }
+        
+        // Range slider value updates
+        function setupRangeSliders() {
+            const rangeInputs = document.querySelectorAll('input[type="range"]');
+            rangeInputs.forEach(input => {
+                const valueDisplay = input.parentNode.querySelector('.range-value');
+                
+                input.addEventListener('input', function() {
+                    valueDisplay.textContent = this.value;
+                    updateProgress();
+                });
+            });
+        }
+        
+        // Form submission handling
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitButton = document.querySelector('[data-testid="submit-button"]');
+            const successMessage = document.querySelector('[data-testid="success-message"]');
+            
+            // Disable submit button
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                // Show success message
+                successMessage.style.display = 'block';
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+                
+                // Update progress to 100%
+                progressFill.style.width = '100%';
+                
+                // Log survey data for educational purposes
+                const formData = new FormData(form);
+                console.log('Survey Data Submitted:');
+                for (let [key, value] of formData.entries()) {
+                    console.log(`${key}: ${value}`);
+                }
+                
+                // Re-enable button with completion text
+                submitButton.textContent = 'Survey Completed';
+                
+            }, 2000);
+        });
+        
+        // Add event listeners for progress tracking
+        form.addEventListener('change', updateProgress);
+        form.addEventListener('input', updateProgress);
+        
+        // Initialize range sliders
+        setupRangeSliders();
+        
+        // Initial progress calculation
+        updateProgress();
+        
+        // Form validation feedback
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.hasAttribute('required')) {
+                    if (this.type === 'radio') {
+                        const radioGroup = document.querySelectorAll(`input[name="${this.name}"]`);
+                        const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+                        radioGroup.forEach(radio => {
+                            radio.style.boxShadow = isChecked ? 
+                                '0 0 0 2px rgba(39, 174, 96, 0.3)' : 
+                                '0 0 0 2px rgba(231, 76, 60, 0.3)';
+                        });
+                    } else if (this.validity.valid && this.value.trim()) {
+                        this.style.borderColor = '#27ae60';
+                    } else {
+                        this.style.borderColor = '#e74c3c';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

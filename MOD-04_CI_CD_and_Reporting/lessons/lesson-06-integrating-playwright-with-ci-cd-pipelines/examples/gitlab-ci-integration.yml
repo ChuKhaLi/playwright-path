@@ -1,0 +1,723 @@
+# GitLab CI/CD Pipeline Integration Example
+# Demonstrates comprehensive Playwright integration with GitLab CI/CD
+# including multi-stage deployment, cross-platform testing, and quality gates
+
+stages:
+  - security
+  - build
+  - test-development
+  - test-staging
+  - deploy-staging
+  - test-production
+  - deploy-production
+  - monitoring
+
+variables:
+  # Global pipeline variables
+  NODE_VERSION: "18.x"
+  PLAYWRIGHT_VERSION: "1.40.0"
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+  
+  # Cache and artifact settings
+  CACHE_COMPRESSION_LEVEL: "fast"
+  ARTIFACT_RETENTION_DAYS: "30"
+  
+  # Quality gate thresholds
+  MIN_CODE_COVERAGE: "85"
+  MAX_HIGH_VULNERABILITIES: "0"
+  MIN_PASS_RATE_DEV: "95"
+  MIN_PASS_RATE_STAGING: "98"
+  MIN_PASS_RATE_PROD: "100"
+
+# Security scanning stage
+security_scan:
+  stage: security
+  image: node:18-alpine
+  cache:
+    key: 
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+      - .npm/
+  variables:
+    npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  before_script:
+    - npm ci --cache $npm_config_cache --prefer-offline
+  script:
+    - echo "🔍 Running comprehensive security analysis..."
+    
+    # Vulnerability scanning
+    - npm audit --audit-level=moderate --json > security-audit.json || true
+    - |
+      HIGH_VULNS=$(jq '.metadata.vulnerabilities.high // 0' security-audit.json)
+      CRITICAL_VULNS=$(jq '.metadata.vulnerabilities.critical // 0' security-audit.json)
+      
+      echo "Security Scan Results:"
+      echo "  Critical: $CRITICAL_VULNS"
+      echo "  High: $HIGH_VULNS"
+      
+      if [ $CRITICAL_VULNS -gt 0 ] || [ $HIGH_VULNS -gt $MAX_HIGH_VULNERABILITIES ]; then
+        echo "❌ Security vulnerabilities found - blocking pipeline"
+        echo "Critical: $CRITICAL_VULNS, High: $HIGH_VULNS"
+        exit 1
+      fi
+      
+      echo "✅ Security scan passed"
+    
+    # Dependency license check
+    - npx license-checker --json --out licenses.json
+    - |
+      echo "📋 Checking dependency licenses..."
+      FORBIDDEN_LICENSES=("GPL-2.0" "GPL-3.0" "AGPL-1.0" "AGPL-3.0")
+      
+      for license in "${FORBIDDEN_LICENSES[@]}"; do
+        if jq -e --arg license "$license" 'to_entries[] | select(.value.licenses == $license)' licenses.json > /dev/null; then
+          echo "❌ Forbidden license found: $license"
+          exit 1
+        fi
+      done
+      
+      echo "✅ License check passed"
+      
+  artifacts:
+    expire_in: 1 day
+    reports:
+      dependency_scanning: security-audit.json
+    paths:
+      - security-audit.json
+      - licenses.json
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH =~ /^release\/.*/
+
+# Build and code quality stage
+build_and_quality:
+  stage: build
+  image: node:18-alpine
+  cache:
+    key: 
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+      - .npm/
+  variables:
+    npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  before_script:
+    - apk add --no-cache git
+    - npm ci --cache $npm_config_cache --prefer-offline
+  script:
+    - echo "🔨 Building application and analyzing code quality..."
+    
+    # TypeScript compilation
+    - npx tsc --noEmit --pretty
+    
+    # ESLint analysis with metrics
+    - npx eslint . --format=json --output-file=eslint-results.json || true
+    - |
+      LINT_ERRORS=$(jq '[.[] | .errorCount] | add // 0' eslint-results.json)
+      LINT_WARNINGS=$(jq '[.[] | .warningCount] | add // 0' eslint-results.json)
+      
+      QUALITY_SCORE=$((100 - LINT_ERRORS * 3 - LINT_WARNINGS))
+      QUALITY_SCORE=$((QUALITY_SCORE < 0 ? 0 : QUALITY_SCORE))
+      
+      echo "Code Quality Metrics:"
+      echo "  Errors: $LINT_ERRORS"
+      echo "  Warnings: $LINT_WARNINGS"
+      echo "  Quality Score: $QUALITY_SCORE/100"
+      
+      # Store quality score for later stages
+      echo "QUALITY_SCORE=$QUALITY_SCORE" >> quality_metrics.env
+      
+      if [ $QUALITY_SCORE -lt 80 ]; then
+        echo "❌ Code quality below threshold (80)"
+        exit 1
+      fi
+      
+      echo "✅ Code quality check passed"
+    
+    # Build process (if applicable)
+    - npm run build || echo "No build script defined"
+    
+  artifacts:
+    expire_in: 1 day
+    reports:
+      dotenv: quality_metrics.env
+    paths:
+      - eslint-results.json
+      - quality_metrics.env
+      - dist/
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH =~ /^release\/.*/
+
+# Development environment testing
+test_development:
+  stage: test-development
+  image: mcr.microsoft.com/playwright:v1.40.0-focal
+  cache:
+    key: 
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+  variables:
+    TEST_ENVIRONMENT: "development"
+    PARALLEL_WORKERS: "4"
+    TEST_TIMEOUT: "30000"
+    MAX_RETRIES: "1"
+  before_script:
+    - npm ci --prefer-offline
+    - npx playwright install --with-deps
+  script:
+    - echo "🧪 Running development environment tests..."
+    
+    # Generate dynamic test configuration
+    - |
+      cat > playwright-development.config.ts << EOF
+      import { defineConfig } from '@playwright/test';
+      
+      export default defineConfig({
+        testDir: './tests',
+        workers: ${PARALLEL_WORKERS},
+        timeout: ${TEST_TIMEOUT},
+        retries: ${MAX_RETRIES},
+        
+        use: {
+          baseURL: '${DEV_BASE_URL}',
+          headless: true,
+          screenshot: 'only-on-failure',
+          video: 'retain-on-failure',
+          trace: 'retain-on-failure',
+        },
+        
+        projects: [
+          {
+            name: 'chromium',
+            use: { ...require('@playwright/test').devices['Desktop Chrome'] },
+          },
+        ],
+        
+        reporter: [
+          ['junit', { outputFile: 'test-results-development.xml' }],
+          ['json', { outputFile: 'test-results-development.json' }],
+          ['html', { open: 'never', outputFolder: 'playwright-report-development' }],
+        ],
+      });
+      EOF
+    
+    # Execute development tests
+    - npx playwright test --config=playwright-development.config.ts --grep="@development|@smoke"
+    
+    # Validate quality gates
+    - |
+      if [ -f "test-results-development.json" ]; then
+        TOTAL_TESTS=$(jq '.stats.total' test-results-development.json)
+        PASSED_TESTS=$(jq '.stats.passed' test-results-development.json)
+        
+        if [ "$TOTAL_TESTS" -gt 0 ]; then
+          PASS_RATE=$(echo "scale=2; $PASSED_TESTS * 100 / $TOTAL_TESTS" | bc)
+        else
+          PASS_RATE=0
+        fi
+        
+        echo "Development Test Results:"
+        echo "  Pass Rate: $PASS_RATE%"
+        echo "  Required: ${MIN_PASS_RATE_DEV}%"
+        
+        if (( $(echo "$PASS_RATE >= $MIN_PASS_RATE_DEV" | bc -l) )); then
+          echo "✅ Development quality gate passed"
+        else
+          echo "❌ Development quality gate failed: $PASS_RATE% < ${MIN_PASS_RATE_DEV}%"
+          exit 1
+        fi
+      fi
+  artifacts:
+    expire_in: 1 week
+    when: always
+    reports:
+      junit: test-results-development.xml
+    paths:
+      - test-results-development.json
+      - playwright-report-development/
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH =~ /^feature\/.*/
+
+# Staging environment testing
+test_staging:
+  stage: test-staging
+  image: mcr.microsoft.com/playwright:v1.40.0-focal
+  cache:
+    key: 
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+  variables:
+    TEST_ENVIRONMENT: "staging"
+    PARALLEL_WORKERS: "8"
+    TEST_TIMEOUT: "60000"
+    MAX_RETRIES: "2"
+  before_script:
+    - npm ci --prefer-offline
+    - npx playwright install --with-deps
+  script:
+    - echo "🎭 Running comprehensive staging tests..."
+    
+    # Generate staging test configuration
+    - |
+      cat > playwright-staging.config.ts << EOF
+      import { defineConfig } from '@playwright/test';
+      
+      export default defineConfig({
+        testDir: './tests',
+        workers: ${PARALLEL_WORKERS},
+        timeout: ${TEST_TIMEOUT},
+        retries: ${MAX_RETRIES},
+        
+        use: {
+          baseURL: '${STAGING_BASE_URL}',
+          headless: true,
+          screenshot: 'only-on-failure',
+          video: 'retain-on-failure',
+          trace: 'retain-on-failure',
+        },
+        
+        projects: [
+          {
+            name: 'chromium',
+            use: { ...require('@playwright/test').devices['Desktop Chrome'] },
+          },
+          {
+            name: 'firefox',
+            use: { ...require('@playwright/test').devices['Desktop Firefox'] },
+          },
+          {
+            name: 'webkit',
+            use: { ...require('@playwright/test').devices['Desktop Safari'] },
+          },
+          {
+            name: 'mobile-chrome',
+            use: { ...require('@playwright/test').devices['Pixel 5'] },
+          },
+        ],
+        
+        reporter: [
+          ['junit', { outputFile: 'test-results-staging.xml' }],
+          ['json', { outputFile: 'test-results-staging.json' }],
+          ['html', { open: 'never', outputFolder: 'playwright-report-staging' }],
+        ],
+      });
+      EOF
+    
+    # Execute comprehensive staging tests
+    - npx playwright test --config=playwright-staging.config.ts --grep="@staging|@integration|@e2e"
+    
+    # Performance testing
+    - echo "🚀 Running performance tests..."
+    - npx playwright test --config=playwright-staging.config.ts --grep="@performance" || echo "No performance tests found"
+    
+    # Accessibility testing
+    - echo "♿ Running accessibility tests..."
+    - npx playwright test --config=playwright-staging.config.ts --grep="@accessibility" || echo "No accessibility tests found"
+    
+    # Validate staging quality gates
+    - |
+      if [ -f "test-results-staging.json" ]; then
+        TOTAL_TESTS=$(jq '.stats.total' test-results-staging.json)
+        PASSED_TESTS=$(jq '.stats.passed' test-results-staging.json)
+        FAILED_TESTS=$(jq '.stats.failed' test-results-staging.json)
+        
+        if [ "$TOTAL_TESTS" -gt 0 ]; then
+          PASS_RATE=$(echo "scale=2; $PASSED_TESTS * 100 / $TOTAL_TESTS" | bc)
+        else
+          PASS_RATE=0
+        fi
+        
+        echo "Staging Test Results:"
+        echo "  Total: $TOTAL_TESTS"
+        echo "  Passed: $PASSED_TESTS"
+        echo "  Failed: $FAILED_TESTS"
+        echo "  Pass Rate: $PASS_RATE%"
+        echo "  Required: ${MIN_PASS_RATE_STAGING}%"
+        
+        if (( $(echo "$PASS_RATE >= $MIN_PASS_RATE_STAGING" | bc -l) )); then
+          echo "✅ Staging quality gate passed"
+        else
+          echo "❌ Staging quality gate failed: $PASS_RATE% < ${MIN_PASS_RATE_STAGING}%"
+          exit 1
+        fi
+      fi
+  artifacts:
+    expire_in: 1 week
+    when: always
+    reports:
+      junit: test-results-staging.xml
+    paths:
+      - test-results-staging.json
+      - playwright-report-staging/
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH =~ /^release\/.*/
+
+# Staging deployment
+deploy_staging:
+  stage: deploy-staging
+  image: alpine:latest
+  variables:
+    DEPLOYMENT_ENVIRONMENT: "staging"
+  before_script:
+    - apk add --no-cache curl jq
+  script:
+    - echo "🚀 Deploying to staging environment..."
+    
+    # Health check before deployment
+    - |
+      echo "Performing pre-deployment health check..."
+      curl -f "${STAGING_BASE_URL}/health" || echo "Service not currently healthy"
+    
+    # Deployment simulation (replace with actual deployment commands)
+    - |
+      echo "Executing staging deployment..."
+      echo "Environment: $DEPLOYMENT_ENVIRONMENT"
+      echo "Version: $CI_COMMIT_SHA"
+      
+      # Deployment commands would go here
+      # For example:
+      # - kubectl apply -f k8s/staging/
+      # - helm upgrade staging-app ./charts/app
+      # - docker-compose up -d
+      
+      sleep 5  # Simulate deployment time
+      echo "Staging deployment completed"
+    
+    # Post-deployment health check
+    - |
+      echo "Performing post-deployment health check..."
+      for i in {1..30}; do
+        if curl -f "${STAGING_BASE_URL}/health"; then
+          echo "✅ Staging environment healthy"
+          break
+        fi
+        echo "Waiting for service to be healthy... ($i/30)"
+        sleep 10
+      done
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH =~ /^release\/.*/
+  when: manual
+  allow_failure: false
+
+# Production smoke tests
+test_production_smoke:
+  stage: test-production
+  image: mcr.microsoft.com/playwright:v1.40.0-focal
+  cache:
+    key: 
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+  variables:
+    TEST_ENVIRONMENT: "production"
+    PARALLEL_WORKERS: "6"
+    TEST_TIMEOUT: "45000"
+    MAX_RETRIES: "3"
+  before_script:
+    - npm ci --prefer-offline
+    - npx playwright install --with-deps chromium firefox
+  script:
+    - echo "💨 Running production smoke tests..."
+    
+    # Generate production test configuration
+    - |
+      cat > playwright-production.config.ts << EOF
+      import { defineConfig } from '@playwright/test';
+      
+      export default defineConfig({
+        testDir: './tests',
+        workers: ${PARALLEL_WORKERS},
+        timeout: ${TEST_TIMEOUT},
+        retries: ${MAX_RETRIES},
+        
+        use: {
+          baseURL: '${PROD_BASE_URL}',
+          headless: true,
+          screenshot: 'only-on-failure',
+          video: 'retain-on-failure',
+          trace: 'retain-on-failure',
+        },
+        
+        projects: [
+          {
+            name: 'chromium',
+            use: { ...require('@playwright/test').devices['Desktop Chrome'] },
+          },
+          {
+            name: 'firefox',
+            use: { ...require('@playwright/test').devices['Desktop Firefox'] },
+          },
+        ],
+        
+        reporter: [
+          ['line'],
+          ['junit', { outputFile: 'test-results-production.xml' }],
+          ['json', { outputFile: 'test-results-production.json' }],
+          ['html', { open: 'never', outputFolder: 'playwright-report-production' }],
+        ],
+      });
+      EOF
+    
+    # Execute critical production tests
+    - npx playwright test --config=playwright-production.config.ts --grep="@smoke|@critical|@production"
+    
+    # Validate production results
+    - |
+      if [ -f "test-results-production.json" ]; then
+        TOTAL_TESTS=$(jq '.stats.total' test-results-production.json)
+        PASSED_TESTS=$(jq '.stats.passed' test-results-production.json)
+        FAILED_TESTS=$(jq '.stats.failed' test-results-production.json)
+        
+        echo "Production Smoke Test Results:"
+        echo "  Total: $TOTAL_TESTS"
+        echo "  Passed: $PASSED_TESTS"
+        echo "  Failed: $FAILED_TESTS"
+        
+        if [ $FAILED_TESTS -gt 0 ]; then
+          echo "❌ Production smoke tests failed: $FAILED_TESTS test(s) failed"
+          exit 1
+        fi
+        
+        echo "✅ Production validation successful"
+      else
+        echo "❌ Production test results not found"
+        exit 1
+      fi
+  artifacts:
+    expire_in: 1 month
+    when: always
+    reports:
+      junit: test-results-production.xml
+    paths:
+      - test-results-production.json
+      - playwright-report-production/
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+    - if: $CI_COMMIT_BRANCH =~ /^release\/.*/
+      when: manual
+
+# Production deployment
+deploy_production:
+  stage: deploy-production
+  image: alpine:latest
+  variables:
+    DEPLOYMENT_ENVIRONMENT: "production"
+  before_script:
+    - apk add --no-cache curl jq
+  script:
+    - echo "🚀 Deploying to production environment..."
+    
+    # Pre-deployment validation
+    - |
+      echo "Performing pre-deployment validation..."
+      echo "Quality Score: $QUALITY_SCORE"
+      echo "Branch: $CI_COMMIT_BRANCH"
+      echo "Commit: $CI_COMMIT_SHA"
+      
+      if [ "$QUALITY_SCORE" -lt 90 ]; then
+        echo "❌ Quality score too low for production: $QUALITY_SCORE < 90"
+        exit 1
+      fi
+    
+    # Blue-Green deployment simulation
+    - |
+      echo "Executing blue-green production deployment..."
+      
+      # Deploy to green environment
+      echo "Deploying to green environment..."
+      sleep 10  # Simulate deployment time
+      
+      # Health check green environment
+      echo "Health checking green environment..."
+      for i in {1..30}; do
+        if curl -f "${PROD_BASE_URL}/health"; then
+          echo "✅ Green environment healthy"
+          break
+        fi
+        echo "Waiting for green environment... ($i/30)"
+        sleep 10
+      done
+      
+      # Switch traffic to green
+      echo "Switching traffic to green environment..."
+      sleep 5
+      
+      echo "✅ Production deployment completed successfully"
+    
+    # Post-deployment monitoring setup
+    - |
+      echo "Setting up post-deployment monitoring..."
+      echo "Monitoring will track:"
+      echo "  - Response times"
+      echo "  - Error rates"
+      echo "  - User experience metrics"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+    - if: $CI_COMMIT_BRANCH =~ /^release\/.*/
+      when: manual
+  environment:
+    name: production
+    url: $PROD_BASE_URL
+
+# Post-deployment monitoring
+monitor_deployment:
+  stage: monitoring
+  image: alpine:latest
+  variables:
+    MONITORING_DURATION: "300"  # 5 minutes
+  before_script:
+    - apk add --no-cache curl jq bc
+  script:
+    - echo "📊 Starting post-deployment monitoring..."
+    
+    # Monitor key metrics for specified duration
+    - |
+      START_TIME=$(date +%s)
+      END_TIME=$((START_TIME + MONITORING_DURATION))
+      
+      ERROR_COUNT=0
+      TOTAL_CHECKS=0
+      
+      while [ $(date +%s) -lt $END_TIME ]; do
+        TOTAL_CHECKS=$((TOTAL_CHECKS + 1))
+        
+        # Health check
+        if ! curl -f "${PROD_BASE_URL}/health" > /dev/null 2>&1; then
+          ERROR_COUNT=$((ERROR_COUNT + 1))
+          echo "❌ Health check failed ($(date))"
+        fi
+        
+        # Performance check
+        RESPONSE_TIME=$(curl -o /dev/null -s -w "%{time_total}" "${PROD_BASE_URL}")
+        if (( $(echo "$RESPONSE_TIME > 2.0" | bc -l) )); then
+          echo "⚠️ Slow response detected: ${RESPONSE_TIME}s"
+        fi
+        
+        sleep 30
+      done
+      
+      # Calculate error rate
+      if [ $TOTAL_CHECKS -gt 0 ]; then
+        ERROR_RATE=$(echo "scale=2; $ERROR_COUNT * 100 / $TOTAL_CHECKS" | bc)
+      else
+        ERROR_RATE=0
+      fi
+      
+      echo "Monitoring Results:"
+      echo "  Duration: ${MONITORING_DURATION}s"
+      echo "  Total Checks: $TOTAL_CHECKS"
+      echo "  Errors: $ERROR_COUNT"
+      echo "  Error Rate: $ERROR_RATE%"
+      
+      if (( $(echo "$ERROR_RATE > 5" | bc -l) )); then
+        echo "❌ High error rate detected: $ERROR_RATE%"
+        exit 1
+      fi
+      
+      echo "✅ Production monitoring successful"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH =~ /^release\/.*/
+  when: on_success
+  allow_failure: true
+
+# Notification and reporting
+notify_completion:
+  stage: monitoring
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache curl jq
+  script:
+    - echo "📢 Sending pipeline completion notifications..."
+    
+    # Determine overall pipeline status
+    - |
+      if [ "$CI_JOB_STATUS" = "success" ]; then
+        STATUS="✅ SUCCESS"
+        MESSAGE="Pipeline completed successfully"
+        COLOR="good"
+      else
+        STATUS="❌ FAILED"
+        MESSAGE="Pipeline failed - requires attention"
+        COLOR="danger"
+      fi
+      
+      echo "Pipeline Status: $STATUS"
+      echo "Message: $MESSAGE"
+    
+    # Send Slack notification (if webhook configured)
+    - |
+      if [ -n "$SLACK_WEBHOOK_URL" ]; then
+        curl -X POST -H 'Content-type: application/json' \
+          --data "{
+            \"text\": \"🚀 GitLab CI/CD Pipeline Completed\",
+            \"attachments\": [{
+              \"color\": \"$COLOR\",
+              \"fields\": [
+                {\"title\": \"Status\", \"value\": \"$STATUS\", \"short\": true},
+                {\"title\": \"Environment\", \"value\": \"$DEPLOYMENT_ENVIRONMENT\", \"short\": true},
+                {\"title\": \"Branch\", \"value\": \"$CI_COMMIT_REF_NAME\", \"short\": true},
+                {\"title\": \"Quality Score\", \"value\": \"$QUALITY_SCORE/100\", \"short\": true},
+                {\"title\": \"Pipeline\", \"value\": \"$CI_PIPELINE_ID\", \"short\": false},
+                {\"title\": \"Message\", \"value\": \"$MESSAGE\", \"short\": false}
+              ],
+              \"actions\": [{
+                \"type\": \"button\",
+                \"text\": \"View Pipeline\",
+                \"url\": \"$CI_PIPELINE_URL\"
+              }],
+              \"footer\": \"GitLab CI/CD\",
+              \"ts\": \"$(date +%s)\"
+            }]
+          }" $SLACK_WEBHOOK_URL
+      fi
+    
+    # Generate pipeline summary
+    - |
+      cat > pipeline-summary.md << EOF
+      # 🚀 GitLab CI/CD Pipeline Summary
+      
+      ## Status: $STATUS
+      
+      ### Pipeline Information
+      - **Pipeline ID**: $CI_PIPELINE_ID
+      - **Branch**: $CI_COMMIT_REF_NAME
+      - **Commit**: $CI_COMMIT_SHA
+      - **Quality Score**: $QUALITY_SCORE/100
+      
+      ### Environment
+      - **Target**: $DEPLOYMENT_ENVIRONMENT
+      - **Base URL**: ${PROD_BASE_URL:-${STAGING_BASE_URL:-"N/A"}}
+      
+      ### Results
+      $MESSAGE
+      
+      ---
+      *Generated by GitLab CI/CD*
+      EOF
+      
+      cat pipeline-summary.md
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - pipeline-summary.md
+  rules:
+    - when: always

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple CSS Styling Tutorial</title>
+    <style>
+        /* Step 1: Universal selector - reset default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Step 2: Element selector - style the body */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        /* Step 3: Class selector - create a container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Step 4: Element selector - style all headings */
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #3498db;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        h3 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        /* Step 5: Element selector - style paragraphs */
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Step 6: Class selectors - create reusable styles */
+        .highlight {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .warning {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        /* Step 7: ID selector - unique element styling */
+        #main-navigation {
+            background-color: #34495e;
+            padding: 0;
+            margin: 20px 0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        /* Step 8: Descendant selectors - style elements inside other elements */
+        #main-navigation ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        #main-navigation li {
+            flex: 1;
+        }
+
+        #main-navigation a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        /* Step 9: Pseudo-class selectors - interactive states */
+        #main-navigation a:hover {
+            background-color: #2c3e50;
+        }
+
+        #main-navigation a:active {
+            background-color: #1a252f;
+        }
+
+        /* Step 10: Attribute selectors - style form elements */
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+
+        /* Focus state for form inputs */
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Required field styling */
+        input[required] {
+            border-left: 4px solid #e74c3c;
+        }
+
+        input[required]:valid {
+            border-left: 4px solid #27ae60;
+        }
+
+        /* Step 11: Multiple class selectors */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+
+        .btn.primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn.primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn.secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .btn.secondary:hover {
+            background-color: #7f8c8d;
+        }
+
+        /* Step 12: Child selectors - direct children only */
+        .card-container > .card {
+            background-color: #ecf0f1;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        /* Step 13: Pseudo-elements - add content */
+        .step-title::before {
+            content: "📚 ";
+            margin-right: 8px;
+        }
+
+        .external-link::after {
+            content: " ↗";
+            font-size: 12px;
+            color: #3498db;
+        }
+
+        /* Step 14: nth-child selectors */
+        .demo-list li:nth-child(odd) {
+            background-color: #f8f9fa;
+            padding: 8px;
+            margin: 2px 0;
+            border-radius: 4px;
+        }
+
+        .demo-list li:nth-child(even) {
+            background-color: #e9ecef;
+            padding: 8px;
+            margin: 2px 0;
+            border-radius: 4px;
+        }
+
+        /* Step 15: Attribute value selectors */
+        [data-priority="high"] {
+            border-left: 4px solid #e74c3c;
+            background-color: #fdf2f2;
+        }
+
+        [data-priority="medium"] {
+            border-left: 4px solid #f39c12;
+            background-color: #fdf6e3;
+        }
+
+        [data-priority="low"] {
+            border-left: 4px solid #27ae60;
+            background-color: #f4f9f4;
+        }
+
+        /* Step 16: Code styling */
+        code {
+            background-color: #f1f2f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+            font-size: 0.9em;
+        }
+
+        .code-block {
+            background-color: #2f3640;
+            color: #f5f6fa;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 20px 0;
+            line-height: 1.4;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            #main-navigation ul {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 data-testid="main-title">CSS Selectors: Step-by-Step Tutorial</h1>
+        
+        <!-- Navigation using ID selector -->
+        <nav id="main-navigation" data-testid="main-navigation">
+            <ul>
+                <li><a href="#basics" data-testid="nav-basics">Basics</a></li>
+                <li><a href="#classes" data-testid="nav-classes">Classes</a></li>
+                <li><a href="#forms" data-testid="nav-forms">Forms</a></li>
+                <li><a href="#advanced" data-testid="nav-advanced">Advanced</a></li>
+            </ul>
+        </nav>
+
+        <!-- Section 1: Basic Selectors -->
+        <section id="basics" data-testid="basics-section">
+            <h2 class="step-title">Step 1: Basic Element Selectors</h2>
+            <p>Element selectors target HTML elements by their tag name. This is the most basic type of CSS selector.</p>
+            
+            <div class="code-block">h1 { color: #2c3e50; }
+p { margin-bottom: 15px; }</div>
+            
+            <div class="info">
+                <strong>Try this:</strong> All <code>&lt;h1&gt;</code> elements on this page are styled with the same color using element selectors.
+            </div>
+        </section>
+
+        <!-- Section 2: Class Selectors -->
+        <section id="classes" data-testid="classes-section">
+            <h2 class="step-title">Step 2: Class Selectors for Reusable Styles</h2>
+            <p>Class selectors allow you to create reusable styles that can be applied to any element.</p>
+            
+            <div class="highlight">
+                This is a <code>.highlight</code> class - notice the yellow background!
+            </div>
+            
+            <div class="warning">
+                This is a <code>.warning</code> class - red background indicates caution.
+            </div>
+            
+            <div class="success">
+                This is a <code>.success</code> class - green background shows success.
+            </div>
+            
+            <div class="code-block">.highlight { background-color: #fff3cd; }
+.warning { background-color: #f8d7da; }
+.success { background-color: #d4edda; }</div>
+        </section>
+
+        <!-- Section 3: Form Styling -->
+        <section id="forms" data-testid="forms-section">
+            <h2 class="step-title">Step 3: Styling Forms with Attribute Selectors</h2>
+            <p>Attribute selectors are perfect for styling form elements based on their type or attributes.</p>
+            
+            <form data-testid="demo-form">
+                <label for="name">Name (required):</label>
+                <input type="text" id="name" name="name" required data-testid="name-input">
+                
+                <label for="email">Email (required):</label>
+                <input type="email" id="email" name="email" required data-testid="email-input">
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" data-testid="message-textarea"></textarea>
+                
+                <button type="submit" class="btn primary" data-testid="submit-button">Submit</button>
+                <button type="reset" class="btn secondary" data-testid="reset-button">Reset</button>
+            </form>
+            
+            <div class="code-block">input[type="text"] { border: 2px solid #bdc3c7; }
+input[required] { border-left: 4px solid #e74c3c; }
+input[required]:valid { border-left: 4px solid #27ae60; }</div>
+        </section>
+
+        <!-- Section 4: Advanced Techniques -->
+        <section id="advanced" data-testid="advanced-section">
+            <h2 class="step-title">Step 4: Advanced Selector Combinations</h2>
+            
+            <h3>Child Selectors (Direct Children Only)</h3>
+            <div class="card-container" data-testid="card-container">
+                <div class="card" data-testid="card-1">
+                    <p>This card gets special styling because it's a direct child of <code>.card-container</code></p>
+                </div>
+                <div class="card" data-testid="card-2">
+                    <div>
+                        <p>This nested paragraph doesn't get the card styling because it's not a direct child.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>nth-child Selectors</h3>
+            <ul class="demo-list" data-testid="demo-list">
+                <li data-testid="list-item-1">First item (odd - light background)</li>
+                <li data-testid="list-item-2">Second item (even - darker background)</li>
+                <li data-testid="list-item-3">Third item (odd - light background)</li>
+                <li data-testid="list-item-4">Fourth item (even - darker background)</li>
+                <li data-testid="list-item-5">Fifth item (odd - light background)</li>
+            </ul>
+            
+            <h3>Attribute Value Selectors</h3>
+            <div class="task-list" data-testid="task-list">
+                <div data-priority="high" data-testid="high-priority-task">
+                    <strong>High Priority:</strong> Complete project documentation (red border)
+                </div>
+                <div data-priority="medium" data-testid="medium-priority-task">
+                    <strong>Medium Priority:</strong> Review code changes (orange border)
+                </div>
+                <div data-priority="low" data-testid="low-priority-task">
+                    <strong>Low Priority:</strong> Update team wiki (green border)
+                </div>
+            </div>
+            
+            <div class="code-block">.card-container > .card { /* direct children only */ }
+li:nth-child(odd) { background-color: #f8f9fa; }
+[data-priority="high"] { border-left: 4px solid #e74c3c; }</div>
+        </section>
+
+        <!-- Section 5: Pseudo-elements and External Links -->
+        <section data-testid="pseudo-elements-section">
+            <h2 class="step-title">Step 5: Pseudo-elements and Special Effects</h2>
+            <p>Pseudo-elements allow you to style specific parts of an element or add content through CSS.</p>
+            
+            <p>Check out these helpful resources:</p>
+            <ul>
+                <li><a href="https://developer.mozilla.org" class="external-link" data-testid="mdn-link">MDN Web Docs</a> (notice the arrow icon added with CSS)</li>
+                <li><a href="https://css-tricks.com" class="external-link" data-testid="css-tricks-link">CSS-Tricks</a></li>
+                <li><a href="#internal" data-testid="internal-link">Internal Link</a> (no arrow icon)</li>
+            </ul>
+            
+            <div class="code-block">.step-title::before { content: "📚 "; }
+.external-link::after { content: " ↗"; }</div>
+        </section>
+
+        <!-- Summary Section -->
+        <section data-testid="summary-section">
+            <h2 class="step-title">Summary: What We've Learned</h2>
+            
+            <div class="info">
+                <h3>Key Selector Types Covered:</h3>
+                <ul>
+                    <li><strong>Element selectors:</strong> Target HTML tags directly (<code>h1</code>, <code>p</code>, <code>div</code>)</li>
+                    <li><strong>Class selectors:</strong> Reusable styles with <code>.classname</code></li>
+                    <li><strong>ID selectors:</strong> Unique elements with <code>#idname</code></li>
+                    <li><strong>Attribute selectors:</strong> Target based on attributes like <code>[type="text"]</code></li>
+                    <li><strong>Pseudo-classes:</strong> Interactive states like <code>:hover</code>, <code>:focus</code></li>
+                    <li><strong>Pseudo-elements:</strong> Add content with <code>::before</code>, <code>::after</code></li>
+                    <li><strong>Combinators:</strong> Relationships like child <code>></code> and descendant (space)</li>
+                </ul>
+            </div>
+            
+            <div class="success">
+                <strong>Congratulations!</strong> You now understand the fundamental CSS selectors needed for both styling websites and identifying elements for automated testing.
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Add some interactivity to demonstrate selector usage
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight form validation
+            const inputs = document.querySelectorAll('input[required]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.validity.valid) {
+                        this.style.borderLeft = '4px solid #27ae60';
+                    } else {
+                        this.style.borderLeft = '4px solid #e74c3c';
+                    }
+                });
+            });
+
+            // Prevent form submission for demo
+            const form = document.querySelector('[data-testid="demo-form"]');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Form submission prevented for demo purposes. Notice how CSS selectors helped style this form!');
+                });
+            }
+
+            // Add click handlers to navigation
+            const navLinks = document.querySelectorAll('#main-navigation a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

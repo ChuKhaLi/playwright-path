@@ -1,0 +1,96 @@
+{
+  "name": "QA Automation Learning Roadmap",
+  "description": "Educational content creation system for Playwright and TypeScript QA automation learning",
+  "version": "1.0.0",
+  "global_rules": {
+    "educational_standards": ".roo/rules/01-educational-standards.md",
+    "system_requirements": ".roo/rules/02-system-requirements.md",
+    "mcp_servers": ".roo/rules/03-mcp-servers.md",
+    "research_emphasis": ".roo/rules/04-research-emphasis.md",
+    "memory_bank_integration": ".roo/rules/05-memory-bank-integration.md"
+  },
+  "agents": {
+    "learning-module-creator": {
+      "file": "./agents/learning-module-creator.md",
+      "mode_rules": ".roo/rules-learning-module-creator/",
+      "specific_rules": [
+        ".roo/rules-learning-module-creator/01-module-structure.md"
+      ]
+    },
+    "exercise-builder": {
+      "file": "./agents/exercise-builder.md",
+      "mode_rules": ".roo/rules-exercise-builder/",
+      "specific_rules": [
+        ".roo/rules-exercise-builder/01-exercise-design.md"
+      ]
+    },
+    "quiz-generator": {
+      "file": "./agents/quiz-generator.md",
+      "mode_rules": ".roo/rules-quiz-generator/",
+      "specific_rules": [
+        ".roo/rules-quiz-generator/01-quiz-creation.md"
+      ]
+    },
+    "beginner-guide-writer": {
+      "file": "./agents/beginner-guide-writer.md",
+      "mode_rules": ".roo/rules-beginner-guide-writer/",
+      "specific_rules": [
+        ".roo/rules-beginner-guide-writer/01-beginner-guides.md"
+      ]
+    },
+    "coding-teacher": {
+      "file": "./agents/coding-teacher.md",
+      "mode_rules": ".roo/rules-coding-teacher/",
+      "specific_rules": [
+        ".roo/rules-coding-teacher/01-teaching-philosophy.md"
+      ]
+    },
+    "course-content-creator": {
+      "file": "./agents/course-content-creator.md",
+      "mode_rules": ".roo/rules-course-content-creator/",
+      "specific_rules": [
+        ".roo/rules-course-content-creator/01-course-content.md"
+      ]
+    },
+    "resource-curator": {
+      "file": "./agents/resource-curator.md",
+      "mode_rules": ".roo/rules-resource-curator/",
+      "specific_rules": [
+        ".roo/rules-resource-curator/01-resource-curation.md"
+      ]
+    },
+    "document-research": {
+      "file": "./agents/document-research.md",
+      "mode_rules": ".roo/rules-document-research/",
+      "specific_rules": [
+        ".roo/rules-document-research/01-research-guidelines.md"
+      ]
+    },
+    "git-commit-assistant": {
+      "file": "./agents/git-commit-assistant.md",
+      "mode_rules": null,
+      "specific_rules": []
+    },
+    "proofreader": {
+      "file": "./agents/proofreader.md",
+      "mode_rules": ".roo/rules-proofreader/",
+      "specific_rules": [
+        ".roo/rules-proofreader/01-workflow.md",
+        ".roo/rules-proofreader/02-quality-framework.md",
+        ".roo/rules-proofreader/03-integration.md"
+      ]
+    }
+  },
+  "rule_enforcement": {
+    "all_agents_must_follow": "global_rules",
+    "agent_specific_rules": "applied_automatically",
+    "educational_standards_required": true,
+    "quality_framework_enforced": true
+  },
+  "project_context": {
+    "target_audience": "Manual testers transitioning to automation",
+    "primary_technologies": ["Playwright", "TypeScript", "Node.js"],
+    "learning_approach": "Beginner-first with progressive complexity",
+    "content_types": ["Modules", "Exercises", "Quizzes", "Guides", "Examples"]
+  }
+}

@@ -1,0 +1,203 @@
+# Basic Playwright GitHub Actions Workflow
+# File: .github/workflows/playwright.yml
+# Description: A complete, production-ready workflow for Playwright test execution
+
+name: Playwright Tests
+
+# Trigger Configuration
+# When should this workflow run?
+on:
+  # Run on pushes to main and develop branches
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'tests/**'           # Only run if test files change
+      - 'src/**'             # Or source code changes
+      - 'playwright.config.ts'
+      - 'package.json'
+      - '.github/workflows/**'
+  
+  # Run on pull requests targeting main
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'tests/**'
+      - 'src/**'
+      - 'playwright.config.ts'
+      - 'package.json'
+  
+  # Allow manual workflow execution
+  workflow_dispatch:
+    inputs:
+      test_env:
+        description: 'Test Environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+          - development
+
+# Environment Variables (Global)
+env:
+  NODE_VERSION: '18'
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+
+jobs:
+  # Job 1: Basic Playwright Testing
+  test:
+    name: Run Playwright Tests
+    runs-on: ubuntu-latest
+    
+    # Job-level environment variables
+    env:
+      CI: true
+      
+    # Define job timeout to prevent hanging
+    timeout-minutes: 30
+    
+    steps:
+      # Step 1: Checkout repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better analysis
+      
+      # Step 2: Setup Node.js with caching
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci
+      
+      # Step 4: Get Playwright version for caching
+      - name: Get Playwright version
+        id: playwright-version
+        run: |
+          echo "version=$(npm list @playwright/test --depth=0 --json | jq -r '.dependencies."@playwright/test".version')" >> $GITHUB_OUTPUT
+      
+      # Step 5: Cache Playwright browsers
+      - name: Cache Playwright browsers
+        uses: actions/cache@v3
+        id: playwright-cache
+        with:
+          path: |
+            ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
+      
+      # Step 6: Install Playwright browsers (only if not cached)
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps
+      
+      # Step 7: Install system dependencies (if cache missed)
+      - name: Install system dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install-deps
+      
+      # Step 8: Run Playwright tests
+      - name: Run Playwright tests
+        run: npx playwright test
+        env:
+          # Environment-specific configuration
+          BASE_URL: ${{ github.ref == 'refs/heads/main' && 'https://production.example.com' || 'https://staging.example.com' }}
+          TEST_ENV: ${{ github.event.inputs.test_env || 'staging' }}
+      
+      # Step 9: Upload test results (always run, even on failure)
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+      
+      # Step 10: Upload test results for further processing
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 7
+      
+      # Step 11: Comment on PR with test results (if PR)
+      - name: Comment PR
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Try to read test results
+            let testSummary = 'Tests completed. Check the full report in the artifacts.';
+            
+            try {
+              // This would be customized based on your actual report format
+              testSummary = `
+              ## 🎭 Playwright Test Results
+              
+              Tests have been executed on this pull request.
+              
+              **Environment**: ${{ env.TEST_ENV }}
+              **Browser Coverage**: Chromium, Firefox, WebKit
+              
+              📊 [View detailed report in artifacts](${context.payload.pull_request.html_url}/checks)
+              `;
+            } catch (error) {
+              console.log('Could not read detailed test results');
+            }
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: testSummary
+            });
+
+# Additional example: Matrix testing job (commented out for basic example)
+# Uncomment and customize as needed
+
+# matrix_test:
+#   name: Matrix Testing
+#   runs-on: ${{ matrix.os }}
+#   strategy:
+#     matrix:
+#       os: [ubuntu-latest, windows-latest]
+#       browser: [chromium, firefox, webkit]
+#       node-version: [16, 18, 20]
+#     fail-fast: false
+#   
+#   steps:
+#     - uses: actions/checkout@v4
+#     - name: Setup Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: ${{ matrix.node-version }}
+#         cache: 'npm'
+#     
+#     - name: Install dependencies
+#       run: npm ci
+#     
+#     - name: Install Playwright
+#       run: npx playwright install --with-deps ${{ matrix.browser }}
+#     
+#     - name: Run ${{ matrix.browser }} tests on ${{ matrix.os }}
+#       run: npx playwright test --project=${{ matrix.browser }}
+#     
+#     - name: Upload artifacts
+#       uses: actions/upload-artifact@v4
+#       if: always()
+#       with:
+#         name: results-${{ matrix.os }}-${{ matrix.browser }}-node${{ matrix.node-version }}
+#         path: |
+#           playwright-report/
+#           test-results/
