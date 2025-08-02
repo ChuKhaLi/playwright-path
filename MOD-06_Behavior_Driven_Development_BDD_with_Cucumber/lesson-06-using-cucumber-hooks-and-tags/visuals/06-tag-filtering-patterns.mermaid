@@ -1,0 +1,73 @@
+graph TD
+    subgraph "Basic Tag Filtering"
+        A1[Single Tag: @smoke] --> B1[Matches scenarios with @smoke]
+        A2[Multiple Tags: @smoke or @critical] --> B2[Matches scenarios with either tag]
+        A3[Tag Negation: not @slow] --> B3[Excludes scenarios with @slow]
+    end
+    
+    subgraph "Complex Tag Expressions"
+        C1["(@smoke or @critical) and not @wip"] --> D1[Critical OR Smoke AND NOT Work In Progress]
+        C2["@api and (@dev or @staging)"] --> D2[API tests for Dev OR Staging environments]
+        C3["@e2e and @critical and not @flaky"] --> D3[Critical E2E tests excluding flaky ones]
+    end
+    
+    subgraph "Environment-Based Filtering"
+        E1[@dev] --> F1[Development Environment Tests]
+        E2[@staging] --> F2[Staging Environment Tests]
+        E3[@prod] --> F3[Production Environment Tests]
+        E4["@dev or @staging"] --> F4[Non-Production Tests]
+    end
+    
+    subgraph "Test Type Filtering"
+        G1[@smoke] --> H1[Quick Validation Tests]
+        G2[@integration] --> H2[Component Integration Tests]
+        G3[@e2e] --> H3[Full User Journey Tests]
+        G4[@api] --> H4[API Contract Tests]
+    end
+    
+    subgraph "Priority-Based Filtering"
+        I1[@critical] --> J1[Must-Pass Tests]
+        I2[@medium] --> J2[Important Tests]
+        I3[@low] --> J3[Nice-to-Have Tests]
+        I4["@critical or @medium"] --> J4[High Priority Tests]
+    end
+    
+    subgraph "Feature-Based Filtering"
+        K1[@login] --> L1[Authentication Features]
+        K2[@checkout] --> L2[Purchase Flow Features]
+        K3[@search] --> L3[Search Functionality]
+        K4["@login or @checkout"] --> L4[Core User Flows]
+    end
+    
+    subgraph "CI/CD Pipeline Examples"
+        M1["Pull Request: @smoke and not @slow"] --> N1[Fast Feedback Loop]
+        M2["Nightly: @integration or @e2e"] --> N2[Comprehensive Testing]
+        M3["Release: @critical and @prod"] --> N3[Production Readiness]
+        M4["Feature Branch: @wip or @dev"] --> N4[Development Testing]
+    end
+    
+    subgraph "Advanced Filtering Strategies"
+        O1["Hook-Specific: @browser and @visual"] --> P1[Visual Tests Requiring Browser]
+        O2["Data-Driven: @dataset1 or @dataset2"] --> P2[Specific Test Data Sets]
+        O3["Performance: @perf and not @slow"] --> P3[Fast Performance Tests]
+        O4["Security: @security and @critical"] --> P4[Critical Security Tests]
+    end
+    
+    %% Styling
+    classDef basic fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef complex fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef env fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef type fill:#fff8e1,stroke:#f57c00,stroke-width:2px
+    classDef priority fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef feature fill:#f1f8e9,stroke:#689f38,stroke-width:2px
+    classDef cicd fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef advanced fill:#fafafa,stroke:#424242,stroke-width:2px
+    
+    class A1,A2,A3,B1,B2,B3 basic
+    class C1,C2,C3,D1,D2,D3 complex
+    class E1,E2,E3,E4,F1,F2,F3,F4 env
+    class G1,G2,G3,G4,H1,H2,H3,H4 type
+    class I1,I2,I3,I4,J1,J2,J3,J4 priority
+    class K1,K2,K3,K4,L1,L2,L3,L4 feature
+    class M1,M2,M3,M4,N1,N2,N3,N4 cicd
+    class O1,O2,O3,O4,P1,P2,P3,P4 advanced

@@ -1,0 +1,61 @@
+flowchart TD
+    Start([Test Execution Starts]) --> ReadTags[Read Scenario Tags]
+    ReadTags --> ParseFilter[Parse Filter Expression]
+    ParseFilter --> EvaluateLogic{Evaluate Logic}
+    
+    EvaluateLogic -->|Match| SetupHooks[Setup Applicable Hooks]
+    EvaluateLogic -->|No Match| Skip[Skip Scenario]
+    
+    SetupHooks --> CheckEnv{Check Environment?}
+    CheckEnv -->|@dev| DevHooks[Setup Development Hooks]
+    CheckEnv -->|@prod| ProdHooks[Setup Production Hooks]
+    CheckEnv -->|@staging| StagingHooks[Setup Staging Hooks]
+    CheckEnv -->|No Env Tag| DefaultHooks[Setup Default Hooks]
+    
+    DevHooks --> CheckSeverity{Check Severity?}
+    ProdHooks --> CheckSeverity
+    StagingHooks --> CheckSeverity
+    DefaultHooks --> CheckSeverity
+    
+    CheckSeverity -->|@critical| CriticalSetup[Critical Test Setup]
+    CheckSeverity -->|@medium| MediumSetup[Medium Test Setup]
+    CheckSeverity -->|@low| LowSetup[Low Priority Setup]
+    CheckSeverity -->|No Severity| DefaultSetup[Default Setup]
+    
+    CriticalSetup --> CheckType{Check Test Type?}
+    MediumSetup --> CheckType
+    LowSetup --> CheckType
+    DefaultSetup --> CheckType
+    
+    CheckType -->|@smoke| SmokeConfig[Smoke Test Config]
+    CheckType -->|@integration| IntegrationConfig[Integration Config]
+    CheckType -->|@e2e| E2EConfig[End-to-End Config]
+    CheckType -->|@api| APIConfig[API Test Config]
+    CheckType -->|No Type| GenericConfig[Generic Config]
+    
+    SmokeConfig --> ExecuteHooks[Execute Matched Hooks]
+    IntegrationConfig --> ExecuteHooks
+    E2EConfig --> ExecuteHooks
+    APIConfig --> ExecuteHooks
+    GenericConfig --> ExecuteHooks
+    
+    ExecuteHooks --> RunScenario[Run Scenario Steps]
+    RunScenario --> CleanupHooks[Execute Cleanup Hooks]
+    CleanupHooks --> Complete([Scenario Complete])
+    
+    Skip --> SkipLog[Log Skipped Scenario]
+    SkipLog --> NextScenario[Next Scenario]
+    NextScenario --> ReadTags
+    
+    %% Style the nodes
+    classDef startEnd fill:#e1f5fe,stroke:#0277bd,stroke-width:3px
+    classDef decision fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef config fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef skip fill:#ffebee,stroke:#c62828,stroke-width:2px
+    
+    class Start,Complete startEnd
+    class EvaluateLogic,CheckEnv,CheckSeverity,CheckType decision
+    class ReadTags,ParseFilter,SetupHooks,ExecuteHooks,RunScenario,CleanupHooks process
+    class DevHooks,ProdHooks,StagingHooks,DefaultHooks,CriticalSetup,MediumSetup,LowSetup,DefaultSetup,SmokeConfig,IntegrationConfig,E2EConfig,APIConfig,GenericConfig config
+    class Skip,SkipLog,NextScenario skip

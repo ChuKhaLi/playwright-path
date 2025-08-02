@@ -1,0 +1,91 @@
+sequenceDiagram
+    participant TS as Test Suite
+    participant BA as BeforeAll Hook
+    participant B as Before Hook
+    participant BS as BeforeStep Hook
+    participant SD as Step Definition
+    participant AS as AfterStep Hook
+    participant A as After Hook
+    participant AA as AfterAll Hook
+    participant BR as Browser
+    participant BC as Browser Context
+    participant PG as Page
+
+    Note over TS,PG: Test Suite Initialization
+    TS->>BA: Execute BeforeAll
+    BA->>BR: Launch Browser
+    BR-->>BA: Browser Instance
+    BA->>BA: Setup Global Config
+    BA->>BA: Initialize Monitoring
+    Note over BA: Browser ready for scenarios
+
+    loop For Each Scenario
+        Note over TS,PG: Scenario Setup
+        TS->>B: Execute Before Hook
+        B->>BR: Create New Context
+        BR->>BC: Browser Context
+        BC-->>B: Context Instance
+        B->>BC: Create New Page
+        BC->>PG: Page Instance
+        PG-->>B: Page Ready
+        B->>PG: Setup Event Listeners
+        B->>B: Initialize Scenario State
+        
+        loop For Each Step
+            Note over TS,PG: Step Execution
+            TS->>BS: Execute BeforeStep
+            BS->>PG: Log Current State
+            BS->>PG: Optional Screenshot
+            BS->>BS: Validate Prerequisites
+            
+            TS->>SD: Execute Step Definition
+            SD->>PG: Perform Actions
+            alt Step Success
+                PG-->>SD: Action Completed
+                SD-->>TS: Step Passed
+            else Step Failure
+                PG-->>SD: Action Failed
+                SD-->>TS: Step Failed
+            end
+            
+            TS->>AS: Execute AfterStep
+            AS->>PG: Check Step Result
+            alt Step Failed
+                AS->>PG: Take Error Screenshot
+                AS->>AS: Log Error Details
+            else Step Passed
+                AS->>AS: Log Success
+            end
+            AS->>AS: Record Metrics
+        end
+        
+        Note over TS,PG: Scenario Cleanup
+        TS->>A: Execute After Hook
+        A->>A: Process Scenario Result
+        alt Scenario Failed
+            A->>PG: Take Failure Screenshot
+            A->>PG: Save Page Source
+            A->>A: Collect Debug Info
+        else Scenario Passed
+            A->>A: Log Success
+        end
+        A->>BC: Close Browser Context
+        BC->>PG: Close Page
+        PG-->>BC: Page Closed
+        BC-->>A: Context Closed
+        A->>A: Cleanup Scenario Resources
+    end
+
+    Note over TS,PG: Test Suite Cleanup
+    TS->>AA: Execute AfterAll
+    AA->>AA: Generate Final Reports
+    AA->>AA: Push Final Metrics
+    AA->>BR: Close Browser
+    BR-->>AA: Browser Closed
+    AA->>AA: Cleanup Global Resources
+    AA-->>TS: Suite Complete
+
+    Note over TS,PG: Resource Management Summary
+    Note over BR: Browser: Global resource (expensive)
+    Note over BC: Context: Per-scenario (isolation)
+    Note over PG: Page: Per-scenario (fresh state)

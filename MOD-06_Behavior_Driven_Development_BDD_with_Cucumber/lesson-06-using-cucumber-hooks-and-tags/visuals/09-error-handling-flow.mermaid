@@ -1,0 +1,130 @@
+flowchart TD
+    Start([Hook Execution Starts]) --> Execute[Execute Hook Code]
+    
+    Execute --> CheckError{Error Occurred?}
+    CheckError -->|No| Success[Hook Completed Successfully]
+    CheckError -->|Yes| CatchError[Catch Error]
+    
+    CatchError --> ClassifyError{Classify Error Type}
+    
+    ClassifyError -->|Browser Error| BrowserError[Browser/Page Error]
+    ClassifyError -->|Network Error| NetworkError[Network/Timeout Error]
+    ClassifyError -->|Assertion Error| AssertionError[Test Assertion Failure]
+    ClassifyError -->|System Error| SystemError[System/Resource Error]
+    ClassifyError -->|Unknown Error| UnknownError[Unhandled Error]
+    
+    BrowserError --> BrowserActions[Browser Error Handling]
+    NetworkError --> NetworkActions[Network Error Handling]
+    AssertionError --> AssertionActions[Test Error Handling]
+    SystemError --> SystemActions[System Error Handling]
+    UnknownError --> UnknownActions[Generic Error Handling]
+    
+    subgraph "Browser Error Handling"
+        BrowserActions --> BA1[Take Screenshot]
+        BA1 --> BA2[Save Page Source]
+        BA2 --> BA3[Log Browser State]
+        BA3 --> BA4[Attempt Recovery]
+        BA4 --> BA5{Recovery Successful?}
+        BA5 -->|Yes| BA6[Continue Execution]
+        BA5 -->|No| BA7[Close Context]
+        BA7 --> BA8[Create New Context]
+        BA8 --> BA9[Log Recovery Attempt]
+    end
+    
+    subgraph "Network Error Handling"
+        NetworkActions --> NA1[Log Network Details]
+        NA1 --> NA2[Check Connectivity]
+        NA2 --> NA3[Implement Retry Logic]
+        NA3 --> NA4{Max Retries Reached?}
+        NA4 -->|No| NA5[Wait with Backoff]
+        NA5 --> NA6[Retry Operation]
+        NA6 --> NA3
+        NA4 -->|Yes| NA7[Mark as Failed]
+        NA7 --> NA8[Log Final Failure]
+    end
+    
+    subgraph "Test Error Handling"
+        AssertionActions --> AA1[Capture Test Context]
+        AA1 --> AA2[Log Expected vs Actual]
+        AA2 --> AA3[Take Debug Screenshot]
+        AA3 --> AA4[Save Element State]
+        AA4 --> AA5[Mark Test as Failed]
+        AA5 --> AA6[Continue to Cleanup]
+    end
+    
+    subgraph "System Error Handling"
+        SystemActions --> SA1[Log System State]
+        SA1 --> SA2[Check Resource Usage]
+        SA2 --> SA3[Free Resources]
+        SA3 --> SA4[Restart Services]
+        SA4 --> SA5{Recovery Possible?}
+        SA5 -->|Yes| SA6[Continue]
+        SA5 -->|No| SA7[Fail Fast]
+        SA7 --> SA8[Cleanup Everything]
+    end
+    
+    subgraph "Generic Error Handling"
+        UnknownActions --> UA1[Log Full Stack Trace]
+        UA1 --> UA2[Capture Environment State]
+        UA2 --> UA3[Save Debug Information]
+        UA3 --> UA4[Notify Development Team]
+        UA4 --> UA5[Graceful Degradation]
+        UA5 --> UA6[Continue with Caution]
+    end
+    
+    BA6 --> LogSuccess[Log Successful Recovery]
+    BA9 --> LogRecovery[Log Recovery Attempt]
+    NA8 --> LogNetwork[Log Network Failure]
+    AA6 --> LogTest[Log Test Failure]
+    SA6 --> LogSystem[Log System Recovery]
+    SA8 --> LogSystemFail[Log System Failure]
+    UA6 --> LogUnknown[Log Unknown Error]
+    
+    LogSuccess --> Monitoring[Update Monitoring Metrics]
+    LogRecovery --> Monitoring
+    LogNetwork --> Monitoring
+    LogTest --> Monitoring
+    LogSystem --> Monitoring
+    LogSystemFail --> Monitoring
+    LogUnknown --> Monitoring
+    
+    Monitoring --> AlertCheck{Alert Threshold Reached?}
+    AlertCheck -->|Yes| SendAlert[Send Alert to Team]
+    AlertCheck -->|No| Continue[Continue Test Execution]
+    
+    SendAlert --> AlertActions[Alert Response Actions]
+    subgraph "Alert Response Actions"
+        AlertActions --> AR1[Slack Notification]
+        AlertActions --> AR2[Email Alert]
+        AlertActions --> AR3[PagerDuty Incident]
+        AlertActions --> AR4[Dashboard Update]
+    end
+    
+    Success --> SuccessMetrics[Update Success Metrics]
+    SuccessMetrics --> Continue
+    
+    Continue --> NextHook{More Hooks to Execute?}
+    NextHook -->|Yes| Start
+    NextHook -->|No| Complete([All Hooks Completed])
+    
+    AR1 --> Complete
+    AR2 --> Complete
+    AR3 --> Complete
+    AR4 --> Complete
+    
+    %% Styling
+    classDef start fill:#e1f5fe,stroke:#0277bd,stroke-width:3px
+    classDef decision fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef process fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef error fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef monitoring fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef alert fill:#fff8e1,stroke:#ff8f00,stroke-width:2px
+    
+    class Start,Complete start
+    class CheckError,ClassifyError,BA5,NA4,SA5,AlertCheck,NextHook decision
+    class Execute,CatchError,SuccessMetrics,Monitoring,Continue process
+    class BrowserError,NetworkError,AssertionError,SystemError,UnknownError,BA7,BA8,NA7,SA7,SA8,UA4,UA5 error
+    class Success,BA6,SA6,LogSuccess,LogRecovery success
+    class LogNetwork,LogTest,LogSystem,LogSystemFail,LogUnknown,SendAlert monitoring
+    class AlertActions,AR1,AR2,AR3,AR4 alert

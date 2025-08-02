@@ -1,4 +1,4 @@
-# Module Specification: MOD-06 CI/CD and DevOps Integration
+# Module Specification: MOD-ADV-01 CI/CD and DevOps Integration
 
 ## 1. Overview
 

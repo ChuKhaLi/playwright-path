@@ -1,4 +1,4 @@
-# Learning Objectives: MOD-06 CI/CD and DevOps Integration
+# Learning Objectives: MOD-ADV-01 CI/CD and DevOps Integration
 
 ## 🎯 Module Learning Outcomes
 

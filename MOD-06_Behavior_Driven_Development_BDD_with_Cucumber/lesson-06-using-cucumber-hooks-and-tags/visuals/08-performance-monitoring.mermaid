@@ -1,0 +1,104 @@
+graph TB
+    subgraph "Test Execution Timeline"
+        T1[Test Suite Start] --> T2[BeforeAll Hook]
+        T2 --> T3[Scenario 1]
+        T3 --> T4[Scenario 2]
+        T4 --> T5[Scenario N]
+        T5 --> T6[AfterAll Hook]
+        T6 --> T7[Test Suite End]
+    end
+    
+    subgraph "Hook Performance Metrics"
+        H1[Hook Execution Time] --> H2[Setup Duration]
+        H1 --> H3[Cleanup Duration]
+        H1 --> H4[Resource Usage]
+        H1 --> H5[Memory Consumption]
+        
+        H2 --> M1[Browser Launch: 2-5s]
+        H2 --> M2[Context Creation: 0.1-0.5s]
+        H2 --> M3[Page Setup: 0.05-0.2s]
+        
+        H3 --> M4[Context Cleanup: 0.05-0.1s]
+        H3 --> M5[Browser Close: 0.5-1s]
+        H3 --> M6[Resource Release: 0.01-0.05s]
+    end
+    
+    subgraph "Performance Data Collection"
+        P1[Metrics Collector] --> P2[Hook Start Time]
+        P1 --> P3[Hook End Time]
+        P1 --> P4[Resource Usage]
+        P1 --> P5[Error Events]
+        
+        P2 --> D1[performance.now()]
+        P3 --> D2[performance.now()]
+        P4 --> D3[process.memoryUsage()]
+        P5 --> D4[Error Stack Traces]
+    end
+    
+    subgraph "Monitoring Integration"
+        MI1[Application Performance Monitoring] --> MI2[New Relic]
+        MI1 --> MI3[DataDog]
+        MI1 --> MI4[Custom Metrics]
+        
+        MI2 --> MI5[Hook Duration Alerts]
+        MI3 --> MI6[Memory Leak Detection]
+        MI4 --> MI7[Custom Dashboards]
+    end
+    
+    subgraph "Performance Optimization Strategies"
+        S1[Browser Reuse Strategy] --> S2[Shared Browser Instance]
+        S2 --> S3[Context Per Scenario]
+        S3 --> S4[Page Per Step]
+        
+        S5[Parallel Execution] --> S6[Worker Threads]
+        S6 --> S7[Independent Browsers]
+        S7 --> S8[Scenario Distribution]
+        
+        S9[Resource Management] --> S10[Memory Cleanup]
+        S10 --> S11[Handle Disposal]
+        S11 --> S12[Event Listener Cleanup]
+    end
+    
+    subgraph "Performance Thresholds"
+        TH1[Hook Duration Limits]
+        TH1 --> TH2[BeforeAll: < 10s]
+        TH1 --> TH3[Before: < 2s]
+        TH1 --> TH4[BeforeStep: < 0.5s]
+        TH1 --> TH5[AfterStep: < 0.5s]
+        TH1 --> TH6[After: < 2s]
+        TH1 --> TH7[AfterAll: < 5s]
+        
+        TH8[Memory Thresholds]
+        TH8 --> TH9[Heap Usage: < 512MB]
+        TH8 --> TH10[Context Count: < 10]
+        TH8 --> TH11[Page Count: < 50]
+    end
+    
+    subgraph "Alert Configuration"
+        A1[Performance Alerts] --> A2[Hook Timeout > 30s]
+        A1 --> A3[Memory Usage > 1GB]
+        A1 --> A4[Browser Crash Events]
+        A1 --> A5[Context Leak Detection]
+        
+        A2 --> A6[Slack Notification]
+        A3 --> A7[Email Alert]
+        A4 --> A8[PagerDuty Incident]
+        A5 --> A9[Dashboard Warning]
+    end
+    
+    %% Styling
+    classDef timeline fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef metrics fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef collection fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef monitoring fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef optimization fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef thresholds fill:#f1f8e9,stroke:#689f38,stroke-width:2px
+    classDef alerts fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    
+    class T1,T2,T3,T4,T5,T6,T7 timeline
+    class H1,H2,H3,H4,H5,M1,M2,M3,M4,M5,M6 metrics
+    class P1,P2,P3,P4,P5,D1,D2,D3,D4 collection
+    class MI1,MI2,MI3,MI4,MI5,MI6,MI7 monitoring
+    class S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12 optimization
+    class TH1,TH2,TH3,TH4,TH5,TH6,TH7,TH8,TH9,TH10,TH11 thresholds
+    class A1,A2,A3,A4,A5,A6,A7,A8,A9 alerts

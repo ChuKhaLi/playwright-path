@@ -1,4 +1,4 @@
-# MOD-06: CI/CD and DevOps Integration
+# MOD-ADV-01: CI/CD and DevOps Integration
 
 ## 🎯 Module Overview
 
