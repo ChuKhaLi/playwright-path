@@ -1,133 +1,53 @@
-# Lesson 03: API Client Architecture Patterns ⭐
+# Lesson 3: API Client Architecture Patterns
 
-## 🎯 Learning Objectives
+This lesson provides a deep dive into professional API client architecture patterns essential for building scalable, maintainable, and resilient enterprise-grade test automation frameworks.
+
+## Learning Objectives
 
 By the end of this lesson, you will be able to:
-- **Design** professional API client architectures for scalable test automation
-- **Implement** request/response handling patterns with proper error management
-- **Create** authentication strategies for various security models
-- **Build** retry mechanisms and resilience patterns for API testing
-- **Architect** API versioning support and backward compatibility handling
 
-## 📋 Lesson Overview
+- **Design and implement a layered API client architecture** using a `BaseApiClient`.
+- **Apply creational design patterns** like the **Factory** and **Builder** patterns to construct API clients and test data.
+- **Implement structural patterns** like the **Repository** pattern to abstract data access and API interactions.
+- **Develop robust authentication strategies** for various security models (Bearer, API Key, OAuth2).
+- **Build resilient API clients** with retry mechanisms, circuit breakers, and rate limiting.
+- **Manage API versioning and configuration** for different environments.
 
-**Duration**: 2-3 hours  
-**Type**: **API Focus** - Professional API Design Patterns  
-**Prerequisites**: MOD-04 Advanced API Testing, Lesson 02 (Advanced Page Object Patterns)
+## Lesson Overview
 
-This is a **comprehensive special focus lesson** that teaches professional API client architecture patterns essential for enterprise-grade test automation. You'll learn to build robust, maintainable, and scalable API testing frameworks that handle real-world complexity.
+This is a comprehensive lesson that moves beyond basic API testing scripts. You will learn to think like a software architect, applying proven design patterns to solve common challenges in API test automation. The focus is on writing clean, reusable, and enterprise-quality code.
 
-## 📚 What You'll Learn
+## What You'll Learn
 
-### **Core Architecture Patterns**
-- API client class design and structure
-- Request/response abstraction layers
-- Error handling and exception management
-- Authentication and authorization patterns
-- Configuration and environment management
+### Core Architecture
+-   Base API Client design with request/response abstraction.
+-   Layered architecture and separation of concerns.
+-   Comprehensive error handling and custom exception classes.
+-   Environment configuration management.
 
-### **Advanced Implementation Techniques**
-- Retry mechanisms and circuit breaker patterns
-- Rate limiting and throttling strategies
-- API versioning and backward compatibility
-- Response caching and performance optimization
-- Logging and monitoring integration
+### Advanced Design Patterns
+-   **Repository Pattern:** Abstracting API endpoints into a data-centric repository.
+-   **Factory Pattern:** Creating instances of different API clients or test data objects.
+-   **Builder Pattern:** Constructing complex request payloads with a fluent API.
+-   **Strategy Pattern:** Managing multiple authentication mechanisms.
 
-### **Enterprise-Level Considerations**
-- Security best practices for API testing
-- Multi-environment configuration management
-- Scalability patterns for large test suites
-- Integration with CI/CD pipelines
-- Documentation and team collaboration
+### Resilience and Performance
+-   Retry mechanisms with exponential backoff.
+-   Circuit Breaker pattern to prevent cascading failures.
+-   Rate Limiting to respect API usage policies.
 
-## 🛠️ Practical Applications
+## Practical Applications
 
-### **Real-World Scenarios**
-- E-commerce API testing with complex workflows
-- Microservices architecture testing strategies
-- Third-party API integration testing
-- Authentication flow automation
-- Performance and load testing integration
+-   Testing complex e-commerce or financial APIs.
+-   Building test frameworks for microservices architectures.
+-   Integrating with third-party APIs securely and reliably.
+-   Creating scalable test suites for CI/CD environments.
 
-### **Professional Code Examples**
-- Complete API client class implementations
-- Authentication strategy patterns
-- Error handling and retry mechanisms
-- Configuration management systems
-- Integration with Playwright request fixture
+## Files
 
-## 📁 Lesson Structure
+-   [content.md](./content.md): Comprehensive guide to API client architecture patterns.
+-   [assessment.md](./assessment.md): Exercises to apply and test your knowledge of these patterns.
+-   [examples/](./examples/): Professional-grade code implementations.
+-   [exercises/](./exercises/): Hands-on challenges to build your own clients.
 
-- **[Content](content.md)**: **Comprehensive** API architecture patterns
-- **[Examples](examples/)**: **Professional-grade** code implementations
-- **[Exercises](exercises/)**: **Complex** real-world challenges
-- **[Assessment](assessment.md)**: **Advanced** architecture evaluation
-- **[Resources](../../../MOD-01_Foundations/lessons/lesson-01-html-document-structure/resources.md)**: **Industry** best practices and patterns
-
-## 🎯 Success Criteria
-
-By completing this lesson, you should be able to:
-- ✅ Design and implement enterprise-grade API client architectures
-- ✅ Create robust error handling and retry mechanisms
-- ✅ Implement multiple authentication strategies
-- ✅ Build scalable configuration management systems
-- ✅ Apply professional API testing design patterns
-- ✅ Integrate API clients with E2E testing frameworks
-
-## 🏆 Professional Competencies Developed
-
-### **Architecture Design**
-- API client class hierarchy design
-- Separation of concerns in API testing
-- Abstraction layer implementation
-- Interface design for testability
-
-### **Error Handling & Resilience**
-- Exception handling strategies
-- Retry mechanisms and backoff algorithms
-- Circuit breaker pattern implementation
-- Graceful degradation techniques
-
-### **Security & Authentication**
-- OAuth 2.0 and JWT handling
-- API key management strategies
-- Token refresh mechanisms
-- Secure credential storage
-
-### **Performance & Scalability**
-- Request/response optimization
-- Connection pooling strategies
-- Caching mechanisms
-- Load balancing considerations
-
-## 🔗 Integration Points
-
-### **API Testing Integration**
-- Seamless integration with Playwright request fixture
-- Shared utilities with E2E testing framework
-- Cross-layer data validation strategies
-- Unified reporting and logging
-
-### **Framework Architecture**
-- Integration with Page Object Model patterns
-- Shared configuration management
-- Common error handling strategies
-- Unified test data management
-
-## 🎓 Learning Path Context
-
-This lesson is **critical** for:
-- **MOD-06**: CI/CD integration with API testing
-- **MOD-07**: Advanced API security and performance testing
-- **Professional Certification**: API testing architecture competency
-- **Career Development**: Senior test automation engineer roles
-
-## 🔗 Connections
-
-**Previous**: [Lesson 02: Advanced Page Object Patterns](../../../MOD-E2E-03_E2E_Test_Architecture_and_Design/lessons/lesson-02-advanced-page-object-patterns)  
-**Next**: [Lesson 04: Test Data Management Strategies](../../../MOD-E2E-03_E2E_Test_Architecture_and_Design/lessons/lesson-04-test-data-management-strategies)  
-**Related**: Lesson 07 (Design Patterns), Lesson 12 (Hybrid Architecture)
-
----
-
-**Ready for professional API architecture?** Begin with the [comprehensive lesson content](content.md) to master API client design patterns.
+Ready to build professional-grade API clients? Start with the [lesson content](content.md).
