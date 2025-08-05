@@ -1,9 +1,14 @@
-# Lesson 1: Assessment
+# Lesson 1: Assessment - Playwright Installation and Setup
 
-## Knowledge Check
+## 🎯 Assessment Overview
+This assessment evaluates your understanding of Playwright installation, setup, and basic configuration.
+
+---
+
+## 📚 Part A: Knowledge Check
 
 ### Question 1
-What is the primary command to initialize a new Playwright project and install its dependencies?
+What is the primary command to initialize a new Playwright project with an interactive setup?
 a) `npm install playwright`
 b) `npm init playwright@latest`
 c) `npx playwright install`
@@ -35,24 +40,27 @@ d) The dependencies for the project.
 
 ---
 
-## Practical Exercise
+## 🛠️ Part B: Practical Implementation
 
-### Task
+### Task: Set Up a Project and Modify Configuration
+
 1.  Create a new directory on your computer named `my-first-e2e-project`.
 2.  Navigate into this new directory using your terminal.
-3.  Initialize a new Node.js project.
-4.  Install Playwright using the interactive initializer.
-    - Choose TypeScript.
+3.  Initialize a new Playwright project using the interactive initializer (`npm init playwright@latest`).
+    - Choose **TypeScript**.
     - Use the default `tests` folder.
     - Add the GitHub Actions workflow.
-5.  After the installation, open the `playwright.config.ts` file and add a new project configuration for "Mobile Chrome".
-
-    **Hint:** You can find device descriptors in the `playwright/test` module. The device you are looking for is `Desktop Chrome`.
+4.  After the installation, open the `playwright.config.ts` file.
+5.  Add a new project configuration to test on a mobile device. Use the `Pixel 5` device descriptor provided by Playwright.
 
 ### Expected Outcome
 Your `playwright.config.ts` file should be modified to include a new project configuration block for a mobile device. The `projects` array should look similar to this:
 
 ```typescript
+import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  // ... other settings
   projects: [
     {
       name: 'chromium',
@@ -66,12 +74,14 @@ Your `playwright.config.ts` file should be modified to include a new project con
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-    // Add this new project
+    // This is the new project you added
     {
       name: 'Mobile Chrome',
       use: { ...devices['Pixel 5'] },
     },
   ],
+  // ... other settings
+});
 ```
 
 This exercise confirms that you can successfully set up a new project and make basic modifications to the configuration, preparing you for more advanced setups in later lessons.
