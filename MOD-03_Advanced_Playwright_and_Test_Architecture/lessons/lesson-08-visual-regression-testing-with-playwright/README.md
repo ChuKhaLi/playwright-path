@@ -1,1 +1,0 @@
-# Lesson 3.8: Visual Regression Testing with Playwright

@@ -12,7 +12,6 @@ This advanced module transitions students from basic Playwright usage to profess
 - **Test Architecture**: Framework design, modularity, maintainability principles
 - **Data Management**: External data sources, test data factories, environment configuration
 - **Authentication Handling**: OAuth flows, session management, token-based authentication
-- **Visual Testing**: Screenshot comparison, visual regression detection, cross-browser consistency
 - **API Integration**: Hybrid UI/API testing, request/response validation
 - **Performance Considerations**: Test execution optimization, parallel execution strategies
 
@@ -30,11 +29,10 @@ This advanced module transitions students from basic Playwright usage to profess
 3. **Create Data-Driven Tests** - Build parameterized tests with external data sources
 4. **Handle Complex Authentication** - Implement robust authentication and session management
 5. **Navigate Advanced DOM Scenarios** - Work with iframes, shadow DOM, and dynamic content
-6. **Implement Visual Testing** - Create visual regression testing workflows
-7. **Integrate API Testing** - Combine UI and API testing for comprehensive coverage
-8. **Design Test Architecture** - Plan and implement scalable test framework structures
-9. **Apply Performance Optimization** - Optimize test execution and resource usage
-10. **Establish Quality Standards** - Implement code quality and review processes
+6. **Integrate API Testing** - Combine UI and API testing for comprehensive coverage
+7. **Design Test Architecture** - Plan and implement scalable test framework structures
+8. **Apply Performance Optimization** - Optimize test execution and resource usage
+9. **Establish Quality Standards** - Implement code quality and review processes
 
 ### Cross-Cutting Objectives
 - **Systems Thinking**: Understanding how components interact in complex test systems
@@ -95,7 +93,6 @@ This advanced module transitions students from basic Playwright usage to profess
 - **Complex Scenarios**: Handling challenging UI interactions
 
 #### Advanced Exercises (Lessons 8-12)
-- **Visual Testing Setup**: Complete visual regression testing implementation
 - **API Integration**: Building hybrid test suites
 - **Architecture Design**: Designing framework architecture from scratch
 - **Performance Optimization**: Identifying and resolving performance bottlenecks
@@ -140,7 +137,6 @@ This advanced module transitions students from basic Playwright usage to profess
 ### Optional Enhancements
 - **Docker**: For containerized testing environments
 - **CI/CD Platform**: GitHub Actions or similar
-- **Visual Testing Tools**: Percy, Applitools, or similar
 
 ## 9. Learning Path Integration
 

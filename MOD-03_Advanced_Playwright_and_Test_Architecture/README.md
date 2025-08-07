@@ -19,7 +19,7 @@ By completing this module, you will:
 
 - **Total Duration**: 4-5 weeks
 - **Time Commitment**: 12-15 hours per week
-- **Total Lessons**: 12 comprehensive lessons
+- **Total Lessons**: 11 comprehensive lessons
 - **Prerequisites**: Completion of MOD-E2E-02.
 
 ### 🗂️ Module Structure
@@ -47,11 +47,10 @@ By completing this module, you will:
 | 3.5 | Handling Complex UI Interactions | 2-3 hours | Advanced | Interactions |
 | 3.6 | Playwright Test Fixtures and Hooks | 2-3 hours | Advanced | Fixtures |
 | 3.7 | Data-Driven Testing and Parameterization | 2-3 hours | Advanced | Data |
-| 3.8 | Visual Regression and Screenshot Testing | 2-3 hours | Advanced | Visual |
-| 3.9 | Performance Testing with Playwright | 2-3 hours | Advanced | Performance |
-| 3.10| Cross-Browser and Device Testing | 2-3 hours | Advanced | Cross-Browser |
-| 3.11| Test Architecture Patterns and Scalability | 2-3 hours | Architecture | Scalability |
-| 3.12| Advanced Debugging and Troubleshooting | 1-2 hours | Advanced | Debugging |
+| 3.8 | Performance Testing with Playwright | 2-3 hours | Advanced | Performance |
+| 3.9 | Cross-Browser and Device Testing | 2-3 hours | Advanced | Cross-Browser |
+| 3.10| Test Architecture Patterns and Scalability | 2-3 hours | Architecture | Scalability |
+| 3.11| Advanced Debugging and Troubleshooting | 1-2 hours | Advanced | Debugging |
 
 ### 🎯 Assessment Strategy
 
@@ -70,7 +69,7 @@ By completing this module, you will:
 ```
 MOD-03_Advanced_Playwright_and_Test_Architecture/
 ├── README.md (this file)
-├── lessons/ (12 individual lessons)
+├── lessons/ (11 individual lessons)
 │   ├── lesson-01-advanced-locator-strategies-and-patterns/
 │   │   ├── README.md
 │   │   ├── content.md
