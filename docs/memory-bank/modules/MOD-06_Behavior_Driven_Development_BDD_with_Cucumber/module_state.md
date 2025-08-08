@@ -28,7 +28,7 @@
 
 | Lesson | Title | Status | Progress | Components | Notes |
 |--------|--------|---------|----------|------------|-------|
-| 01 | Introduction to BDD and Cucumber | Complete | 100% | 6/6 | Foundation lesson ✅ |
+| 01 | Introduction to BDD and Cucumber | Review Failed | 33% | 2/6 | **CRITICAL:** Missing examples and exercises. See QA report. |
 | 02 | Setting Up Cucumber with TypeScript and Playwright | Not Started | 0% | 0/6 | Environment setup |
 | 03 | Writing Feature Files with Gherkin | Not Started | 0% | 0/6 | Gherkin syntax |
 | 04 | Implementing Step Definitions in TypeScript | Not Started | 0% | 0/6 | Core implementation |
@@ -68,6 +68,13 @@
 - Confirmed assessment approach aligns with modern BDD practices
 
 ## Quality Assurance Status
+
+### QA Review - 2025-08-08
+
+- **Status:** 🔴 **FAILED**
+- **Reviewer:** Proofreader Mode
+- **Report:** [qa-review-report.md](../../../../reviews/qa-review-report.md)
+- **Summary:** The review for Lesson 01 has failed due to critical missing content (examples and exercises). The module state is inaccurate and must be corrected. See the full report for actionable recommendations.
 
 ### Content Standards Compliance
 - [x] Educational standards defined and documented
