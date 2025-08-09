@@ -1,0 +1,20 @@
+{
+  "name": "advanced-api-test-suite",
+  "version": "1.0.0",
+  "description": "A project demonstrating advanced API testing techniques with Playwright.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "keywords": [
+    "playwright",
+    "api-testing",
+    "typescript"
+  ],
+  "author": "Roo",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "zod": "^3.22.4"
+  }
+}

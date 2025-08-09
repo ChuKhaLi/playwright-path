@@ -1,0 +1,3 @@
+// 1. **Builder Pattern**: Create a 'TestRunConfigBuilder' for an object with properties like 'browser', 'headless', 'slowMo', 'screenshotOnFailure'.
+// 2. **Factory Pattern**: Create a 'DriverFactory' that returns different mock "driver" objects ('chromeDriver', 'firefoxDriver') based on a string input.
+// 3. **Singleton Pattern**: Create a 'Logger' class that is a singleton and provides 'log' and 'error' methods.

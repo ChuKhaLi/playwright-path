@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XPath Functions Demo</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; padding: 20px; }
+        .widget { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 20px; background-color: #f9f9f9; }
+        .widget h2 { color: #005a9c; }
+        .highlight { background-color: #fff3cd; }
+        .error-text { color: #d9534f; }
+        .success-text { color: #5cb85c; }
+        .note { font-style: italic; color: #666; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #e9ecef; }
+    </style>
+</head>
+<body>
+
+    <h1>Demonstration of XPath Functions</h1>
+
+    <div class="widget" id="text-nodes">
+        <h2>Text-Based Functions: <code>text()</code>, <code>contains()</code>, <code>starts-with()</code></h2>
+        <p>This is a simple paragraph of text.</p>
+        <p>This paragraph contains the word <strong>important</strong>.</p>
+        <button>Submit Application</button>
+        <button>  Submit and Continue  </button>
+        <div class="note">Note: Trailing spaces are present in the second button.</div>
+    </div>
+
+    <div class="widget" id="normalization">
+        <h2>Whitespace and Case: <code>normalize-space()</code>, <code>translate()</code></h2>
+        <p>
+            This paragraph has
+            extra   spacing.
+        </p>
+        <div class="status-message">
+            <span>STATUS: Complete</span>
+        </div>
+    </div>
+
+    <div class="widget" id="positional">
+        <h2>Positional Functions: <code>position()</code>, <code>last()</code></h2>
+        <ul>
+            <li>First Item</li>
+            <li>Second Item</li>
+            <li>Third Item</li>
+            <li>Fourth Item</li>
+            <li>Last Item</li>
+        </ul>
+    </div>
+
+    <div class="widget" id="numeric">
+        <h2>Numeric Functions: <code>count()</code>, <code>sum()</code></h2>
+        <div class="inventory">
+            <div class="item">Apples: <span class="count">5</span></div>
+            <div class="item">Oranges: <span class="count">8</span></div>
+            <div class="item">Bananas: <span class="count">3</span></div>
+        </div>
+        <div class="total">Total Items: <span id="total-count">16</span></div>
+    </div>
+
+</body>
+</html>

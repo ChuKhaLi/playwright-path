@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XPath Axes Tutorial</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .section { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .section h2 { color: #333; }
+        .highlight { background-color: #ffecb3; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+
+    <h1>XPath Axes Navigation Tutorial</h1>
+
+    <div class="section" id="intro">
+        <h2>Introduction</h2>
+        <p>This page demonstrates how to use various XPath axes to navigate the DOM tree.</p>
+        <p>Use your browser's developer tools (F12) to test these XPath expressions.</p>
+    </div>
+
+    <div class="section" id="user-profile">
+        <h2>User Profile</h2>
+        <div class="profile-card">
+            <div class="profile-header">
+                <h3>User Information</h3>
+            </div>
+            <div class="profile-body">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="testuser123" disabled>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="test@example.com">
+            </div>
+            <div class="profile-footer">
+                <button id="edit-btn">Edit Profile</button>
+                <button id="save-btn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="data-table">
+        <h2>Data Table</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td class="name">John Doe</td>
+                    <td>Active</td>
+                    <td><a href="#">View</a> | <a href="#">Delete</a></td>
+                </tr>
+                <tr class="highlight">
+                    <td>2</td>
+                    <td class="name">Jane Smith</td>
+                    <td>Inactive</td>
+                    <td><a href="#">View</a> | <a href="#">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="name">Peter Jones</td>
+                    <td>Active</td>
+                    <td><a href="#">View</a> | <a href="#">Delete</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section" id="sibling-test">
+        <h2>Sibling Axes Test</h2>
+        <p>A paragraph before the list.</p>
+        <ul>
+            <li>Item 1</li>
+            <li id="middle-item">Item 2 (Current Node)</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+        </ul>
+        <p>A paragraph after the list.</p>
+    </div>
+
+</body>
+</html>
