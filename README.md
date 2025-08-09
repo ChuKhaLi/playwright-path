@@ -6,18 +6,7 @@
 
 This is not just a repository; it's a comprehensive, self-paced online course platform designed exclusively for **manual QA professionals** ready to transition into the world of test automation. If you're looking to level up your skills, future-proof your career, and master one of the most in-demand testing frameworks, you've come to the right place.
 
-We've structured this entire project like a professional online course (think Udemy or LinkedIn Learning) to guide you from absolute beginner to a confident and proficient QA Automation Engineer using **Playwright with TypeScript**.
-
----
-
-## 👋 New to Automation? Start Here!
-
-If you are a complete beginner, we have created a special onboarding experience to guide you. These documents are designed to be read in order and will give you the confidence and context you need to start your learning journey.
-
-1.  **[Welcome Beginners!](./docs/beginner-onboarding/welcome.md)**: A jargon-free introduction to the world of QA automation.
-2.  **[Before You Begin](./docs/beginner-onboarding/before-you-begin.md)**: Prepare your mindset and environment for success.
-3.  **[Your First Day](./docs/beginner-onboarding/your-first-day.md)**: A step-by-step guide to running your very first automated test.
-4.  **[The "No-Fear" Glossary](./docs/beginner-onboarding/glossary.md)**: Simple explanations for all the technical terms you'll encounter.
+We've structured this entire project like a professional online course to guide you from absolute beginner to a confident and proficient QA Automation Engineer using **Playwright with TypeScript**.
 
 ---
 
@@ -34,39 +23,51 @@ By the end of this course, you will have gained the practical skills and confide
 
 ---
 
-## Course Structure: A Clear Path to Success
+## 📚 Course Curriculum: A Comprehensive Learning Path
 
-Our curriculum is organized into a progressive 7-module learning path, ensuring you build a strong foundation before moving on to more complex topics. Each module is a self-contained unit with clear lessons, hands-on exercises, and assessments to check your understanding.
+Our curriculum is organized into a progressive, 14-module learning path that takes you from foundational concepts to advanced, specialized skills. This structure ensures you build a strong base before tackling more complex topics.
 
-```
-/
-├── MOD-01_Foundations/
-│   ├── lessons/
-│   │   ├── lesson-01-html-document-structure/
-│   │   └── ...
-│   ├── projects/
-│   └── exercises/
-├── MOD-02_TypeScript_for_Automation/
-│   └── ...
-└── docs/
-```
+### Core Modules (MOD-01 to MOD-06)
+
+These modules are essential for anyone new to automation. They cover the foundational knowledge required to become a successful QA Automation Engineer.
+
+-   **MOD-01: Foundations of QA and Web Technologies**: Start with the basics of software testing, web technologies (HTML, CSS, JS), and your first introduction to Playwright.
+-   **MOD-02: TypeScript for Automation Engineers**: Learn the programming fundamentals using TypeScript, the language of modern web and test automation.
+-   **MOD-03: Advanced Playwright and Test Architecture**: Dive deep into Playwright's advanced features and learn how to design scalable test frameworks using patterns like the Page Object Model (POM).
+-   **MOD-04: CI/CD and Reporting**: Master the art of integrating your tests into CI/CD pipelines with GitHub Actions and generating insightful test reports.
+-   **MOD-05: End-to-End Project and Career Development**: Apply everything you've learned in a comprehensive project and get ready for the job market.
+-   **MOD-06: Behavior-Driven Development (BDD) with Cucumber**: Learn how to write tests that are understandable to both technical and non-technical stakeholders using BDD.
+
+### Advanced Modules (MOD-ADV-01 to MOD-ADV-02)
+
+Take your skills to the next level with advanced topics that are highly valued in the industry.
+
+-   **MOD-ADV-01: CI/CD and DevOps Integration**: Go beyond basic CI/CD and explore advanced DevOps topics.
+-   **MOD-ADV-02: Specialized Testing Topics**: Explore specialized areas like performance and visual regression testing.
+
+### Specialized Tracks
+
+Choose a specialization to deepen your expertise in a specific area of test automation.
+
+#### API Testing Track (MOD-API-01 to MOD-API-03)
+
+-   **MOD-API-01: API Testing Fundamentals with Playwright**: Learn the essentials of API testing and how to use Playwright for it.
+-   **MOD-API-02: Advanced API Testing Strategies**: Dive into more complex API testing scenarios and strategies.
+-   **MOD-API-03: API Test Architecture and Contracts**: Design robust API testing frameworks and learn about contract testing.
+
+#### End-to-End (E2E) Testing Track (MOD-E2E-01 to MOD-E2E-03)
+
+-   **MOD-E2E-01: Playwright E2E Fundamentals**: Solidify your understanding of E2E testing with Playwright.
+-   **MOD-E2E-02: Advanced E2E Testing Techniques**: Master advanced techniques for handling complex web applications.
+-   **MOD-E2E-03: E2E Test Architecture and Design**: Learn how to design and build enterprise-grade E2E test suites.
 
 ---
 
-## How This Course Works: Your Learning Experience
+## 🚀 Getting Started
 
--   **Curated Free Resources**: We've done the hard work for you, curating **25+ high-quality, 100% free** online resources, including official documentation, expert articles, and video tutorials. See our [Resource Documentation](docs/resources/README.md) for the complete catalog.
--   **Multiple Learning Paths**: Choose from 4 different learning paths based on your experience level - from complete beginner to advanced practitioner. Check out our [Learning Paths Guide](docs/resources/guides/learning-paths.md).
--   **Hands-On is Everything**: You learn by doing. Each concept is paired with practical exercises and real-world scenarios to solidify your knowledge.
--   **Beginner-First Approach**: We start from the very beginning, assuming no prior coding experience. Every concept is explained in simple, easy-to-understand terms.
--   **Milestone-Based Progression**: The course is designed to give you a sense of accomplishment as you move from one module to the next, culminating in a final "graduation."
--   **Comprehensive Roadmap**: Follow our detailed [Learning Roadmap](docs/roadmaps/learning-roadmap.md) that guides you through the entire journey from foundations to specialization.
+Ready to begin your automation journey?
 
----
-
-## 🛠️ Prerequisites
-
-This course is built for motivated beginners. All you need is:
+### Prerequisites
 
 -   A solid background in **manual QA principles**.
 -   A strong desire to learn and a commitment to practice.
@@ -78,107 +79,40 @@ This course is built for motivated beginners. All you need is:
 -   [Node.js](https://nodejs.org/en/download/): The engine that runs Playwright.
 -   [Git](https://git-scm.com/downloads): For managing your code.
 
----
-
-## 🚀 Let's Get Started
-
-Ready to begin your automation journey?
+### Your First Steps
 
 1.  **Clone this Repository**:
     ```bash
     git clone https://github.com/your-username/learning-playwright.git
     cd learning-playwright
     ```
-2.  **Install the Tools**: Ensure you have [Node.js](https://nodejs.org/), [VS Code](https://code.visualstudio.com/), and [Git](https://git-scm.com/) installed.
-3.  **Choose Your Learning Path**: Review the [Learning Paths Guide](docs/resources/guides/learning-paths.md) to select the path that matches your experience level.
-4.  **Begin with MOD-01**: Start with the Foundations of Web Technologies module and follow the [Learning Roadmap](docs/roadmaps/learning-roadmap.md).
-
-## 📚 Navigation Guide
-
-### For Learners
-- **[📚 Documentation Hub](docs/README.md)** - Complete navigation to all project documentation
-- **[Learning Roadmap](docs/roadmaps/learning-roadmap.md)** - Your complete guide from beginner to expert
-- **[Resource Documentation](docs/resources/README.md)** - 25+ curated free resources
-- **[Learning Paths](docs/resources/guides/learning-paths.md)** - Choose your personalized learning journey
-- **[Module Mapping](docs/resources/guides/module-mapping.md)** - See which resources support each module
-
-### For Instructors & Content Creators
-- **[Project Overview](docs/project-overview.md)** - Comprehensive project summary and research findings
-- **[Implementation Guide](docs/guides/implementation-guide.md)** - Complete guide for content creation and instruction
-- **[Memory Bank Structure](docs/memory-bank/memory_bank_structure.md)** - Understanding the project architecture
-- **[Project Specification](docs/memory-bank/global/project_specification.md)** - Technical requirements and vision
-- **[Project State](docs/memory-bank/global/project_state.md)** - Current development status
+2.  **Install Dependencies**:
+    ```bash
+    npm install
+    ```
+3.  **Review the Learning Path**: Check out the [Learning Path Guide](./docs/LEARNING_PATH.md) to understand the recommended module progression.
+4.  **Begin with MOD-01**: Start your journey with the first module, [Foundations of QA and Web Technologies](./MOD-01_Foundations/).
 
 ---
 
-## 📊 Track Your Progress & Earn Your Certificate
+## 🗺️ Navigating the Project
 
-This `README.md` is your course dashboard. Fork this repository and check off modules as you complete them. Seeing your progress is a great motivator!
+This repository is organized to provide a clear and structured learning experience.
 
-Upon completion of all modules, you will have earned a "Certificate of Completion" by mastering the skills outlined in this course—a milestone you can proudly add to your professional achievements.
+-   **/MOD-\***: Each module has its own dedicated directory containing lessons, exercises, and projects.
+-   **/docs**: Contains all supplementary documentation, including guides, roadmaps, and resource catalogs.
 
-### Your Progress
--   [ ] **MOD-01: Foundations of Web Technologies**
--   [ ] **MOD-02: TypeScript for Automation**
--   [ ] **MOD-03: Playwright Fundamentals**
--   [ ] **MOD-04: Advanced Playwright Techniques**
--   [ ] **MOD-05: Advanced Playwright and Test Architecture**
--   [ ] **MOD-06: CI/CD and DevOps Integration**
--   [ ] **MOD-07: Advanced Topics and Specialization**
+### Key Documentation
 
-### 🎓 Learning Paths
-Choose your path based on your experience level:
--   [ ] **Path A: Complete Beginner** (16-20 weeks, 10-15 hours/week)
--   [ ] **Path B: Programming Background** (10-12 weeks, 8-12 hours/week)
--   [ ] **Path C: Testing Experience** (6-8 weeks, 6-10 hours/week)
--   [ ] **Path D: Advanced Practitioner** (4-6 weeks, 5-8 hours/week)
-
-📖 **[View Detailed Learning Paths](docs/resources/guides/learning-paths.md)**
+-   **[Module Index](./docs/MODULE_INDEX.md)**: A detailed breakdown of each module's learning objectives and content.
+-   **[Learning Path](./docs/LEARNING_PATH.md)**: Our recommended path through the curriculum for a structured learning experience.
+-   **[Project Structure](./docs/PROJECT_STRUCTURE.md)**: An overview of how the repository is organized.
 
 ---
 
-## Your AI-Powered Instructor: Roo Code
+## 🙌 Contributing
 
-This course is uniquely enhanced with **Roo Code**, your personal AI-powered coding assistant. Roo provides a 1-on-1 mentorship experience, helping you:
--   Understand complex concepts.
--   Generate code snippets.
--   Debug your test scripts.
--   Structure your project according to best practices.
-
-Think of Roo as your on-demand expert, available 24/7 to support your learning journey.
-
----
-
-## 🏛️ Project Internals & For Contributors
-
-This project uses a unique AI-powered development process. The internal structure, including a "memory bank" for the AI, is documented to help contributors understand how the course content is generated and managed.
-
--   **Memory Bank**: Our AI uses a structured memory system to track progress, specifications, and learning objectives. To understand how it works, please see the [Memory Bank Structure Documentation](docs/memory-bank/memory_bank_structure.md).
--   **AI Modes**: The AI operates in different modes (e.g., `Course Content Creator`, `Exercise Builder`). The rules governing these modes are defined in the `.roo/` directory.
-
----
-
-## 🙌 Contributing to the Platform
-
-This is a community-driven learning platform. If you have ideas for new lessons, find a great resource, or want to fix a typo, your contributions are welcome!
-
-1.  **Fork** the repository.
-2.  Create a new branch (`git checkout -b feature/YourImprovement`).
-3.  Make your changes.
-4.  Commit your changes (`git commit -m 'Add some amazing feature'`).
-5.  Push to the branch (`git push origin feature/YourImprovement`).
-6.  Open a **Pull Request**.
-
----
-
-## 💬 Support and Community
-
-Learning is better together. If you get stuck or have questions:
-
--   **GitHub Issues**: Open an issue for any questions, bugs, or suggestions.
--   **Community**: Join our (hypothetical) Discord or Slack channel to connect with fellow learners. (Link to be added)
-
----
+This is a community-driven learning platform. Contributions are welcome! Please see our [contribution guidelines](./CONTRIBUTING.md) for more details.
 
 ## 📄 License
 
