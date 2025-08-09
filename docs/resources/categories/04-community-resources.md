@@ -46,7 +46,7 @@
 
 ## 🎓 Module Integration
 - **MOD-04**: Find community solutions for advanced challenges like CAPTCHAs or complex authentication.
-- **MOD-05**: See how others have structured their test suites and implemented design patterns.
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: See how others have structured their test suites and implemented design patterns.
 - **MOD-06**: Discover community-built tools for reporting and CI/CD integration.
 - **MOD-07**: Explore how the community is using Playwright for unconventional tasks.
 

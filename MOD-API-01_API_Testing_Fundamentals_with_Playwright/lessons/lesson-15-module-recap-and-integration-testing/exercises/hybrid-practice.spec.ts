@@ -20,7 +20,7 @@ test.describe('Exercise: Hybrid Testing', () => {
    *
    * Task:
    * 1. Inside the test, make a POST request to `https://reqres.in/api/register`.
-   * 2. The payload should be `{ email: 'eve.holt@reqres.in', password: 'a-good-password' }`.
+   * 2. The payload should be `{ email: 'eve.holt@reqres.in', password: process.env.DUMMY_PASSWORD || 'a-good-password' }`.
    *    (Note: The password can be anything for this public API).
    * 3. Assert that the API call is successful (status 200) and that it returns a token.
    * 4. Now, use the `page` fixture to navigate to a login page. We will use

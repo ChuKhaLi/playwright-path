@@ -50,7 +50,7 @@ Each module has detailed specifications in the memory bank:
 - [MOD-02: TypeScript for Automation](memory-bank/modules/MOD-02_TypeScript_for_Automation/module_spec.md)
 - [MOD-03: Playwright Fundamentals](memory-bank/modules/MOD-03_Playwright_Fundamentals/module_spec.md)
 - [MOD-04: Advanced Playwright Techniques](memory-bank/modules/MOD-04_Advanced_Playwright_Techniques/module_spec.md)
-- [MOD-05: Test Design and Architecture](memory-bank/modules/MOD-05_Test_Design_and_Architecture/module_spec.md)
+- [MOD-05: Advanced Playwright and Test Architecture](memory-bank/modules/MOD-05_Advanced_Playwright_and_Test_Architecture/module_spec.md)
 - [MOD-06: CI/CD and DevOps Integration](memory-bank/modules/MOD-06_CI_CD_and_DevOps_Integration/module_spec.md)
 - [MOD-07: Advanced Topics and Specialization](memory-bank/modules/MOD-07_Advanced_Topics_and_Specialization/module_spec.md)
 
@@ -60,7 +60,7 @@ Each module has detailed specifications in the memory bank:
 ```
 MOD-01: Foundations → MOD-02: TypeScript → MOD-03: Playwright Basics
     ↓
-MOD-04: Advanced Techniques → MOD-05: Test Architecture → MOD-06: CI/CD
+MOD-04: Advanced Techniques → MOD-05: Advanced Playwright and Test Architecture → MOD-06: CI/CD
     ↓
 MOD-07: Specialization (Visual, Performance, API, Security Testing)
 ```

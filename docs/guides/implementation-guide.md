@@ -58,8 +58,8 @@ Each module follows a consistent structure designed for progressive learning:
 | MOD-02 | TypeScript | MOD-01 | 3-5 weeks | TypeScript proficiency |
 | MOD-03 | Playwright Basics | MOD-01, MOD-02 | 3-4 weeks | First automated tests |
 | MOD-04 | Advanced Playwright | MOD-03 | 4-6 weeks | Complex test scenarios |
-| MOD-05 | Test Architecture | MOD-04 | 3-5 weeks | Maintainable test suites |
-| MOD-06 | CI/CD Integration | MOD-05 | 2-4 weeks | Automated pipelines |
+| MOD-05 | Advanced Playwright and Test Architecture | MOD-04 | 3-5 weeks | Maintainable test suites |
+| MOD-06 | CI/CD Integration | MOD-05_Advanced_Playwright_and_Test_Architecture | 2-4 weeks | Automated pipelines |
 | MOD-07 | Specialization | MOD-06 | 3-6 weeks | Advanced testing techniques |
 
 ### Learning Path Integration

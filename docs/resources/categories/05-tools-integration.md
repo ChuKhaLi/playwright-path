@@ -42,7 +42,7 @@
 - Evaluate Vitest as a potential alternative to Jest for new projects.
 
 ## 🎓 Module Integration
-- **MOD-05**: Relevant when designing a test framework that needs to integrate with other tools.
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: Relevant when designing a test framework that needs to integrate with other tools.
 - **MOD-06**: This is the primary category for the CI/CD module.
 - **MOD-07**: Useful for exploring advanced topics like parallel execution and custom reporters.
 

@@ -214,11 +214,11 @@
 |--------|---------------------|-------------------|-----|
 | MOD-01 | None | None | ✅ |
 | MOD-02 | MOD-01 | MOD-01 | ✅ |
-| MOD-03 | MOD-E2E-02 | MOD-02, Playwright basics | ❌ Missing module |
+| MOD-03 | MOD-E2E-02_Advanced_E2E_Testing_Techniques | MOD-02, Playwright basics | ✅ |
 | MOD-04 | MOD-E2E-01, Git basics | MOD-03 | ⚠️ Unclear |
 | MOD-06 | MOD-E2E-01, MOD-02 | MOD-03, MOD-02 | ⚠️ Inconsistent |
 | MOD-07 | MOD-01 through MOD-06 | All previous | ✅ |
-| MOD-ADV-01 | MOD-05 | MOD-04 | ❌ MOD-05 doesn't exist |
+| MOD-ADV-01 | MOD-05_Advanced_Playwright_and_Test_Architecture | MOD-04 | ✅ |
 | MOD-ADV-02 | MOD-06 | All previous | ✅ |
 
 ### Skill Progression Evaluation

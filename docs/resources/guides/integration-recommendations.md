@@ -36,7 +36,7 @@ For a complete overview, refer to the [Master Resource Index](../master-resource
 - **MOD-02**: Playwright Documentation introduction (Week 1), deep dive (Weeks 2-3)
 - **MOD-03**: Advanced sections as needed for specific features
 - **MOD-04**: Best practices sections for architecture decisions
-- **MOD-05**: CI/CD specific documentation for implementation
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: CI/CD specific documentation for implementation
 
 #### Pedagogical Strategies
 
@@ -237,7 +237,7 @@ MOD-03: Advanced feature videos (4-5 videos, 2-3 hours total)
 - **MOD-02**: Basic repository exploration for simple examples
 - **MOD-03**: Deep dive into community examples for advanced patterns
 - **MOD-04**: Architecture pattern analysis from community projects
-- **MOD-05**: CI/CD implementation examples from community
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: CI/CD implementation examples from community
 
 #### Pedagogical Strategies
 
@@ -258,7 +258,7 @@ MOD-03: Advanced feature videos (4-5 videos, 2-3 hours total)
 - MOD-02: Basic tools and getting started resources
 - MOD-03: Advanced examples and specialized tools
 - MOD-04: Architecture patterns and frameworks
-- MOD-05: CI/CD tools and deployment examples
+- MOD-05_Advanced_Playwright_and_Test_Architecture: CI/CD tools and deployment examples
 ```
 
 **For GitHub Repositories (e.g., [Playwright Demo Repository](../specifications/04-community-resources/playwright-demo-repository.md))** ⭐⭐⭐⭐⭐
@@ -320,7 +320,7 @@ MOD-03: Advanced feature videos (4-5 videos, 2-3 hours total)
 
 #### Integration Timeline
 - **MOD-04**: Jest/Vitest for test framework integration
-- **MOD-05**: GitHub Actions for CI/CD implementation
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: GitHub Actions for CI/CD implementation
 - **Advanced**: Additional tools based on learner interests and project needs
 
 #### Pedagogical Strategies
@@ -465,7 +465,7 @@ Level 4 (Advanced): Performance and optimization challenges
 
 #### Integration Timeline
 - **MOD-04**: Core best practices for test architecture
-- **MOD-05**: Advanced practices for production environments
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: Advanced practices for production environments
 - **Post-Course**: Ongoing professional development
 
 #### Pedagogical Strategies

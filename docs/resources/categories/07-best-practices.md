@@ -45,7 +45,7 @@
 - Mentor others on writing high-quality test code.
 
 ## 🎓 Module Integration
-- **MOD-05**: This is the core category for the Test Design and Architecture module.
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: This is the core category for the Test Design and Architecture module.
 - **MOD-07**: All topics in this category are relevant for advanced specialization.
 
 ## 🔄 Learning Path Integration

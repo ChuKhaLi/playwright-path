@@ -80,7 +80,7 @@ The curriculum is built upon a 7-module architecture, but with a highly granular
 | **MOD-02** | TypeScript for Automation | 3-5 weeks | TypeScript proficiency for testing |
 | **MOD-03** | Playwright Fundamentals | 3-4 weeks | Core Playwright skills |
 | **MOD-04** | Advanced Playwright Techniques | 4-6 weeks | Authentication, API testing, file handling |
-| **MOD-05** | Test Design and Architecture | 3-5 weeks | POM, best practices, maintainable code |
+| **MOD-05** | Advanced Playwright and Test Architecture | 3-5 weeks | POM, best practices, maintainable code |
 | **MOD-06** | CI/CD and DevOps Integration | 2-4 weeks | Pipeline integration, automation |
 | **MOD-07** | Advanced Topics and Specialization | 3-6 weeks | Visual, performance, accessibility testing |
 
@@ -91,7 +91,7 @@ This lesson-based architecture ensures that each topic is covered in depth, with
 The modules are designed with careful dependency management:
 - **Foundation Phase** (MOD-01, MOD-02): Essential prerequisites
 - **Core Skills Phase** (MOD-03, MOD-04): Playwright mastery
-- **Professional Phase** (MOD-05, MOD-06): Industry best practices
+- **Professional Phase** (MOD-05_Advanced_Playwright_and_Test_Architecture, MOD-06_CI_CD_and_Reporting): Industry best practices
 - **Specialization Phase** (MOD-07): Advanced topics and career paths
 
 ## Resource Integration Strategy

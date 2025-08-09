@@ -11,10 +11,10 @@ import { APIRequestContext, expect } from '@playwright/test';
  * @returns A promise that resolves to the authentication token string.
  */
 export async function getAuthToken(request: APIRequestContext): Promise<string> {
-  // In a real application, you would use process.env to get credentials
+  // Best Practice: Use environment variables for sensitive data.
   const loginPayload = {
-    email: 'eve.holt@reqres.in',
-    password: 'cityslicka',
+    email: process.env.REQRES_EMAIL || 'eve.holt@reqres.in',
+    password: process.env.REQRES_PASSWORD || 'cityslicka',
   };
 
   const response = await request.post('https://reqres.in/api/login', {

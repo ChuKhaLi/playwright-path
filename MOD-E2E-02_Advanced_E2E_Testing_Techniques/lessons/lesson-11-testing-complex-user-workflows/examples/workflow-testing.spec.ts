@@ -7,7 +7,8 @@ const mockPageURL = 'file://' + __dirname + '/../mock-page/index.html';
 async function loginAs(page: Page, userType: 'standard' | 'admin') {
   await page.goto(mockPageURL);
   const username = userType === 'admin' ? 'admin' : 'user';
-  const password = 'password'; // In a real app, use env vars
+  // Best Practice: Use environment variables for sensitive data.
+  const password = process.env.USER_PASSWORD || 'password';
   
   await page.getByLabel('Username').fill(username);
   await page.getByLabel('Password').fill(password);

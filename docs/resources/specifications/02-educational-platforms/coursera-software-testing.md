@@ -5,7 +5,7 @@
 - **Quality Rating**: ⭐⭐⭐⭐ Highly Recommended
 - **Target Audience**: Beginner to Advanced
 - **Currency**: 2023-2024
-- **Module Mapping**: MOD-01, MOD-04, MOD-05
+- **Module Mapping**: MOD-01, MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 
 ## 🔧 Technical Specifications
 - **Current Version**: N/A

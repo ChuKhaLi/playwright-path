@@ -174,7 +174,7 @@ Upon successful completion of this module, learners will demonstrate mastery of 
 - **MOD-01 Foundation**: Builds on web technology understanding
 - **MOD-03 Playwright**: TypeScript knowledge applied to Playwright testing
 - **MOD-04 Advanced**: Complex TypeScript patterns in advanced testing scenarios
-- **MOD-05 Architecture**: TypeScript in test design and architecture patterns
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: TypeScript in test design and architecture patterns
 
 ### Real-World Application
 - All learning objectives connect to practical automation testing needs

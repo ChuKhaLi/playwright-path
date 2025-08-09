@@ -1,187 +1,101 @@
-# MOD-06: Behavior Driven Development (BDD) with Cucumber - Learning Objectives
+# Learning Objectives: MOD-07 Behavior-Driven Development (BDD) with Cucumber
 
-## Module-Level Learning Objectives
+## 📋 Module Learning Outcomes
 
-By the end of this module, learners will be able to:
+Upon successful completion of this module, learners will be able to effectively apply Behavior-Driven Development (BDD) principles to their testing process. They will be proficient in using Cucumber to write feature files in Gherkin, implement step definitions in TypeScript, and integrate BDD with their Playwright test automation framework. This module focuses on improving collaboration and aligning testing with business requirements.
 
-1. **Implement BDD Methodology:** Apply Behavior Driven Development principles to bridge communication gaps between technical and non-technical stakeholders in test automation projects.
+## 🎯 Primary Learning Objectives
 
-2. **Master Gherkin Language:** Write clear, maintainable, and business-readable feature files using Gherkin syntax that accurately represent business requirements and user scenarios.
+### 1. BDD and Gherkin Fundamentals (Understand & Apply)
 
-3. **Create TypeScript Step Definitions:** Define robust step definitions in TypeScript that connect Gherkin scenarios to executable code using Playwright for web automation.
+**LO-7.1: Core BDD Concepts**
+- Explain the "Three Amigos" (business, development, testing) and the role of BDD in fostering collaboration.
+- Describe the BDD cycle: discover, define, and automate.
+- Differentiate BDD from Test-Driven Development (TDD) and other testing methodologies.
+- Articulate the value of "living documentation."
 
-4. **Integrate with Existing Frameworks:** Successfully integrate Cucumber.js with existing Playwright and Page Object Model architectures without disrupting established patterns.
+**LO-7.2: Gherkin Syntax Mastery**
+- Write clear and concise scenarios using Gherkin's `Given`, `When`, `Then`, `And`, and `But` keywords.
+- Apply `Background` and `Scenario Outline` to reduce duplication and handle multiple examples.
+- Use `Tags` to organize and selectively run feature files and scenarios.
+- Analyze user stories and acceptance criteria to author effective feature files.
 
-5. **Generate Living Documentation:** Produce automatic documentation from executable specifications that serves as both test suite and business requirements documentation.
+### 2. Cucumber and Playwright Integration (Apply & Create)
 
-## Lesson-Level Learning Objectives
+**LO-7.3: Step Definition Implementation**
+- Create TypeScript step definitions that map Gherkin steps to Playwright actions.
+- Pass data from feature files to step definitions using parameters and data tables.
+- Implement custom parameter types for more readable and maintainable step definitions.
+- Manage shared state between steps using Cucumber's World object.
 
-### Lesson 01: Introduction to BDD and Cucumber
-**Duration:** 3-4 hours | **Complexity:** Foundation
+**LO-7.4: Framework Integration**
+- Integrate Cucumber.js with an existing Playwright test framework.
+- Configure Cucumber to work seamlessly with TypeScript and the Page Object Model.
+- Create a project structure that cleanly separates feature files, step definitions, and page objects.
+- Generate and customize Cucumber reports to provide business-readable test results.
 
-**Learning Objectives:**
-- Define Behavior Driven Development and explain its benefits for QA automation
-- Identify the Three Amigos approach and collaborative testing practices
-- Compare BDD with traditional testing methodologies (TDD, manual testing)
-- Recognize the structure and purpose of Gherkin language
-- Evaluate real-world scenarios where BDD provides value
+### 3. Advanced BDD Patterns (Analyze & Evaluate)
 
-**Assessment Focus:** Understanding BDD philosophy and collaborative benefits
+**LO-7.5: Data-Driven BDD**
+- Design and implement data-driven tests using `Scenario Outlines` and `Examples` tables.
+- Evaluate when to use data tables within a step versus a `Scenario Outline`.
+- Implement strategies for managing larger sets of test data for BDD scenarios.
 
-### Lesson 02: Setting Up Cucumber with TypeScript and Playwright
-**Duration:** 4-5 hours | **Complexity:** Foundation
+**LO-7.6: BDD Best Practices**
+- Analyze Gherkin scenarios for common anti-patterns (e.g., being too imperative, overly technical).
+- Refactor imperative Gherkin steps into declarative, business-focused steps.
+- Evaluate the appropriate level of detail for a feature file to ensure it remains a specification, not a script.
 
-**Learning Objectives:**
-- Install and configure Cucumber.js in a TypeScript project using Windows PowerShell
-- Set up project structure following BDD conventions and best practices
-- Configure TypeScript compilation for step definitions and support files
-- Integrate Cucumber with existing Playwright test configurations
-- Execute basic Cucumber scenarios using command-line tools
+## 🔧 Practical Application Objectives
 
-**Assessment Focus:** Environment setup and project configuration
+### Collaborative Specification
+**LO-7.7: Writing Feature Files from Requirements**
+- Given a set of user stories or business requirements, facilitate a (mock) "Three Amigos" session to derive acceptance criteria.
+- Author a comprehensive feature file that accurately captures these requirements in Gherkin syntax.
+- Defend the structure and wording of the feature file, ensuring it is understandable to both technical and non-technical stakeholders.
 
-### Lesson 03: Writing Feature Files with Gherkin
-**Duration:** 4-5 hours | **Complexity:** Foundation
+### BDD Framework Implementation
+**LO-7.8: Building a BDD Test Suite**
+- Build a complete BDD test suite for a feature, from writing the `.feature` file to implementing all necessary step definitions and page objects.
+- Integrate this BDD suite into the CI/CD pipeline created in the previous module.
+- Generate a "living documentation" portal from the test results.
 
-**Learning Objectives:**
-- Write well-structured feature files using proper Gherkin syntax
-- Apply Given-When-Then pattern to describe user scenarios effectively
-- Use Background, Scenario Outline, and Examples for efficient test organization
-- Implement proper naming conventions and file organization strategies
-- Create business-readable scenarios that non-technical stakeholders can understand
+## 📊 Assessment Alignment
 
-**Assessment Focus:** Gherkin syntax mastery and scenario design
+### Knowledge Assessment (LO-7.1, LO-7.2)
+- **Quizzes**: Questions on BDD principles and Gherkin syntax.
+- **Feature File Review**: Critique a provided `.feature` file and identify areas for improvement.
 
-### Lesson 04: Implementing Step Definitions in TypeScript
-**Duration:** 5-6 hours | **Complexity:** Core
+### Application Assessment (LO-7.3, LO-7.4, LO-7.5)
+- **Practical Labs**: Implement step definitions for a given feature file and Playwright project.
+- **Coding Exercises**: Convert a standard Playwright test into a BDD-style test with Cucumber.
 
-**Learning Objectives:**
-- Create TypeScript step definitions using `@cucumber/cucumber` annotations
-- Implement Given, When, and Then step functions with proper typing
-- Manage state between step definitions using class-based and closure approaches
-- Handle asynchronous operations with async/await in step definitions
-- Apply step definition best practices for maintainability and reusability
+### Synthesis Assessment (LO-7.6, LO-7.7, LO-7.8)
+- **Capstone Project**: Add a BDD test suite to the framework built in MOD-05, covering a new feature.
+- **Collaboration Simulation**: Participate in a role-playing exercise to create a feature file from a vague requirement.
 
-**Assessment Focus:** Step definition implementation and state management
+## 🎓 Competency Levels
 
-### Lesson 05: Passing Data from Feature Files to Step Definitions
-**Duration:** 4-5 hours | **Complexity:** Core
+### Intermediate Level (Lessons 1-5)
+- **BDD Practitioner**: Can write well-structured feature files and implement the corresponding step definitions.
+- **Tool User**: Is proficient in using Cucumber.js with TypeScript and Playwright.
 
-**Learning Objectives:**
-- Use Cucumber expressions and regular expressions for parameter capture
-- Implement custom parameter types for domain-specific data transformations
-- Handle data tables and doc strings in step definitions
-- Transform raw Gherkin data into TypeScript objects and interfaces
-- Design flexible step definitions that work with various data inputs
+### Advanced Level (Lessons 6-10)
+- **BDD Advocate**: Can lead collaborative sessions to define requirements and author feature files.
+- **Framework Integrator**: Can seamlessly integrate BDD into a complex test automation framework.
 
-**Assessment Focus:** Data handling and parameter transformation
+### Expert Level (Post-Module)
+- **BDD Coach**: Can train and mentor entire teams on BDD best practices.
+- **Process Improver**: Can drive the adoption of BDD to improve the software development process at an organizational level.
 
-### Lesson 06: Using Cucumber Hooks and Tags
-**Duration:** 4-5 hours | **Complexity:** Core
+## 📈 Success Criteria
 
-**Learning Objectives:**
-- Implement Before, After, BeforeAll, and AfterAll hooks for test lifecycle management
-- Use tags to organize and filter test scenarios effectively
-- Set up conditional hooks based on tags and scenario metadata
-- Manage test data setup and teardown using hook patterns
-- Configure test execution for different environments using tag-based filtering
+### Minimum Competency Standards
+- **Traceability**: Can trace a line of code in a step definition back to a specific business requirement in a Gherkin step.
+- **Implementation**: Can successfully automate a business scenario described in a feature file.
+- **Clarity**: Writes Gherkin that is easily understood by non-technical stakeholders.
 
-**Assessment Focus:** Test organization and lifecycle management
-
-### Lesson 07: Integrating POM with Cucumber
-**Duration:** 5-6 hours | **Complexity:** Core
-
-**Learning Objectives:**
-- Integrate existing Page Object Model classes with Cucumber step definitions
-- Design step definitions that leverage POM methods and encapsulation
-- Manage page object instances across scenario lifecycle using dependency injection
-- Maintain separation of concerns between business logic and technical implementation
-- Refactor existing Playwright tests to use BDD scenarios with POM integration
-
-**Assessment Focus:** Architectural integration and design patterns
-
-### Lesson 08: Generating Living Documentation with Cucumber Reports
-**Duration:** 4-5 hours | **Complexity:** Advanced
-
-**Learning Objectives:**
-- Configure multiple Cucumber report formats (JSON, HTML, JUnit)
-- Generate living documentation that serves both technical and business stakeholders
-- Customize report templates and styling for organizational branding
-- Set up automated report generation in CI/CD pipelines
-- Interpret and analyze Cucumber execution reports for debugging and metrics
-
-**Assessment Focus:** Documentation generation and report analysis
-
-### Lesson 09: Advanced Gherkin for Complex Scenarios
-**Duration:** 5-6 hours | **Complexity:** Advanced
-
-**Learning Objectives:**
-- Design complex scenarios using advanced Gherkin features (Rules, Examples tables)
-- Implement scenario sharing and composition techniques
-- Handle dynamic data and runtime scenario generation
-- Write maintainable scenarios for complex business workflows
-- Apply advanced Gherkin patterns for API and database testing scenarios
-
-**Assessment Focus:** Advanced scenario design and complex workflow handling
-
-### Lesson 10: Managing Test Data in BDD
-**Duration:** 4-5 hours | **Complexity:** Advanced
-
-**Learning Objectives:**
-- Implement test data management strategies in BDD scenarios
-- Use data tables and external data sources with Cucumber scenarios
-- Design data-driven tests using Scenario Outline and Examples
-- Manage test data isolation and cleanup in BDD contexts
-- Handle sensitive data and environment-specific configurations in BDD tests
-
-**Assessment Focus:** Data management and data-driven testing
-
-### Lesson 11: Debugging Cucumber Tests
-**Duration:** 4-5 hours | **Complexity:** Advanced
-
-**Learning Objectives:**
-- Debug Cucumber scenarios using IDE debugging tools and techniques
-- Interpret Cucumber error messages and stack traces effectively
-- Implement logging and diagnostic strategies for BDD tests
-- Troubleshoot common issues with step definition matching and execution
-- Use Cucumber's dry-run and other diagnostic features for test maintenance
-
-**Assessment Focus:** Debugging skills and troubleshooting techniques
-
-### Lesson 12: Module Recap and BDD Best Practices
-**Duration:** 3-4 hours | **Complexity:** Synthesis
-
-**Learning Objectives:**
-- Synthesize all module concepts into comprehensive BDD implementation strategies
-- Evaluate BDD adoption patterns and organizational change management
-- Design maintainable BDD test suites for long-term project success
-- Assess trade-offs and limitations of BDD approach in different contexts
-- Plan BDD implementation roadmap for real-world projects
-
-**Assessment Focus:** Synthesis of concepts and practical application planning
-
-## Assessment Standards
-
-### Knowledge Checks (Per Lesson)
-- **Format:** 5-8 multiple choice questions
-- **Passing Threshold:** 75% correct
-- **Focus Areas:** Conceptual understanding, syntax accuracy, best practices
-- **Question Types:** Scenario analysis, code evaluation, methodology application
-
-### Hands-On Exercises (Per Lesson) 
-- **Duration:** 45-60 minutes each
-- **Format:** Practical BDD scenario implementation
-- **Evaluation Criteria:** Functional correctness, code quality, BDD principles adherence
-- **Progression:** Build toward comprehensive e-commerce testing scenario
-
-### Module Assessment Project
-- **Format:** Complete BDD implementation for e-commerce application
-- **Duration:** 6-8 hours
-- **Deliverables:** Feature files, step definitions, POM integration, reports
-- **Passing Criteria:** 80% functional requirements met, proper BDD methodology applied
-
----
-
-**Last Updated:** 2025-08-01  
-**Version:** 1.0  
-**Status:** In Development
+### Excellence Indicators
+- **Collaboration**: Actively improves communication and understanding between business, development, and QA.
+- **Maintainability**: Writes declarative Gherkin and reusable step definitions that are easy to maintain.
+- **Impact**: Uses BDD to catch requirement misunderstandings before a single line of code is written.

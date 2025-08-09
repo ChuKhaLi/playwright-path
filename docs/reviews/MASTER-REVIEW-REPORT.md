@@ -59,7 +59,7 @@ The platform demonstrates strong educational value with excellent technical foun
 
 ### 3. Module Naming and Navigation Confusion
 - **Issue:** Inconsistent naming (MOD-XX vs MOD-XXX-XX), duplicate lesson numbers
-- **Affected Modules:** MOD-01 (duplicate numbering), missing MOD-E2E-02, MOD-05 references
+- **Affected Modules:** MOD-01 (duplicate numbering), missing MOD-E2E-02, MOD-05_Advanced_Playwright_and_Test_Architecture references
 - **Impact:** Navigation confusion, broken prerequisites
 - **Recommended Action:** Standardize all module/lesson naming immediately
 - **Priority:** CRITICAL - Week 1

@@ -12,7 +12,7 @@ For detailed learning paths, see the [Learning Paths](./learning-paths.md). For 
 | MOD-02 | TypeScript for Automation | TypeScript from basic to advanced | 5 resources |
 | MOD-03 | Playwright Fundamentals | Setup, basic commands, locators | 8 resources |
 | MOD-04 | Advanced Playwright Techniques | Authentication, file uploads, network | 7 resources |
-| MOD-05 | Test Design and Architecture | POM, best practices, patterns | 6 resources |
+| MOD-05 | Advanced Playwright and Test Architecture | POM, best practices, patterns | 6 resources |
 | MOD-06 | CI/CD and DevOps Integration | GitHub Actions, Docker | 5 resources |
 | MOD-07 | Advanced Topics and Specialization | Visual, performance, accessibility | 4 resources |
 
@@ -89,7 +89,7 @@ For detailed learning paths, see the [Learning Paths](./learning-paths.md). For 
 
 ---
 
-## 🏛️ [MOD-05: Test Design and Architecture](../categories/07-best-practices.md)
+## 🏛️ [MOD-05: Advanced Playwright and Test Architecture](../categories/07-best-practices.md)
 
 ### Learning Objectives Support
 - Page Object Model (POM) implementation

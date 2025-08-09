@@ -142,7 +142,7 @@ By the end of this module, learners will be able to:
 ### Forward Integration
 - **MOD-03**: TypeScript knowledge applied to Playwright
 - **MOD-04**: Advanced TypeScript patterns in complex testing scenarios
-- **MOD-05**: TypeScript in test architecture and design patterns
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: TypeScript in test architecture and design patterns
 
 ## 10. Success Metrics
 

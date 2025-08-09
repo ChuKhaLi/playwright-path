@@ -60,7 +60,7 @@ By the end of this module, learners will be able to:
 
 ## 4. Prerequisites
 
-- **MOD-05: Test Design and Architecture** - Essential for understanding test organization and patterns
+- **MOD-05_Advanced_Playwright_and_Test_Architecture** - Essential for understanding test organization and patterns
 - **Playwright Fundamentals** - Solid understanding of both API and E2E testing with Playwright
 - **Git and Version Control** - Proficiency with Git workflows and branching strategies
 - **Command Line Proficiency** - Comfortable with terminal/command prompt operations
@@ -185,7 +185,7 @@ By the end of this module, learners will be able to:
 ## 10. Dependencies
 
 ### **Required Prerequisites**
-- **MOD-05: Test Design and Architecture** - Essential foundation for organized testing
+- **MOD-05_Advanced_Playwright_and_Test_Architecture** - Essential foundation for organized testing
 - **Playwright Fundamentals** - Core testing framework knowledge
 - **Git Proficiency** - Version control and collaboration skills
 

@@ -10,6 +10,17 @@ We've structured this entire project like a professional online course (think Ud
 
 ---
 
+## 👋 New to Automation? Start Here!
+
+If you are a complete beginner, we have created a special onboarding experience to guide you. These documents are designed to be read in order and will give you the confidence and context you need to start your learning journey.
+
+1.  **[Welcome Beginners!](./docs/beginner-onboarding/welcome.md)**: A jargon-free introduction to the world of QA automation.
+2.  **[Before You Begin](./docs/beginner-onboarding/before-you-begin.md)**: Prepare your mindset and environment for success.
+3.  **[Your First Day](./docs/beginner-onboarding/your-first-day.md)**: A step-by-step guide to running your very first automated test.
+4.  **[The "No-Fear" Glossary](./docs/beginner-onboarding/glossary.md)**: Simple explanations for all the technical terms you'll encounter.
+
+---
+
 ## 🎯 What You Will Master
 
 By the end of this course, you will have gained the practical skills and confidence to:
@@ -111,7 +122,7 @@ Upon completion of all modules, you will have earned a "Certificate of Completio
 -   [ ] **MOD-02: TypeScript for Automation**
 -   [ ] **MOD-03: Playwright Fundamentals**
 -   [ ] **MOD-04: Advanced Playwright Techniques**
--   [ ] **MOD-05: Test Design and Architecture**
+-   [ ] **MOD-05: Advanced Playwright and Test Architecture**
 -   [ ] **MOD-06: CI/CD and DevOps Integration**
 -   [ ] **MOD-07: Advanced Topics and Specialization**
 

@@ -57,7 +57,7 @@ By the end of this module, learners will be able to:
 
 ### **Required Modules**
 - **MOD-06: CI/CD and DevOps Integration** (Complete)
-- **MOD-05: Test Design and Architecture** (Complete)
+- **MOD-05: Advanced Playwright and Test Architecture** (Complete)
 - **MOD-04: Advanced Playwright Techniques** (Complete)
 
 ### **Technical Prerequisites**
@@ -161,7 +161,7 @@ Each specialization track includes progressive hands-on exercises:
 
 ### **Module Dependencies**
 - **MOD-06**: CI/CD pipeline knowledge for advanced integration
-- **MOD-05**: Architecture patterns for specialization framework design
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: Architecture patterns for specialization framework design
 - **MOD-04**: Advanced Playwright techniques as foundation for specializations
 - **MOD-03**: Core Playwright skills for all specialization implementations
 

@@ -66,7 +66,7 @@ By completing this module, you will be able to:
 ## 🛠️ Technical Requirements
 
 ### **Prerequisites**
-- Completion of MOD-05: Test Design and Architecture
+- Completion of MOD-05_Advanced_Playwright_and_Test_Architecture
 - Understanding of Playwright fundamentals
 - Basic knowledge of Git and version control
 - Familiarity with command-line operations
@@ -123,7 +123,7 @@ Design and implement a complete CI/CD pipeline that:
 ## 🔗 Integration Points
 
 ### **Previous Modules**
-- **MOD-05**: Leverages test architecture and design patterns
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: Leverages test architecture and design patterns
 - **MOD-04**: Builds on advanced Playwright techniques
 - **MOD-03**: Extends Playwright fundamentals
 

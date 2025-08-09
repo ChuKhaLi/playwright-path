@@ -49,7 +49,7 @@
 - **MOD-01**: Supports learning JavaScript and core programming concepts.
 - **MOD-02**: Provides foundational knowledge required before starting with Playwright.
 - **MOD-03**: The concepts learned here are critical for understanding test structure.
-- **MOD-05**: The Coursera specialization is highly relevant for test design and architecture.
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: The Coursera specialization is highly relevant for test design and architecture.
 
 ## 🔄 Learning Path Integration
 

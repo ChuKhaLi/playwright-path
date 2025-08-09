@@ -6,10 +6,10 @@
 
 import { test, expect } from '@playwright/test';
 
-// For a real project, these would come from environment variables.
+// Best Practice: Use environment variables for sensitive data.
 const user = {
-  email: 'eve.holt@reqres.in',
-  password: 'cityslicka',
+  email: process.env.REQRES_EMAIL || 'eve.holt@reqres.in',
+  password: process.env.REQRES_PASSWORD || 'cityslicka',
 };
 
 /**

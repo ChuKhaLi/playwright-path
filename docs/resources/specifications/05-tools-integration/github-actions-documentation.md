@@ -5,7 +5,7 @@
 - **Quality Rating**: ⭐⭐⭐⭐⭐ Essential
 - **Target Audience**: Intermediate to Advanced
 - **Currency**: 2024-2025
-- **Module Mapping**: MOD-05
+- **Module Mapping**: MOD-05_Advanced_Playwright_and_Test_Architecture
 
 ## 🔧 Technical Specifications
 - **Current Version**: N/A

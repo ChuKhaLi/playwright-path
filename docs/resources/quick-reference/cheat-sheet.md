@@ -10,7 +10,7 @@ Quick access to essential resources, time estimates, and learning shortcuts for 
 | **MOD-02** | TypeScript | [TypeScript Handbook](../specifications/01-official-documentation/typescript-handbook.md), [Mosh Course](../specifications/03-video-resources/typescript-course-mosh.md) | 15-25h |
 | **MOD-03** | Playwright Basics | [Official Docs](../specifications/01-official-documentation/playwright-official-documentation.md), [Try Playwright](../specifications/06-practice-resources/try-playwright.md) | 10-20h |
 | **MOD-04** | Advanced Techniques | [Awesome Playwright](../specifications/04-community-resources/awesome-playwright.md), [Practice Sites](../specifications/06-practice-resources/expand-testing-practice-sites.md) | 15-25h |
-| **MOD-05** | Test Architecture | [Best Practices](../specifications/07-best-practices/playwright-best-practices-guide.md), [Patterns](../specifications/07-best-practices/test-automation-patterns.md) | 10-15h |
+| **MOD-05** | Advanced Playwright and Test Architecture | [Best Practices](../specifications/07-best-practices/playwright-best-practices-guide.md), [Patterns](../specifications/07-best-practices/test-automation-patterns.md) | 10-15h |
 | **MOD-06** | CI/CD Integration | [GitHub Actions](../specifications/05-tools-integration/github-actions-documentation.md) | 6-8h |
 | **MOD-07** | Specialization | [Advanced Topics](../specifications/04-community-resources/awesome-playwright.md) | 8-12h |
 

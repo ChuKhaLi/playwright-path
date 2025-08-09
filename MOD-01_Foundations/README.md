@@ -1,81 +1,91 @@
-# MOD-01: Foundations of Web Technologies
+# MOD-01: Foundations of QA and Web Technologies
 
 ## 📚 Module Overview
 
-This foundational module establishes essential knowledge of web technologies required for both API and E2E automation testing. Designed for absolute beginners, it provides a comprehensive understanding of how the web works before diving into automation tools.
+This foundational module establishes the essential knowledge required for a successful career in Quality Assurance and automation testing. Designed for absolute beginners, it provides a comprehensive understanding of software testing principles and the core web technologies that underpin modern applications.
 
 ### 🎯 Learning Outcomes
 
 By completing this module, you will:
-- Master HTML5 document structure and semantic elements
-- Write effective CSS selectors and XPath expressions for element identification
-- Navigate and utilize browser developer tools for debugging and inspection
-- Understand HTTP protocol fundamentals and request/response cycles
-- Work with JSON data structures and REST API principles
-- Comprehend web application architecture from a testing perspective
+- Understand the fundamentals of software quality assurance, including different testing types and methodologies.
+- Master the core web technologies: HTML, CSS, and the DOM.
+- Write effective CSS selectors and XPath expressions for precise element identification.
+- Navigate and utilize browser developer tools for debugging, inspection, and analysis.
+- Grasp HTTP protocol fundamentals and the request/response cycle.
+- Work with JSON data structures and understand the principles of REST APIs.
+- Set up a local development environment and be introduced to the Playwright framework.
 
 ### ⏱️ Duration & Commitment
 
-- **Total Duration**: 4-5 weeks
-- **Time Commitment**: 12-15 hours per week
-- **Total Lessons**: 12 comprehensive lessons
-- **Prerequisites**: None - perfect starting point for all learning paths
+- **Total Duration**: 6-8 weeks
+- **Time Commitment**: 10-12 hours per week
+- **Total Lessons**: 24 comprehensive lessons
+- **Prerequisites**: None - this is the perfect starting point for all learning paths.
 
 ### 🗂️ Module Structure
 
-#### **Lessons 1-7: Web Foundations**
-- HTML document structure and forms
-- CSS selectors and advanced techniques
-- XPath fundamentals and advanced expressions
-- Browser DevTools mastery
+#### **Unit 1: Introduction to Quality Assurance (Lessons 1-6)**
+- Core concepts of QA, software testing fundamentals, and the differences between manual and automated testing.
+- Exploration of various testing types, career paths, and industry best practices.
 
-#### **Lessons 8-9: HTTP & Data Fundamentals**
-- HTTP protocol and methods
-- JSON data structures and manipulation
+#### **Unit 2: Web Fundamentals for Testers (Lessons 7-15)**
+- Deep dive into HTML structure, forms, CSS selectors, and XPath for element location.
+- Mastery of browser developer tools, a critical skill for any web tester or developer.
 
-#### **Lessons 10-12: API Foundations**
-- REST API principles and design
-- API documentation and testing tools
-- Web application architecture for testing
+#### **Unit 3: Introduction to Automation and APIs (Lessons 16-24)**
+- Setting up a development environment and an introduction to test automation tools like Playwright.
+- Fundamentals of web application architecture, HTTP, REST APIs, and JSON.
 
 ### 📋 Lesson Breakdown
 
-| Lesson | Title | Duration | Type | Focus Area |
-|--------|-------|----------|------|------------|
-| 1.1 | HTML Document Structure and Semantic Elements | 1-2 hours | Foundation | HTML5 |
-| 1.2 | HTML Forms and Input Elements | 1-2 hours | Foundation | Forms |
-| 1.3 | CSS Selectors Fundamentals | 1-2 hours | Foundation | CSS |
-| 1.4 | Advanced CSS Selectors and Combinators | 1-2 hours | Foundation | CSS |
-| 1.5 | XPath Fundamentals | 1-2 hours | Foundation | XPath |
-| 1.6 | Advanced XPath Techniques | 1-2 hours | Foundation | XPath |
-| 1.7 | Browser Developer Tools Mastery | 1-2 hours | Foundation | DevTools |
-| 1.8 | HTTP Protocol Fundamentals | 1-2 hours | API Foundation | HTTP |
-| 1.9 | JSON Data Structures and API Responses | 1-2 hours | API Foundation | JSON |
-| 1.10 | REST API Principles and Design | 1-2 hours | API Foundation | REST |
-| 1.11 | API Documentation and Testing Tools | 1-2 hours | API Foundation | Tools |
-| 1.12 | Web Application Architecture for Testing | 1-2 hours | E2E Foundation | Architecture |
+| Lesson | Title | Focus Area |
+|--------|-------|------------|
+| 1 | Introduction to QA Automation | QA Fundamentals |
+| 2 | Understanding Software Testing Fundamentals | QA Fundamentals |
+| 3 | Manual vs. Automated Testing | QA Strategy |
+| 4 | Testing Types and Strategies | QA Strategy |
+| 5 | QA Automation Career Paths | Career Development |
+| 6 | Industry Best Practices and Standards | Professional Standards |
+| 7 | Introduction to Web Technologies | Web Foundations |
+| 8 | Basic HTML, CSS, & JavaScript for Testers | Web Foundations |
+| 9 | HTML Document Structure | HTML5 |
+| 10 | HTML Forms and Inputs | HTML5 |
+| 11 | CSS Selectors Fundamentals | CSS |
+| 12 | Advanced CSS Selectors and Combinators | CSS |
+| 13 | XPath Fundamentals | XPath |
+| 14 | Advanced XPath Techniques | XPath |
+| 15 | Browser Developer Tools Mastery | DevTools |
+| 16 | Development Environment Setup | Tooling |
+| 17 | Understanding Test Automation Tools | Automation Concepts |
+| 18 | Introduction to Playwright Framework | Playwright |
+| 19 | Web Application Architecture for Testing | Architecture |
+| 20 | HTTP Protocol Fundamentals | HTTP |
+| 21 | REST API Principles and Design | APIs |
+| 22 | JSON Data Structures and API Responses | Data Formats |
+| 23 | API Documentation and Testing Tools | APIs |
+| 24 | Module Recap and Next Steps | Review |
 
 ### 🎯 Assessment Strategy
 
 Each lesson includes:
-- **Knowledge Checks**: Quick quizzes to verify understanding
-- **Practical Tests**: Hands-on exercises with real-world scenarios
-- **Progressive Assessments**: Building complexity throughout the module
-- **Final Project**: Comprehensive application of all learned concepts
+- **Knowledge Checks**: Quick quizzes to verify understanding.
+- **Practical Tests**: Hands-on exercises with real-world scenarios.
+- **Progressive Assessments**: Building complexity throughout the module.
+- **Final Project**: A comprehensive capstone project applying all learned concepts.
 
 ### 📚 Resource Integration
 
-This module integrates 25+ curated resources including:
-- **Essential Resources** (⭐⭐⭐⭐⭐): MDN Web Docs, TypeScript Handbook
-- **Highly Recommended** (⭐⭐⭐⭐): freeCodeCamp, The Odin Project
-- **Practice Resources**: Interactive coding platforms and testing sites
+This module integrates 40+ curated resources including:
+- **Essential Resources** (⭐⭐⭐⭐⭐): MDN Web Docs, Playwright Documentation
+- **Highly Recommended** (⭐⭐⭐⭐): freeCodeCamp, The Odin Project, Ministry of Testing
+- **Practice Resources**: Interactive coding platforms and testing sites.
 
 ### 🚀 Getting Started
 
-1. **Review Prerequisites**: Ensure you have a modern web browser and text editor
-2. **Set Up Environment**: Install recommended tools and extensions
-3. **Access Resources**: Bookmark essential documentation and tutorials
-4. **Begin Lesson 1.1**: Start with HTML Document Structure
+1. **Review Prerequisites**: Ensure you have a modern web browser and a text editor like VS Code.
+2. **Set Up Environment**: Follow the guide in Lesson 16 to install necessary tools.
+3. **Access Resources**: Bookmark essential documentation and tutorials.
+4. **Begin Lesson 1**: Start with the Introduction to QA Automation.
 
 ### 📁 Folder Structure
 
@@ -84,7 +94,7 @@ MOD-01_Foundations/
 ├── README.md (this file)
 ├── module_spec.md (detailed specifications)
 ├── learning_objectives.md (learning outcomes)
-├── lessons/ (12 individual lessons)
+├── lessons/ (24 individual lessons)
 ├── content/ (presentations, examples, resources)
 ├── exercises/ (practice exercises, labs, assessments)
 └── projects/ (module project and portfolio pieces)
@@ -98,4 +108,4 @@ MOD-01_Foundations/
 
 ---
 
-*This module follows the project's educational standards emphasizing beginner-first approach, progressive learning, and practical application.*
+*This module follows the project's educational standards, emphasizing a beginner-first approach, progressive learning, and practical application.*

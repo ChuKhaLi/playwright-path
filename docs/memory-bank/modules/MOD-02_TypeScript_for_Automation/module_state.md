@@ -149,7 +149,7 @@ This module provides comprehensive TypeScript education focused on features most
 - **MOD-01 Prerequisites**: Builds on web technology foundations
 - **MOD-03 Preparation**: TypeScript knowledge for Playwright integration
 - **MOD-04 Advanced**: Complex TypeScript patterns for advanced testing
-- **MOD-05 Architecture**: TypeScript in test design patterns
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: TypeScript in test design patterns
 
 ## 🚀 Innovation Highlights
 

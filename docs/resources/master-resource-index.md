@@ -18,7 +18,7 @@ For guided learning, refer to the following:
 - **Currency**: 2024-2025
 - **Format**: Interactive documentation with code examples
 - **Time Commitment**: 10-20 hours for comprehensive reading
-- **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05
+- **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: The definitive guide to Playwright, covering installation, API reference, best practices, and advanced features.
 
 ### [TypeScript Handbook](./specifications/01-official-documentation/typescript-handbook.md)
@@ -70,7 +70,7 @@ For guided learning, refer to the following:
 - **Currency**: 2023-2024
 - **Format**: Video lectures, assignments, peer reviews
 - **Time Commitment**: 4-6 weeks per course
-- **Module Mapping**: MOD-01, MOD-04, MOD-05
+- **Module Mapping**: MOD-01, MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: University-level courses on software testing principles and methodologies.
 
 ### [Class Central - Web Development Testing](./specifications/02-educational-platforms/class-central-web-development.md)
@@ -112,7 +112,7 @@ For guided learning, refer to the following:
 - **Currency**: 2024-2025
 - **Format**: Video tutorials, conference talks, feature demos
 - **Time Commitment**: 2-3 hours for key videos
-- **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05
+- **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: Official channel with latest features, best practices, and community presentations.
 
 ### [TypeScript Course - Programming with Mosh](./specifications/03-video-resources/typescript-course-mosh.md)
@@ -144,7 +144,7 @@ For guided learning, refer to the following:
 - **Currency**: 2024-2025
 - **Format**: Curated list of resources, tools, and examples
 - **Time Commitment**: 2-3 hours for exploration
-- **Module Mapping**: MOD-03, MOD-04, MOD-05
+- **Module Mapping**: MOD-03, MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: Community-curated collection of Playwright resources, plugins, and examples.
 
 ### [Playwright Demo Repository](./specifications/04-community-resources/playwright-demo-repository.md)
@@ -154,7 +154,7 @@ For guided learning, refer to the following:
 - **Currency**: 2024-2025
 - **Format**: Source code, examples, documentation
 - **Time Commitment**: 5-10 hours for exploration
-- **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05
+- **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: Official Playwright repository with examples, tests, and implementation details.
 
 ### [Stack Overflow - Playwright Tag](./specifications/04-community-resources/stackoverflow-playwright-tag.md)
@@ -164,7 +164,7 @@ For guided learning, refer to the following:
 - **Currency**: 2024-2025
 - **Format**: Q&A community discussions
 - **Time Commitment**: Ongoing reference
-- **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05
+- **Module Mapping**: MOD-02, MOD-03, MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: Community-driven problem-solving and best practices discussions.
 
 ### [Playwright Community Examples](./specifications/04-community-resources/playwright-community-examples.md)
@@ -174,7 +174,7 @@ For guided learning, refer to the following:
 - **Currency**: 2023-2024
 - **Format**: Code repositories with practical examples
 - **Time Commitment**: 3-5 hours per repository
-- **Module Mapping**: MOD-03, MOD-04, MOD-05
+- **Module Mapping**: MOD-03, MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: Community-contributed examples and patterns for various Playwright use cases.
 
 ## 5. [Tools and Frameworks Integration](./categories/05-tools-integration.md) ⭐⭐⭐⭐
@@ -186,7 +186,7 @@ For guided learning, refer to the following:
 - **Currency**: 2024
 - **Format**: Official documentation with examples
 - **Time Commitment**: 4-6 hours
-- **Module Mapping**: MOD-04, MOD-05
+- **Module Mapping**: MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: Testing framework documentation for integration with Playwright.
 
 ### [GitHub Actions Documentation](./specifications/05-tools-integration/github-actions-documentation.md)
@@ -196,7 +196,7 @@ For guided learning, refer to the following:
 - **Currency**: 2024-2025
 - **Format**: Comprehensive documentation and tutorials
 - **Time Commitment**: 6-8 hours
-- **Module Mapping**: MOD-05
+- **Module Mapping**: MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: CI/CD platform documentation for automating Playwright tests.
 
 ### [Vitest Documentation](./specifications/05-tools-integration/vitest-documentation.md)
@@ -206,7 +206,7 @@ For guided learning, refer to the following:
 - **Currency**: 2024
 - **Format**: Modern testing framework documentation
 - **Time Commitment**: 3-4 hours
-- **Module Mapping**: MOD-04, MOD-05
+- **Module Mapping**: MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: Fast testing framework that works well with Playwright and TypeScript.
 
 ### [Docker Documentation](./specifications/05-tools-integration/docker-documentation.md)
@@ -270,7 +270,7 @@ For guided learning, refer to the following:
 - **Currency**: 2024-2025
 - **Format**: Official documentation
 - **Time Commitment**: 2-3 hours
-- **Module Mapping**: MOD-04, MOD-05
+- **Module Mapping**: MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: Official best practices for writing maintainable and reliable Playwright tests.
 
 ### [Test Automation Patterns](./specifications/07-best-practices/test-automation-patterns.md)
@@ -280,7 +280,7 @@ For guided learning, refer to the following:
 - **Currency**: 2023
 - **Format**: Comprehensive pattern library
 - **Time Commitment**: 8-12 hours
-- **Module Mapping**: MOD-04, MOD-05
+- **Module Mapping**: MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: Design patterns and best practices for test automation architecture.
 
 ### [Community Best Practices Blog Posts](./specifications/07-best-practices/community-best-practices-blog.md)
@@ -290,7 +290,7 @@ For guided learning, refer to the following:
 - **Currency**: 2023-2024
 - **Format**: Community blog posts and tutorials
 - **Time Commitment**: 1-2 hours per article
-- **Module Mapping**: MOD-03, MOD-04, MOD-05
+- **Module Mapping**: MOD-03, MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: Community-driven insights, tips, and advanced techniques.
 
 ### [Playwright Testing Library Integration](./specifications/07-best-practices/playwright-testing-library-integration.md)

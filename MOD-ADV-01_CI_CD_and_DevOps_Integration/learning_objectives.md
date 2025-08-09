@@ -183,7 +183,7 @@ Upon successful completion of this module, learners will demonstrate mastery of 
 ## 📈 Learning Progression
 
 ### **Module Entry Requirements**
-- Completion of MOD-05: Test Design and Architecture
+- Completion of MOD-05_Advanced_Playwright_and_Test_Architecture
 - Proficiency with Playwright for both API and E2E testing
 - Basic understanding of Git and version control
 - Familiarity with command-line operations

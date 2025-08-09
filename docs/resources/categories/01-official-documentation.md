@@ -50,7 +50,7 @@
 - **MOD-02**: The primary resource for learning Playwright and TypeScript fundamentals.
 - **MOD-03**: Crucial for mastering locators, assertions, and actions.
 - **MOD-04**: Required for advanced techniques like network handling and authentication.
-- **MOD-05**: Provides context for designing scalable test architectures.
+- **MOD-05_Advanced_Playwright_and_Test_Architecture**: Provides context for designing scalable test architectures.
 - **MOD-06**: Informs CI/CD pipeline configuration and test execution strategies.
 - **MOD-07**: Supports exploration of specialized topics like performance testing.
 

@@ -5,7 +5,7 @@
 - **Quality Rating**: ⭐⭐⭐⭐ Highly Recommended
 - **Audience**: Advanced
 - **Currency**: 2023
-- **Module Mapping**: MOD-04, MOD-05
+- **Module Mapping**: MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 - **Description**: Design patterns and best practices for test automation architecture.
 
 ## 🔧 Technical Specifications

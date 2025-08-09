@@ -25,7 +25,7 @@ graph TD
     A[MOD-01: Foundations of Web Technologies] --> B[MOD-02: TypeScript for Automation];
     B --> C[MOD-03: Playwright Fundamentals];
     C --> D[MOD-04: Advanced Playwright Techniques];
-    D --> E[MOD-05: Test Design and Architecture];
+    D --> E[MOD-05: Advanced Playwright and Test Architecture];
     E --> F[MOD-06: CI/CD and DevOps Integration];
     F --> G[MOD-07: Advanced Topics and Specialization];
 
@@ -70,7 +70,7 @@ The enhanced Learning Playwright roadmap integrates comprehensive API testing th
 | **MOD-02** | TypeScript for Automation | 5-6 weeks | 14 lessons | 3 lessons | 2 lessons | TypeScript fundamentals + API patterns |
 | **MOD-03** | Playwright Fundamentals | 4-5 weeks | 16 lessons | 4 lessons | 8 lessons | Setup, locators, actions, API + E2E intro |
 | **MOD-04** | Advanced Playwright Techniques | 6-7 weeks | 16 lessons | 6 lessons | 6 lessons | Auth, network, API testing, E2E advanced |
-| **MOD-05** | Test Design and Architecture | 5-6 weeks | 12 lessons | 3 lessons | 5 lessons | POM, API patterns, architecture |
+| **MOD-05** | Advanced Playwright and Test Architecture | 5-6 weeks | 12 lessons | 3 lessons | 5 lessons | POM, API patterns, architecture |
 | **MOD-06** | CI/CD and DevOps Integration | 4-5 weeks | 10 lessons | 2 lessons | 4 lessons | GitHub Actions, Docker, API + E2E in CI |
 | **MOD-07** | Advanced Topics and Specialization | 5-7 weeks | 12 lessons | 3 lessons | 5 lessons | Visual, performance, API security, E2E advanced |
 

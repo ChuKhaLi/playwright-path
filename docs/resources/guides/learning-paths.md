@@ -113,11 +113,11 @@ This document provides recommended learning sequences for different types of lea
 1. **[GitHub Actions Documentation](../specifications/05-tools-integration/github-actions-documentation.md)** ⭐⭐⭐⭐⭐
    - Focus: Playwright integration
    - Time: 4-6 hours
-   - Module: MOD-05
+   - Module: MOD-05_Advanced_Playwright_and_Test_Architecture
 
 2. **Final Project**: Complete automation suite
    - Time: 8-10 hours
-   - Module: MOD-05
+   - Module: MOD-05_Advanced_Playwright_and_Test_Architecture
 
 ---
 
@@ -186,12 +186,12 @@ This document provides recommended learning sequences for different types of lea
 1. **[GitHub Actions Documentation](../specifications/05-tools-integration/github-actions-documentation.md)** ⭐⭐⭐⭐⭐
    - Focus: Advanced workflows
    - Time: 6-8 hours
-   - Module: MOD-05
+   - Module: MOD-05_Advanced_Playwright_and_Test_Architecture
 
 2. **[Vitest Documentation](../specifications/05-tools-integration/vitest-documentation.md)** ⭐⭐⭐⭐
    - Focus: Modern testing integration
    - Time: 3-4 hours
-   - Module: MOD-05
+   - Module: MOD-05_Advanced_Playwright_and_Test_Architecture
 
 ---
 
@@ -254,7 +254,7 @@ This document provides recommended learning sequences for different types of lea
 1. **[Community Best Practices Blog Posts](../specifications/07-best-practices/community-best-practices-blog.md)** ⭐⭐⭐
    - Focus: Latest trends and techniques
    - Time: 4-6 hours
-   - Module: MOD-04, MOD-05
+   - Module: MOD-04, MOD-05_Advanced_Playwright_and_Test_Architecture
 
 2. **Advanced Practice**: [Expand Testing - Practice Sites](../specifications/06-practice-resources/expand-testing-practice-sites.md) ⭐⭐⭐⭐⭐
    - Focus: Complex automation challenges
@@ -272,18 +272,18 @@ This document provides recommended learning sequences for different types of lea
 1. **[Official Playwright YouTube Channel](../specifications/03-video-resources/official-playwright-youtube.md)** ⭐⭐⭐⭐⭐
    - Focus: Latest conference talks and features
    - Time: 3-4 hours
-   - Module: MOD-05
+   - Module: MOD-05_Advanced_Playwright_and_Test_Architecture
 
 2. **[Awesome Playwright](../specifications/04-community-resources/awesome-playwright.md)** ⭐⭐⭐⭐⭐
    - Focus: Cutting-edge tools and plugins
    - Time: 3-4 hours
-   - Module: MOD-05
+   - Module: MOD-05_Advanced_Playwright_and_Test_Architecture
 
 #### Week 2: Advanced Integration
 1. **[Playwright Community Examples](../specifications/04-community-resources/playwright-community-examples.md)** ⭐⭐⭐⭐
    - Focus: Advanced implementation patterns
    - Time: 6-8 hours
-   - Module: MOD-05
+   - Module: MOD-05_Advanced_Playwright_and_Test_Architecture
 
 ### Phase 2: Specialization Focus (Weeks 3-4)
 **Goal**: Deep expertise in chosen area

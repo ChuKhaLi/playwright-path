@@ -45,7 +45,7 @@ test.describe('Data-Driven Test with Complex Objects', () => {
     },
     {
       description: 'should fail with missing email',
-      payload: { password: 'somepassword' },
+      payload: { password: process.env.DUMMY_PASSWORD || 'somepassword' },
       expectedError: 'Missing email or username',
     },
   ];
